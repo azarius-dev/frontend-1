@@ -11,22 +11,26 @@ darktheme.colors = {
 
     secundary: '#50FEF4',
 
-    tertiary: '#50FEF4',
-
+    error: '#FF3672',
+    success: '#50FEF4'
 
 };
 
 darktheme.shadows = {
 
-    textSmall: '0 0 20px rgba(255, 255, 255, .4)',
-    textMedium: '0 0 60px rgba(255, 255, 255, .3)',
+    textSmall: `0 0 20px ${darktheme.colors.text}99`,
+    textMedium: `0 0 60px ${darktheme.colors.text}4D`,
     textLarge: '',
 
-    primarySmall: '0 0 30px rgba(249, 108, 195, .6)',
-    primaryMedium: '0 0 60px rgba(249, 108, 195, .3)',
+    primarySmall: `0 0 30px ${darktheme.colors.primary}99`,
+    primaryMedium: `0 0 60px ${darktheme.colors.primary}4D`,
     primaryLarge: '',
 
-    secundarySmall: '0 0 40px #50FEF420',
+    secundarySmall: `0 0 40px ${darktheme.colors.secundary}80`,
+
+    errorSmall: `0 0 40px ${darktheme.colors.error}80`,
+
+    successmall: `0 0 40px ${darktheme.colors.success}80`,
 
 };
 

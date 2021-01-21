@@ -1,16 +1,20 @@
 import styled from 'styled-components';
 
-const DisplayMedium = styled.h2`
+const DisplayMedium = styled.h2.attrs(props => ({
+    content: props.children,
+}))`
     position: relative;
     padding: 0;
     margin: 0;
+    font-family: 'bladerunner', sans-serif;
     font-size: 30px;
     font-weight: 500;
-    letter-spacing: 1px;
-    color: ${ props => props.theme.colors.text };
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: ${ props => props.theme.colors.primary };
-    text-shadow: ${ props => props.theme.shadows.primarySmall };
+    line-height: 100%;
+    text-transform: lowercase;
+    text-shadow: ${props => props.theme.shadows[props.color + 'Small']};
+    color: transparent;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: ${ props => props.theme.colors[props.color] };
 `;
 
 export default DisplayMedium;

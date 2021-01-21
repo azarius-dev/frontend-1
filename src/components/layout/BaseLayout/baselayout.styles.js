@@ -5,7 +5,7 @@ export const StyledBaseLayout = styled.div`
     display: flex;
     flex-grow: 1;
     padding: 45px;
-    gap: 93px;
+    gap: 60px;
 `;
 
 export const StyledLayoutBody = styled.div`
@@ -13,11 +13,13 @@ export const StyledLayoutBody = styled.div`
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    gap: 60px;
+    gap: 80px;
 `;
 
 export const StyledLayoutView = styled.div`
     position: relative;
     display: flex;
+    flex-direction: column;
     flex-grow: 1;
+    overflow-y: scroll;
 `;

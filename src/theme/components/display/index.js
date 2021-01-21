@@ -1,2 +1,4 @@
+import DisplayLarge from './display-large.component';
 import DisplayMedium from './display-medium.component';
-export { DisplayMedium };
+import DisplaySmall from './display-small.component';
+export { DisplayLarge, DisplayMedium, DisplaySmall };

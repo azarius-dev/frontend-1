@@ -6,9 +6,10 @@ const DisplayLarge = styled.h1.attrs(props => ({
     position: relative;
     padding: 0;
     margin: 0;
-    font-size: 50px;
-    font-weight: 600;
-    text-transform: uppercase;
+    font-family: 'bladerunner', sans-serif;
+    font-size: 54px;
+    font-weight: 500;
+    text-transform: lowercase;
     color: ${ props => props.theme.colors.text };
     background-image: linear-gradient(30deg, ${props => props.theme.colors.text} 30%, ${props => props.theme.colors.text}10 100%);
     -webkit-background-clip: text;

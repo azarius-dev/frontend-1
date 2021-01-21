@@ -6,9 +6,10 @@ export const StyledTopbar = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 120px;
+    height: 115px;
     padding-left: 60px;
     top: -8px;
+    flex-shrink: 0;
 `;
 
 export const StyledAccountAddress = styled.div`

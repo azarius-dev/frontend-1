@@ -1,5 +1,7 @@
+/* import components */
+import { DisplaySmall } from '../../../../theme';
 /* import styles */
-import { StyledNavigationButton, StyledButtonIcon, StyledButtonIconMain, StyledButtonIconSub, StyledButtonLabel } from './navigation-button.styles';
+import { StyledNavigationButton, StyledButtonIcon, StyledButtonIconMain, StyledButtonIconSub } from './navigation-button.styles';
 
 const NavigationButton = props => {
 
@@ -17,9 +19,11 @@ const NavigationButton = props => {
                     {icon}
                 </StyledButtonIconSub>
             </StyledButtonIcon>
-            <StyledButtonLabel>
+            <DisplaySmall
+                color="text"
+            >
                 {label}
-            </StyledButtonLabel>
+            </DisplaySmall>
         </StyledNavigationButton>
     );
 

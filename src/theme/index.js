@@ -1,6 +1,23 @@
-import { GlobalStyle, NormalizerStyle } from './global.styles';
-import { BackgroundDots, BackgroundGradient } from './components';
-import darktheme from './consts/darktheme';
-import lighttheme from './consts/lighttheme';
+import { GlobalStyle, NormalizerStyle, FontFaces } from './global.styles';
+import { BackgroundDots, BackgroundGradient, DisplayLarge, DisplayMedium, DisplaySmall, TextLarge, TextMedium, TextSmall, TextMini } from './components';
+import { darktheme, lighttheme } from './consts';
 
-export { GlobalStyle, NormalizerStyle, BackgroundDots, BackgroundGradient, darktheme, lighttheme };
+export {
+    GlobalStyle,
+    NormalizerStyle,
+    FontFaces,
+
+    BackgroundDots,
+    BackgroundGradient,
+
+    darktheme,
+    lighttheme,
+    
+    DisplayLarge,
+    DisplayMedium,
+    DisplaySmall,
+    TextLarge,
+    TextMedium,
+    TextSmall,
+    TextMini
+};

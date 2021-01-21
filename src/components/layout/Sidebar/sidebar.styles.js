@@ -6,7 +6,7 @@ export const StyledSidebar = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 260px;
+    width: 240px;
     height: 100%;
 `;
 

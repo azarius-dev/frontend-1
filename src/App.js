@@ -12,7 +12,7 @@ import { DashboardView, RebaseView, PoolsView } from './components/views';
 import { UIContext } from './contexts';
 /* import styles */
 import { ThemeProvider } from 'styled-components';
-import { GlobalStyle, NormalizerStyle, BackgroundDots, BackgroundGradient, darktheme } from './theme';
+import { GlobalStyle, NormalizerStyle, FontFaces, BackgroundDots, BackgroundGradient, darktheme } from './theme';
 /* import assets */
 import { DashboardIcon, ExtensionIcon } from './assets/icons';
 
@@ -106,6 +106,7 @@ class App extends React.Component {
 				<ThemeProvider theme={ darktheme }>
 					<GlobalStyle />
 					<NormalizerStyle />
+					<FontFaces />
 					<BackgroundGradient />
 					<BackgroundDots 
 						size={2}

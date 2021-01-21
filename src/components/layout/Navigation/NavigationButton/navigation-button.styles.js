@@ -3,12 +3,17 @@ import styled, { css } from 'styled-components';
 export const StyledNavigationButton = styled.div`
     position: relative;
     display: flex;
+    align-items: center;
     gap: 20px;
     opacity: .1;
-    transition: .1s ease opacity;
+    transition: .16s ease opacity;
+
+    &:hover {
+        opacity: .3;
+    }
 
     ${ props => props.active ? css`
-        opacity: 1;
+        opacity: 1!important;
     ` : '' }
 `;
 
@@ -41,12 +46,4 @@ export const StyledButtonIconSub = styled.div`
     margin-left: -6px;
     fill: ${ props => props.theme.colors.primary };
     filter: drop-shadow(${ props => props.theme.shadows.primarySmall });
-`;
-
-export const StyledButtonLabel = styled.div`
-    color: ${ props => props.theme.colors.text };
-    font-size: 24px;
-    font-weight: 600;
-    text-transform: uppercase;
-    text-shadow: ${ props => props.theme.shadows.textSmall };
 `;

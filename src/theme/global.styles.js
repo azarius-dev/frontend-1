@@ -1,5 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 
+/* font import */
+import BladeRunnerWOFF from '../assets/fonts/bladerunner.woff';
+
 /* global styling */
 export const GlobalStyle = createGlobalStyle`
     body {
@@ -54,5 +57,15 @@ export const NormalizerStyle = createGlobalStyle`
             font-family: inherit;
             line-height: 100%;
         }
+    }
+`;
+
+/* custom font-face */
+export const FontFaces = createGlobalStyle`
+    @font-face {
+        font-family: 'bladerunner';
+        font-style: normal;
+        font-weight: 500;
+        src: url('${BladeRunnerWOFF}') format('woff');
     }
 `;

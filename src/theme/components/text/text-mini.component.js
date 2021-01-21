@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const TextMedium = styled.div`
+const TextMini = styled.div`
     position: relative;
     padding: 0;
     margin: 0;
@@ -24,4 +24,4 @@ const TextMedium = styled.div`
     }
 `;
 
-export default TextMedium;
+export default TextMini;
