@@ -101,8 +101,11 @@ export const StyledButton = styled.button`
     margin: 0;
     padding: 0;
     color: ${ props => props.theme.colors.text };
-    font-size: 20px;
-    padding: 12px 34px;
+    font-family: 'bladerunner', sans-serif;
+    font-size: 16px;
+    height: 42px;
+    padding: 0 30px;
+    padding-top: 4px;
     background-color: transparent;
     border: 0;
     border-radius: 0;
@@ -118,7 +121,6 @@ export const StyledButton = styled.button`
         height: 100%;
         border: 2px solid ${ props => props.theme.colors.text };
         border-radius: 10px 10px 30px 10px;
-        box-shadow: ${ props => props.theme.shadows.textSmall };
         user-select: none;
         pointer-events: none;
     }

@@ -24,6 +24,8 @@ export const StyledPoolBody = styled.div`
 
 export const StyledPoolFooter = styled.div`
     position: relative;
+    display: flex;
+    align-items: center;
     padding-top: 30px;
 `;
 

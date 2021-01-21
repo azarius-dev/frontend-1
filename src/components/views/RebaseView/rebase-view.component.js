@@ -5,7 +5,8 @@ import { Contract } from 'ethers';
 
 /* import components */
 import { Button, Card } from '../../common';
-import { DisplayMedium } from '../../../theme/components';
+import { DisplayMedium } from '../../../theme';
+import { Section } from '../../layout';
 /* import styles */
 import { StyledRebaseView } from './rebase-view.styles';
 /* import utils */
@@ -142,19 +143,14 @@ const RebaseView = ()  => {
 			toolTip: 'Time since the last rebase happened'
 		}*/
 	];
-
-	console.log(paramsData);
 	
     return (
         <StyledRebaseView>
-            <Card>
-                <DisplayMedium>
-					Rebasing variables
-				</DisplayMedium>
-            </Card>
-            <Button>
-                fire rebase
-            </Button>
+			<Section
+				color="secundary"
+			>
+
+			</Section>
         </StyledRebaseView>
     );
 

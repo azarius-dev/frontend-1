@@ -1,5 +1,5 @@
 /* import components */
-import { Card, StatusIndicator, List } from '../../../common';
+import { Button, Card, StatusIndicator, List } from '../../../common';
 import { DisplaySmall } from '../../../../theme';
 /* import styles */
 import { StyledPool, StyledPoolHeader, StyledPoolBody, StyledPoolLinks, StyledPoolFooter } from './pool.styles';
@@ -36,14 +36,16 @@ const Pool = props => {
                 <Card
                     status={status}
                     color="primary"
-                    gutter={0}
+                    gutter={1}
                 >
                     <List data={data} />
                 </Card>
                 {renderLinks()}
             </StyledPoolBody>
             <StyledPoolFooter>
-                
+                <Button>
+                    Stake
+                </Button>
             </StyledPoolFooter>
         </StyledPool>
     );

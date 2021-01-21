@@ -1,5 +1,6 @@
 /* import components */
 import { Card } from '../../common';
+import { Section } from '../../layout';
 /* import styles */
 import { StyledDashboardView } from './dashboard-view.styles';
 
@@ -7,7 +8,11 @@ const DashboardView = ()  => {
 
     return (
         <StyledDashboardView>
-            WIP
+            <Section
+				color="secundary"
+			>
+
+			</Section>
         </StyledDashboardView>
     );
 

@@ -15,8 +15,6 @@ const PoolsView = ()  => {
         ['User Lp Limit Enabled', 'True'],
         ['Example', 'True'],
         ['Example', 'False'],
-        ['Example', 'NaN'],
-        ['Example', 'hello world'],
     ];
 
     const tempLinksData = [

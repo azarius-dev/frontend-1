@@ -54,7 +54,6 @@ export const NormalizerStyle = createGlobalStyle`
         & optgroup,
         & select,
         & textarea {
-            font-family: inherit;
             line-height: 100%;
         }
     }
