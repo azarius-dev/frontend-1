@@ -1,5 +1,5 @@
 /* import components */
-import { Button, Card, StatusIndicator, List } from '../../../common';
+import { Button, IconButton, Card, StatusIndicator, List } from '../../../common';
 import { DisplaySmall } from '../../../../theme';
 /* import styles */
 import { StyledPool, StyledPoolHeader, StyledPoolBody, StyledPoolLinks, StyledPoolFooter } from './pool.styles';
@@ -13,8 +13,16 @@ const Pool = props => {
         return (
             <StyledPoolLinks>
                 {links.map((link, i) => {
+                    const { icon, url, tooltip } = link;
                     return (
-                        <div>{i}</div>
+                        <IconButton
+                            key={i}
+                            color="primary"
+                            size="medium"
+                            edge="rounded"
+                        >
+                            {icon}
+                        </IconButton>
                     );
                 })}
             </StyledPoolLinks>
@@ -32,7 +40,6 @@ const Pool = props => {
                 </DisplaySmall>
             </StyledPoolHeader>
             <StyledPoolBody>
-
                 <Card
                     status={status}
                     color="primary"
@@ -43,8 +50,10 @@ const Pool = props => {
                 {renderLinks()}
             </StyledPoolBody>
             <StyledPoolFooter>
-                <Button>
-                    Stake
+                <Button
+                    color={status === 'active' ? 'secundary' : 'primary'}
+                >
+                    {status === 'active' ? 'stake' : 'withdraw'}
                 </Button>
             </StyledPoolFooter>
         </StyledPool>

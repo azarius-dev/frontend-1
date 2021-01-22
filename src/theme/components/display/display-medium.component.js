@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const DisplayMedium = styled.h2.attrs(props => ({
+    'data-db-el': 'display-medium',
     content: props.children,
 }))`
     position: relative;

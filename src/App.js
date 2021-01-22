@@ -3,27 +3,26 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import _ from 'lodash';
 
 import { ethers } from 'ethers';
-import { Web3ReactProvider } from '@web3-react/core';
+import { getWeb3ReactContext, UnsupportedChainIdError } from '@web3-react/core';
+import { InjectedConnector, NoEthereumProviderError, UserRejectedRequestError } from '@web3-react/injected-connector';
 
 /* import components */
 import { BaseLayout, SideBar, Navigation } from './components/layout';
 import { DashboardView, RebaseView, PoolsView } from './components/views';
 /* import contexts */
-import { UIContext } from './contexts';
-/* import styles */
+import { UIContext, WalletContext } from './contexts';
 import { ThemeProvider } from 'styled-components';
-import { GlobalStyle, NormalizerStyle, FontFaces, BackgroundDots, BackgroundGradient, darktheme } from './theme';
+/* import styles */
+import { GlobalStyle, NormalizerStyle, FontFaces, BackgroundDots, BackgroundGradient, BackgroundDecoration, darktheme } from './theme';
 /* import assets */
-import { DashboardIcon, ExtensionIcon } from './assets/icons';
+import { DashboardIcon, TuneIcon, AccountTreeIcon } from './assets/icons';
 
-const getLibrary = provider => {
-	const library = new ethers.providers.Web3Provider(provider);
-	library.pollingInterval = 12000;
-	return library;
-};
+const injectedConnector = new InjectedConnector({ supportedChainIds: [1] });
 
 /* component declaration */
 class App extends React.Component {
+
+	static contextType = getWeb3ReactContext();
 
 	/* GLOBAL STATE */
 	state = {
@@ -40,12 +39,20 @@ class App extends React.Component {
 		ui.activeRoute = data;
 		this.setState({ ui });
 	};
+
 	/* WALLET LOGIC */
+	connectAccount = () => {
+		this.context.activate(injectedConnector);
+	}
 
+	/* coming soon -> not available in current metamask api */
+	disconnectAccount = () => {
+		this.context.deactivate();
+	}
+	/* coming soon -> not available in current metamask api */
+	switchAccount = () => {
 
-	/* LIFECYCLE */
-
-	/* CONDITIONAL RENDERS */
+	}
 
 	/* ROUTER RENDERS */
 	renderSidebar = () => {
@@ -55,20 +62,20 @@ class App extends React.Component {
 					data={[
 						{
 							id: 'dashboard-view',
-							label: 'Dashboard',
+							label: 'Overview',
 							icon: <DashboardIcon />,
 							link: '/'
 						},
 						{
 							id: 'rebase-view',
 							label: 'Rebase',
-							icon: <ExtensionIcon />,
+							icon: <TuneIcon />,
 							link: '/rebase'
 						},
 						{
 							id: 'pools-view',
 							label: 'Pools',
-							icon: <ExtensionIcon />,
+							icon: <AccountTreeIcon />,
 							link: '/pools'
 						}
 					]}
@@ -92,6 +99,23 @@ class App extends React.Component {
 		);
 	}
 
+	/* LIFECYCLE */
+	componentDidMount() {
+
+		/* detect MetaMask account connection */
+		/* if already connected, auto activate */
+		const ethereum = window.ethereum;
+		if (ethereum && ethereum.isMetaMask) {
+			ethereum
+				.request({ method: 'eth_accounts' })
+				.then(data => {
+					if (data.length !== 0) {
+						this.connectAccount();
+					}
+				});
+		}
+	}
+
 	/* COMPONENT RETURN RENDER */
 	render() {
 
@@ -101,26 +125,32 @@ class App extends React.Component {
 			changeActiveRoute: this.changeActiveRoute
 		};
 
+		const walletMethods = {
+			connectAccount: this.connectAccount,
+			disconnectAccount: this.disconnectAccount,
+			switchAccount: this.switchAccount
+		};
+
 		return (
-			<Web3ReactProvider getLibrary={getLibrary}>
-				<ThemeProvider theme={ darktheme }>
-					<GlobalStyle />
-					<NormalizerStyle />
-					<FontFaces />
-					<BackgroundGradient />
-					<BackgroundDots 
-						size={2}
-						distance={45}
-					/>
-					<UIContext.Provider value={{ ui, uiMethods }}>
+			<ThemeProvider theme={ darktheme }>
+				<GlobalStyle />
+				<NormalizerStyle />
+				<FontFaces />
+				<BackgroundGradient />
+				<BackgroundDots 
+					size={2}
+					distance={45}
+				/>
+				<UIContext.Provider value={{ ui, uiMethods }}>
+					<WalletContext.Provider value={{ walletMethods }}>
 						<Router>
 							<BaseLayout sidebar={this.renderSidebar()}>
 								{this.renderViews()}
 							</BaseLayout>
 						</Router>
-					</UIContext.Provider>
-				</ThemeProvider>
-			</Web3ReactProvider>
+					</WalletContext.Provider>
+				</UIContext.Provider>
+			</ThemeProvider>
 		);
 	}
 

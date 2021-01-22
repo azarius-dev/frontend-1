@@ -1,2 +1,3 @@
 import UIContext from './ui.context';
-export { UIContext };
+import WalletContext from './wallet.context';
+export { UIContext, WalletContext };

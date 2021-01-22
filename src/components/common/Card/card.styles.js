@@ -28,7 +28,7 @@ export const StyledBackground = styled.div`
     border-radius: 10px;
     background-color: ${props => props.theme.colors[props.color]}0D;
     background-image: linear-gradient(120deg, ${props => props.theme.colors[props.color]}26 0%, ${props => props.theme.colors[props.color]}00 80%);
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(5px);
 `;
 
 export const StyledBorder = styled.div`

@@ -4,7 +4,7 @@ import { formatEther } from 'ethers/lib/utils';
 import { Contract } from 'ethers';
 
 /* import components */
-import { Button, Card } from '../../common';
+import { Button, Card, DisconnectedWalletCard } from '../../common';
 import { DisplayMedium } from '../../../theme';
 import { Section } from '../../layout';
 /* import styles */
@@ -14,7 +14,7 @@ import { contractAddress, orchestratorAbi, debasePolicyAbi, uniAbi, fetcher } fr
 
 const RebaseView = ()  => {
 
-    const { library } = useWeb3React();
+    const { library, active } = useWeb3React();
 
 	const { data: priceTargetRate } = useSWR([contractAddress.debasePolicy, 'priceTargetRate'], {
 		fetcher: fetcher(library, debasePolicyAbi)
@@ -145,11 +145,18 @@ const RebaseView = ()  => {
 	];
 	
     return (
-        <StyledRebaseView>
+        <StyledRebaseView
+			data-db-el="view-rebase"
+		>
 			<Section
 				color="secundary"
+				label="Variables"
 			>
-
+				{active ? (
+					<div>is connect - show list data via Card & List components</div>
+				) : (
+					<DisconnectedWalletCard />
+				)}
 			</Section>
         </StyledRebaseView>
     );

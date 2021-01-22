@@ -1,11 +1,17 @@
+import { useWeb3React } from '@web3-react/core';
+
 /* import components */
 import Pool from './Pool/pool.component';
 import { Section } from '../../layout';
-
+import { DisconnectedWalletCard } from '../../common';
+/* import assets */
+import { ExchangeIcon, SchoolIcon, ContentCopyIcon } from '../../../assets/icons';
 /* import styles */
 import { StyledPoolsView, StyledPoolsGrid } from './pools-view.styles';
 
 const PoolsView = ()  => {
+
+    const { active } = useWeb3React();
 
     const tempPoolData = [
         ['Reward', '0.06%'],
@@ -19,21 +25,67 @@ const PoolsView = ()  => {
 
     const tempLinksData = [
         {
-            icon: '',
+            icon: <ExchangeIcon />,
             url:'',
             tooltip: ''
         },
         {
-            icon: '',
+            icon: <SchoolIcon />,
             url:'',
             tooltip: ''
         },
         {
-            icon: '',
+            icon: <ContentCopyIcon />,
             url:'',
             tooltip: ''
         }
     ];
+
+    const renderStabilizerPools = () => {
+        if (!active) {return <DisconnectedWalletCard />}
+        return (
+            <StyledPoolsGrid>
+                <Pool 
+                    label="stabilizer pool 1"
+                    status="active"
+                    data={tempPoolData}
+                    links={tempLinksData}
+                />
+                <Pool 
+                    label="stabilizer pool 2"
+                    status="inactive"
+                    data={tempPoolData}
+                    links={tempLinksData}
+                />
+            </StyledPoolsGrid>
+        )
+    };
+
+    const renderIncentivizerPools = () => {
+        if (!active) {return <DisconnectedWalletCard />}
+        return (
+            <StyledPoolsGrid>
+                <Pool 
+                    label="pool 1"
+                    status="active"
+                    data={tempPoolData}
+                    links={tempLinksData}
+                />
+                <Pool 
+                    label="pool 2"
+                    status="inactive"
+                    data={tempPoolData}
+                    links={tempLinksData}
+                />
+                <Pool 
+                    label="pool 3"
+                    status="inactive"
+                    data={tempPoolData}
+                    links={tempLinksData}
+                />
+            </StyledPoolsGrid>
+        )
+    };
 
     return (
         <StyledPoolsView>
@@ -41,51 +93,13 @@ const PoolsView = ()  => {
                 color="secundary"
                 label="Stabilizers"
             >
-                <StyledPoolsGrid>
-                    <Pool 
-                        label="Threshold counter"
-                        status="active"
-                        data={tempPoolData}
-                        links={tempLinksData}
-                    />
-                    <Pool 
-                        label="Threshold counter"
-                        status="idle"
-                        data={tempPoolData}
-                        links={tempLinksData}
-                    />
-                    <Pool 
-                        label="Threshold counter"
-                        status="inactive"
-                        data={tempPoolData}
-                        links={tempLinksData}
-                    />
-                </StyledPoolsGrid>
+                {renderStabilizerPools()}
             </Section>
             <Section
                 color="secundary"
                 label="Incentivizers"
             >
-                <StyledPoolsGrid>
-                    <Pool 
-                        label="Pool 1"
-                        status="active"
-                        data={tempPoolData}
-                        links={tempLinksData}
-                    />
-                    <Pool 
-                        label="Threshold counter"
-                        status="active"
-                        data={tempPoolData}
-                        links={tempLinksData}
-                    />
-                    <Pool 
-                        label="Threshold counter"
-                        status="active"
-                        data={tempPoolData}
-                        links={tempLinksData}
-                    />
-                </StyledPoolsGrid>
+                {renderIncentivizerPools()}
             </Section>
         </StyledPoolsView>
     );

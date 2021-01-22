@@ -20,11 +20,13 @@ const Navigation = props => {
             const { id, label, icon, link } = button;
             return (
                 <Link 
+                    data-db-el="navigation-router-link"
                     key={id} 
                     to={link}
                     style={{ textDecoration: 'none' }}
                 >
                     <NavigationButton 
+                        data-db-el="navigation-button"
                         label={label}
                         icon={icon}
                         active={ui.activeRoute.link === link}
@@ -40,7 +42,9 @@ const Navigation = props => {
     }, [routePath]);
 
     return (
-        <StyledNavigation>
+        <StyledNavigation
+            data-db-el="navigation"
+        >
             {renderNavigationButtons()}
         </StyledNavigation>
     );

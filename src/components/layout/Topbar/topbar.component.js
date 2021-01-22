@@ -1,36 +1,53 @@
 import { useContext } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { InjectedConnector, NoEthereumProviderError, UserRejectedRequestError } from '@web3-react/injected-connector';
 
 /* import components */
 import TopbarBorderSVG from './TopbarBorderSVG/topbar-bordersvg.component';
-import { Button } from '../../common';
+import { Button, Card, StatusIndicator } from '../../common';
 import { DisplayLarge } from '../../../theme/components';
 /* import contexts */
-import { UIContext } from '../../../contexts';
+import { UIContext, WalletContext } from '../../../contexts';
 /* import styles */
-import { StyledTopbar, StyledAccountAddress } from './topbar.styles';
+import { StyledTopbar, StyledAccountContainer, StyledAccountAddress } from './topbar.styles';
+/* import assets */
+import { PowerOffIcon } from '../../../assets/icons';
 
 const Topbar = () => {
-    
-    const injected = new InjectedConnector({ supportedChainIds: [1] });
 
-    const web3react = useWeb3React();
-    const { account, activate, active, error } = web3react;
+    const { account, active } = useWeb3React();
 
     const { ui } = useContext(UIContext);
+    const { walletMethods } = useContext(WalletContext);
 
     return (
-        <StyledTopbar>
-            <TopbarBorderSVG />
+        <StyledTopbar
+            data-db-el="topbar"
+        >
+            <TopbarBorderSVG 
+                data-db-el="topbar-border-svg"
+            />
             <DisplayLarge>
                 {ui.activeRoute.label}
             </DisplayLarge>
             {active ? (
-                <StyledAccountAddress>{account}</StyledAccountAddress>
+                <StyledAccountContainer
+                    data-db-el="topbar-account-container"
+                >
+                    <StatusIndicator
+                        status="active"
+                    />
+                    <Card
+                        title={account}
+                    >   
+                        <StyledAccountAddress>
+                            {account}
+                        </StyledAccountAddress>
+                    </Card>
+                </StyledAccountContainer>
             ) : (
                 <Button
-                    onClick={ () => activate(injected) }
+                    color="secundary"
+                    onClick={ () => walletMethods.connectAccount() }
                 >
                     connect wallet
                 </Button>

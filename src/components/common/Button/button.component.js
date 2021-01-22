@@ -4,16 +4,16 @@ import { StyledButton } from './button.styles';
 
 const Button = props => {
 
-    const { variant, size, color, alignment, disabled, active, isLoading, onClick, children} = props;
+    const { variant, size, color, alignment, disabled, isLoading, onClick, children} = props;
 
     return (
         <StyledButton
+            data-db-el="button"
             variant={variant}
             size={size}
             color={color}
             alignment={alignment}
             disabled={disabled}
-            active={active}
             isLoading={isLoading}
             onClick={onClick}
         >
@@ -26,9 +26,9 @@ const Button = props => {
 Button.defaultProps = {
     variant: 'primary',
     size: 'medium',
+    color: 'primary',
     alignment: 'center',
     disabled: false,
-    active: false,
     isLoading: false,
     onClick: () => { console.log('clicked on Button') }
 };

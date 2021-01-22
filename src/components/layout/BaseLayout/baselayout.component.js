@@ -8,11 +8,17 @@ const BaseLayout = props => {
     const { sidebar, children } = props;
 
     return (
-        <StyledBaseLayout>
+        <StyledBaseLayout
+            data-db-el="base-layout"
+        >
             {sidebar ? sidebar : null}
-            <StyledLayoutBody>
+            <StyledLayoutBody
+                data-db-el="base-layout-body"
+            >
                 <Topbar />
-                <StyledLayoutView>
+                <StyledLayoutView
+                    data-db-el="base-layout-view"
+                >
                     {children}
                 </StyledLayoutView>
             </StyledLayoutBody>

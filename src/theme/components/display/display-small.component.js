@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const DisplaySmall = styled.h2.attrs(props => ({
+    'data-db-el': 'display-small',
     content: props.children,
 }))`
     position: relative;
@@ -11,8 +12,13 @@ const DisplaySmall = styled.h2.attrs(props => ({
     font-weight: 500;
     line-height: 100%;
     text-transform: lowercase;
-    text-shadow: ${props => props.theme.shadows[props.color + 'Small']};
+    ${ props => console.log(props) }
     color: ${ props => props.theme.colors[props.color] };
+    text-shadow: ${props => props.theme.shadows[props.color + 'Small']};
 `;
+
+DisplaySmall.defaultProps = {
+    color: 'text'
+};
 
 export default DisplaySmall;

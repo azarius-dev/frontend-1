@@ -1,3 +1,5 @@
+/* import assets */
+import logo from '../../../../assets/img/logo.png';
 /* import styles */
 import { StyledSidebarLogo, StyledLogoImg } from './sidebar-logo.styles';
 
@@ -5,7 +7,10 @@ const SidebarLogo = () => {
 
     return (
         <StyledSidebarLogo>
-            <StyledLogoImg src={process.env.PUBLIC_URL + 'assets/img/logo.png'} />
+            <StyledLogoImg
+                src={logo}
+                alt="Debaseonomics"
+            />
         </StyledSidebarLogo>
     );
 

@@ -2,51 +2,7 @@ import styled, { css } from 'styled-components';
 
 /* variants */
 const variants = {
-    primary: css`
-        background-color: ${ props => props.theme.primary };
-        color: ${ props => props.theme.textInvert };
-        fill: ${ props => props.theme.textInvert };
-        box-shadow: ${ props => props.theme.shadows.primary };
 
-        ${ props => props.color === 'error' ? css`
-            background-color: ${ props => props.theme.error };
-        ` : '' }
-
-        &:hover {
-            background-color: ${ props => props.theme.errorHover };
-        }
-
-        &.active {
-            background-color: ${ props => props.theme.primaryHover };
-        }
-
-    `,
-    secundary: css`
-        background-color: ${ props => props.theme.background };
-        border: 1px solid ${ props => props.theme.border };
-        color: ${ props => props.theme.text };
-        fill: ${ props => props.theme.text };
-        box-shadow: ${ props => props.theme.shadows.small };
-
-        &:hover {
-            background-color: ${ props => props.theme.input };
-        }
-    `,
-    flat: css`
-        background-color: ${ props => props.theme.background };
-        color: ${ props => props.theme.text };
-        fill: ${ props => props.theme.text };
-
-        &:hover {
-            background-color: ${ props => props.theme.off };
-        }
-
-        &.active {
-            background-color: ${ props => props.theme.primaryActive };
-            color: ${ props => props.theme.primary };
-            fill: ${ props => props.theme.primary };
-        }
-    `
 };
 
 /* sizes */
@@ -60,19 +16,6 @@ const sizes = {
         font-size: 16px;
         font-weight: 600;
     `,
-};
-
-/* edges */
-const edges = {
-    square: css`
-        border-radius: 0;
-    `,
-    smooth: css`
-        border-radius: 3px;
-    `,
-    rounded: css`
-        border-radius: 100px;
-    `
 };
 
 /* alignment */
@@ -132,9 +75,9 @@ export const StyledButton = styled.button`
         left: 2px;
         width: 100%;
         height: 100%;
-        border: 2px solid ${ props => props.theme.colors.secundary };
+        border: 2px solid ${ props => props.theme.colors[props.color] };
         border-radius: 10px 10px 30px 10px;
-        box-shadow: ${ props => props.theme.shadows.secundarySmall };
+        box-shadow: ${ props => props.theme.shadows[props.color + 'Medium'] };
         user-select: none;
         pointer-events: none;
     }

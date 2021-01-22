@@ -10,8 +10,25 @@ const DashboardView = ()  => {
         <StyledDashboardView>
             <Section
 				color="secundary"
+                label="live stats"
 			>
-
+                <Card
+                    gutter={40}
+                    color="primary"
+                >
+                    test
+                </Card>
+			</Section>
+            <Section
+				color="secundary"
+                label="charts"
+			>
+                <Card
+                    gutter={40}
+                    color="primary"
+                >
+                    charts
+                </Card>
 			</Section>
         </StyledDashboardView>
     );

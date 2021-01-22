@@ -9,6 +9,7 @@ const Card = props => {
         if (!status || status !== 'active') {return null}
         return (
             <StyledActiveBorderSVG
+                data-db-el="card-active-border-svg"
                 color={color}
             >
                 <StyledActiveBorderSVGRect
@@ -24,6 +25,7 @@ const Card = props => {
 
     return (
         <StyledCard
+            data-db-el="card"
             color={color}
             status={status}
             style={{
@@ -31,17 +33,20 @@ const Card = props => {
             }}
         >
             <StyledBackground 
+                data-db-el="card-background"
                 color={color}
-
             />
             <StyledBorder 
+                data-db-el="card-border"
                 color={color}
                 style={{
                     opacity: status === 'inactive' ? .2 : 1
                 }}
             />
             {renderActiveBorder()}
-            <StyledContent>
+            <StyledContent
+                data-db-el="card-content"
+            >
                 {children}
             </StyledContent>
         </StyledCard>

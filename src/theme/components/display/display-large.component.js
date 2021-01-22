@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const DisplayLarge = styled.h1.attrs(props => ({
+    'data-db-el': 'display-large',
     content: props.children,
 }))`
     position: relative;

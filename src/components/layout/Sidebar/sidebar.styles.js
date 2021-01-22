@@ -8,6 +8,7 @@ export const StyledSidebar = styled.div`
     justify-content: space-between;
     width: 240px;
     height: 100%;
+    flex-shrink: 0;
 `;
 
 /* header */

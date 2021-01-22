@@ -6,7 +6,13 @@ import {
     ExtensionIcon,
     LinkIcon,
     MoreVertIcon,
-    PowerSettingsNewIcon
+    PowerSettingsNewIcon,
+    PowerOffIcon,
+    TuneIcon,
+    ExchangeIcon,
+    SchoolIcon,
+    AccountTreeIcon,
+    TouchAppIcon
 } from './material-outline.icons';
 export {
     AddIcon,
@@ -16,5 +22,11 @@ export {
     ExtensionIcon,
     LinkIcon,
     MoreVertIcon,
-    PowerSettingsNewIcon
+    PowerSettingsNewIcon,
+    PowerOffIcon,
+    TuneIcon,
+    ExchangeIcon,
+    SchoolIcon,
+    AccountTreeIcon,
+    TouchAppIcon
 };

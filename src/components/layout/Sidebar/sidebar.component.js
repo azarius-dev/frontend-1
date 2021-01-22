@@ -20,6 +20,7 @@ const Sidebar = props => {
 
     useEffect(() => {
         const resizeObserver = new ResizeObserver(() => {
+            if (!sidebarRef || !sidebarRef.current) {return}
             const { offsetWidth, offsetHeight } = sidebarRef.current;
             setSidebarSize({
                 w: offsetWidth,
@@ -34,17 +35,24 @@ const Sidebar = props => {
 
     return (
         <StyledSidebar
+            data-db-el="sidebar"
             ref={sidebarRef}
         >
             {renderBorderSVG()}
-            <StyledSidebarHeader>
+            <StyledSidebarHeader
+                data-db-el="sidebar-header"
+            >
                 <SidebarLogo />
             </StyledSidebarHeader>
-            <StyledSidebarNav>
+            <StyledSidebarNav
+                data-db-el="sidebar-navigation"
+            >
                 {children}
             </StyledSidebarNav>
-            <StyledSidebarFooter>
-                [ disconnect button ]
+            <StyledSidebarFooter
+                data-db-el="sidebar-footer"
+            >
+
             </StyledSidebarFooter>
         </StyledSidebar>
     );

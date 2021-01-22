@@ -11,7 +11,9 @@ const Section = props => {
     const renderLabel = () => {
         if (!label || label === '') {return null}
         return (
-            <StyledSectionLabel>
+            <StyledSectionLabel
+                data-db-el="section-label"
+            >
                 <DisplayMedium
                     color={color}
                 >
@@ -22,10 +24,15 @@ const Section = props => {
     }
 
     return (
-        <StyledSectionContainer>
+        <StyledSectionContainer
+            data-db-el="section-container"
+        >
             {renderLabel()}
-            <StyledSection>
+            <StyledSection
+                data-db-el="section"
+            >
                 <SectionBorderSVG 
+                    data-db-el="section-border-svg"
                     color={color}
                 />
                 {children}
