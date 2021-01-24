@@ -8,7 +8,7 @@ const DisplayMedium = styled.h2.attrs(props => ({
     padding: 0;
     margin: 0;
     font-family: 'bladerunner', sans-serif;
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 500;
     line-height: 100%;
     text-transform: lowercase;

@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 
+/* import components */
+import { Circle, Line, Triangle } from './components';
 /* import hooks */
 import { useMousePosition } from '../../../../hooks';
 /* import styles */
-import { StyledBackgroundDecoration, StyledCircle } from './background-decoration.styles';
+import { StyledBackgroundDecoration } from './background-decoration.styles';
 
 const BackgroundDecoration = () => {
 
@@ -16,37 +18,39 @@ const BackgroundDecoration = () => {
         h: window.innerHeight
     };
 
-    const startPosition1 = {
-        x: .2,
-        y: .3
-    }
-
-    const startPosition2 = {
-        x: .5,
-        y: .5
-    }
-
-    console.log(centerOffset);
-
     useEffect(() => {
         setCenterOffset({
-            x: (windowSize.w / 2) / mousePosition.x,
-            y: (windowSize.h / 2) / mousePosition.y,
+            x: (mousePosition.x - (windowSize.w / 2)) / (windowSize.w / 2),
+            y: (mousePosition.y - (windowSize.h / 2)) / (windowSize.h / 2),
         });
     }, [mousePosition]);
 
     return (
-        <StyledBackgroundDecoration>
-            <StyledCircle 
+        <StyledBackgroundDecoration
+            data-db-el="background-decoration"
+        >
+            <Circle 
+                size={500}
+                color="secundary"
+                /*style={{
+                    left: ((.9 + (.9 * centerOffset.x / -8)) * 100) + '%',
+                    top: ((-.12 + (-.12 * centerOffset.y / 2)) * 100) + '%'
+                }}*/
                 style={{
-                    top: startPosition1.y * centerOffset.y * 100 + '%',
-                    left: startPosition1.x * centerOffset.x * 100 + '%'
+                    left: '90%',
+                    top: '-12%'
                 }}
             />
-            <StyledCircle 
+            <Circle 
+                size={500}
+                color="primary"
+                /*style={{
+                    left: ((.9 + (.9 * centerOffset.x / -8)) * 100) + '%',
+                    top: ((-.12 + (-.12 * centerOffset.y / 2)) * 100) + '%'
+                }}*/
                 style={{
-                    top: startPosition2.y * centerOffset.y * 100 + '%',
-                    left: startPosition2.x * centerOffset.x * 100 + '%'
+                    left: '-12%',
+                    top: '90%'
                 }}
             />
         </StyledBackgroundDecoration>

@@ -1,30 +1,67 @@
+import { useState, useRef, useEffect } from 'react';
+
 /* import styles */
 import { StyledCard, StyledBackground, StyledBorder, StyledActiveBorderSVG, StyledActiveBorderSVGRect, StyledContent } from './card.styles';
 
 const Card = props => {
 
-    const { status, color, gutter, children } = props;
+    const { status, color, gutter, isLoading, children } = props;
+
+    const [ cardSize, setCardSize ] = useState(null);
+    const cardRef = useRef(null);
 
     const renderActiveBorder = () => {
-        if (!status || status !== 'active') {return null}
+        if (!status || status !== 'active' || !cardSize) {return null}
+        const width = cardSize.w;
+        const height = cardSize.h;
+        const circumference = (width + height) * 2;
+        const parts = 8;
         return (
             <StyledActiveBorderSVG
                 data-db-el="card-active-border-svg"
                 color={color}
             >
                 <StyledActiveBorderSVGRect
-                    width="100%"
-                    height="100%"
+                    x="2"
+                    y="2"
+                    width={width - 2}
+                    height={height - 2}
                     color={color}
+                    strokeDasharray={circumference / parts}
+                    strokeDashoffset={0}
                 >
-
+                    <animate
+                        attributeName="stroke-dashoffset"
+                        from="0"
+                        to={circumference / parts * 2}
+                        dur="1.4s"
+                        begin="0s"
+                        repeatCount="indefinite"
+                        fill="freeze"
+                    />
                 </StyledActiveBorderSVGRect>
             </StyledActiveBorderSVG>
         );
     };
 
+    useEffect(() => {
+        const resizeObserver = new ResizeObserver(() => {
+            if (!cardRef || !cardRef.current) {return}
+            const { offsetWidth, offsetHeight } = cardRef.current;
+            setCardSize({
+                w: offsetWidth,
+                h: offsetHeight
+            });
+        });
+        resizeObserver.observe(cardRef.current);
+        return () => {
+            resizeObserver.disconnect();
+        }
+    }, []);
+
     return (
         <StyledCard
+            ref={cardRef}
             data-db-el="card"
             color={color}
             status={status}
@@ -57,9 +94,8 @@ const Card = props => {
 Card.defaultProps = {
     status: 'idle',
     gutter: 1,
-    color: 'text'
+    color: 'text',
+    isLoading: false
 };
 
 export default Card;
-
-//<CardActiveBorderSVG />

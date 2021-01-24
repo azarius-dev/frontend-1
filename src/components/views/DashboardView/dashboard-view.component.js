@@ -1,13 +1,24 @@
 /* import components */
-import { Card } from '../../common';
+import { Card, Spinner } from '../../common';
 import { Section } from '../../layout';
+import Chart from './Chart/chart.component';
 /* import styles */
-import { StyledDashboardView } from './dashboard-view.styles';
+import { StyledDashboardView, StyledChartsGrid } from './dashboard-view.styles';
 
 const DashboardView = ()  => {
 
     return (
         <StyledDashboardView>
+            <Section
+				color="secundary"
+                label="charts"
+			>
+                <StyledChartsGrid>
+                    <Chart 
+                        label="Marketcap"
+                    />
+                </StyledChartsGrid>
+			</Section>
             <Section
 				color="secundary"
                 label="live stats"
@@ -16,18 +27,7 @@ const DashboardView = ()  => {
                     gutter={40}
                     color="primary"
                 >
-                    test
-                </Card>
-			</Section>
-            <Section
-				color="secundary"
-                label="charts"
-			>
-                <Card
-                    gutter={40}
-                    color="primary"
-                >
-                    charts
+                    <Spinner size="medium" />
                 </Card>
 			</Section>
         </StyledDashboardView>

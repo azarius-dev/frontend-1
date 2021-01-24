@@ -29,7 +29,9 @@ class App extends React.Component {
 		ui: {
 			theme: 'dark',
 			activeRoute: {}
-		}
+		},
+
+		pools: []
 	}
 
 	/* UI LOGIC */
@@ -136,9 +138,10 @@ class App extends React.Component {
 				<GlobalStyle />
 				<NormalizerStyle />
 				<FontFaces />
+				<BackgroundDecoration />
 				<BackgroundGradient />
 				<BackgroundDots 
-					size={2}
+					size={1}
 					distance={45}
 				/>
 				<UIContext.Provider value={{ ui, uiMethods }}>

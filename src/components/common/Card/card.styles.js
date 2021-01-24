@@ -53,16 +53,14 @@ export const StyledActiveBorderSVG = styled.svg`
     width: calc(100% + 2px);
     user-select: none;
     pointer-events: none;
-    filter: drop-shadow(0 0 5px ${props => props.theme.shadows[props.color + 'Small']});
+    filter: drop-shadow(${props => props.theme.shadows[props.color + 'Small']});
 `;
 
 export const StyledActiveBorderSVGRect = styled.rect`
     fill: transparent;
     stroke: ${props => props.theme.colors[props.color]};
-    stroke-width: 5px;
+    stroke-width: 3px;
     stroke-linecap: round;
-    stroke-dasharray: 100px;
-    stroke-dashoffset: 0px;
     rx: 10px;
 `;
 

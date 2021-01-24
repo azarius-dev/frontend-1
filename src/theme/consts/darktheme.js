@@ -19,14 +19,14 @@ darktheme.colors = {
 darktheme.shadows = {
 
     textSmall: `0 0 20px ${darktheme.colors.text}99`,
-    textMedium: `0 0 60px ${darktheme.colors.text}4D`,
+    textMedium: `0 0 60px ${darktheme.colors.text}33`,
     textLarge: '',
 
-    primarySmall: `0 0 30px ${darktheme.colors.primary}99`,
+    primarySmall: `0 0 20px ${darktheme.colors.primary}E6`,
     primaryMedium: `0 0 70px ${darktheme.colors.primary}40`,
     primaryLarge: '',
 
-    secundarySmall: `0 0 40px ${darktheme.colors.secundary}66`,
+    secundarySmall: `0 0 20px ${darktheme.colors.secundary}99`,
 
     errorSmall: `0 0 40px ${darktheme.colors.error}80`,
 

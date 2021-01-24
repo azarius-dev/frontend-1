@@ -7,8 +7,8 @@ export const StyledSidebar = styled.div`
     flex-direction: column;
     justify-content: space-between;
     width: 240px;
-    height: 100%;
     flex-shrink: 0;
+    margin: 45px 0 45px 45px;
 `;
 
 /* header */

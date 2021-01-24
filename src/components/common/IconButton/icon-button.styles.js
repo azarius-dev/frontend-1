@@ -81,5 +81,8 @@ export const StyledBorder = styled.div`
 
 export const StyledIcon = styled.div`
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 3;
 `;

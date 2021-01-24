@@ -7,7 +7,8 @@ import { StyledSectionBorderSVG, StyledRect } from './section-bordersvg.styles';
 
 const SectionBorderSVG = props => {
 
-    const { color } = props;
+    const { color, size } = props;
+    const { w: width, h: height } = size;
 
     const theme = useContext(ThemeContext);
 
@@ -29,8 +30,10 @@ const SectionBorderSVG = props => {
                     </linearGradient>
                 </defs>
                 <StyledRect 
-                    width="100%"
-                    height="100%"
+                    x="2"
+                    y="2"
+                    width={width - 4}
+                    height={height - 4}
                     stroke={`url(#${rectId})`}
                 />
             </StyledSectionBorderSVG>

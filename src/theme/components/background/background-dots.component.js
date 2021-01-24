@@ -10,7 +10,7 @@ export const StyledBackgroundDots = styled.div.attrs(() => ({
     left: 0;
     user-select: none;
     pointer-events: none;
-    opacity: .06;
+    opacity: .08;
     stroke-width: 2px;
     stroke: white;
 `;

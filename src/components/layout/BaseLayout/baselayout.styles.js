@@ -4,8 +4,7 @@ export const StyledBaseLayout = styled.div`
     position: relative;
     display: flex;
     flex-grow: 1;
-    padding: 45px;
-    gap: 60px;
+    padding: 0px;
 `;
 
 export const StyledLayoutBody = styled.div`
@@ -13,7 +12,6 @@ export const StyledLayoutBody = styled.div`
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    gap: 80px;
 `;
 
 export const StyledLayoutView = styled.div`
@@ -21,7 +19,8 @@ export const StyledLayoutView = styled.div`
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    overflow: auto;
+    overflow-y: auto;
+    padding: 80px 45px 45px 45px;
 
     &::-webkit-scrollbar {
         display: none;

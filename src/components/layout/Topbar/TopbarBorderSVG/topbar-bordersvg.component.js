@@ -28,8 +28,10 @@ const TopbarBorderSVG = () => {
                     </linearGradient>
                 </defs>
                 <StyledRect 
+                    x="2"
+                    y="2"
                     width="100%"
-                    height="100%"
+                    height="111px"
                     stroke={`url(#${primaryRectId})`}
                 />
             </StyledTopbarBorderSVG>
@@ -47,8 +49,10 @@ const TopbarBorderSVG = () => {
                     </linearGradient>
                 </defs>
                 <StyledRect 
+                    x="2"
+                    y="2"
                     width="100%"
-                    height="100%"
+                    height="111px"
                     stroke={`url(#${secundaryRectId})`}
                 />
             </StyledTopbarBorderSVG>

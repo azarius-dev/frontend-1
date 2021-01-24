@@ -14,6 +14,6 @@ export const StyledSectionBorderSVG = styled.svg`
 
 export const StyledRect = styled.rect`
     fill: transparent;
-    stroke-width: 4px;
-    rx: 12px;
+    stroke-width: 3px;
+    rx: 10px;
 `;

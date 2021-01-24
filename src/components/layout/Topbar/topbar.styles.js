@@ -10,6 +10,7 @@ export const StyledTopbar = styled.div`
     padding-left: 60px;
     top: -8px;
     flex-shrink: 0;
+    margin: 45px 45px 0 45px;
 `;
 
 export const StyledAccountContainer = styled.div`

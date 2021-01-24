@@ -15,28 +15,23 @@ const SidebarBorderSVG = props => {
     return (
         <React.Fragment>
             <StyledSidebarBorderSVG style={{ 
-                top: '8px',
-                left: '-8px',
-                filter: `drop-shadow(0 0 10px ${theme.colors.text}50)`,
-                opacity: 0
-            }}>
-                <StyledRect
-                    width="100%"
-                    height="100%"
-                    stroke={theme.colors.text}
-                    strokeDasharray={width + height - 0}
-                    strokeDashoffset={-width}
-                />
-            </StyledSidebarBorderSVG>
-            <StyledSidebarBorderSVG style={{ 
                 filter: `drop-shadow(0 0 15px ${theme.colors.secundary})`
             }}>
+                <defs>
+                    <linearGradient
+                        id="sidebar-gradient-secundary-rect"
+                        gradientTransform="rotate(30)"
+                    >
+                        <stop offset="40%" stopColor={`${theme.colors.background}00`} />
+                        <stop offset="50%" stopColor={theme.colors.secundary} />
+                    </linearGradient>
+                </defs>
                 <StyledRect
-                    width="100%"
-                    height="100%"
-                    stroke={theme.colors.secundary}
-                    strokeDasharray={width + height + 40}
-                    strokeDashoffset={-width + 20}
+                    x="2"
+                    y="2"
+                    width={width - 4}
+                    height={height - 4}
+                    stroke={`url(#sidebar-gradient-secundary-rect)`}
                 />
             </StyledSidebarBorderSVG>
         </React.Fragment>
