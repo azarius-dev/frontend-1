@@ -38,6 +38,9 @@ const Topbar = () => {
                     />
                     <Card
                         title={account}
+                        color="secundary"
+                        status="active"
+                        activeParts={2}
                     >   
                         <StyledAccountAddress>
                             {account}

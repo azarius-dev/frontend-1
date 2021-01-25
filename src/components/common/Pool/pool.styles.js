@@ -12,7 +12,7 @@ export const StyledPoolHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding-bottom: 18px;
+    padding-bottom: 14px;
     gap: 12px;
 `;
 
@@ -37,4 +37,19 @@ export const StyledPoolLinks = styled.div`
     justify-content: flex-start;
     gap: 15px;
     padding-top: 15px;
+`;
+
+export const StyledPoolAnchor = styled.a`
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    fill: inherit;
+    color: inherit;
+    outline: none!important;
 `;

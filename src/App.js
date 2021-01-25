@@ -10,7 +10,7 @@ import { InjectedConnector, NoEthereumProviderError, UserRejectedRequestError } 
 import { BaseLayout, SideBar, Navigation } from './components/layout';
 import { DashboardView, RebaseView, PoolsView } from './components/views';
 /* import contexts */
-import { UIContext, WalletContext } from './contexts';
+import { UIContext, WalletContext, SidepanelProvider } from './contexts';
 import { ThemeProvider } from 'styled-components';
 /* import styles */
 import { GlobalStyle, NormalizerStyle, FontFaces, BackgroundDots, BackgroundGradient, BackgroundDecoration, darktheme } from './theme';
@@ -146,11 +146,13 @@ class App extends React.Component {
 				/>
 				<UIContext.Provider value={{ ui, uiMethods }}>
 					<WalletContext.Provider value={{ walletMethods }}>
-						<Router>
-							<BaseLayout sidebar={this.renderSidebar()}>
-								{this.renderViews()}
-							</BaseLayout>
-						</Router>
+						<SidepanelProvider>
+							<Router>
+								<BaseLayout sidebar={this.renderSidebar()}>
+									{this.renderViews()}
+								</BaseLayout>
+							</Router>
+						</SidepanelProvider>
 					</WalletContext.Provider>
 				</UIContext.Provider>
 			</ThemeProvider>

@@ -1,3 +1,5 @@
+/* import components */
+import { Token } from '../';
 /* import styles */
 import { StyledList, StyledListItem, StyledItemLabel, StyledItemValue } from './list.styles';
 
@@ -7,7 +9,7 @@ const List = props => {
 
     const renderListItems = () => {
         return data.map((item, i) => {
-            const [ label, value ] = item;
+            const [ label, value, currency ] = item;
             return (
                 <StyledListItem
                     key={i}
@@ -16,6 +18,7 @@ const List = props => {
                         {label}
                     </StyledItemLabel>
                     <StyledItemValue>
+                        {currency && currency !== '' ? <Token type={currency} /> : ''}
                         {value}
                     </StyledItemValue>
                 </StyledListItem>

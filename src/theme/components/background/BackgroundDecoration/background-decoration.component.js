@@ -7,16 +7,16 @@ import { useMousePosition } from '../../../../hooks';
 /* import styles */
 import { StyledBackgroundDecoration } from './background-decoration.styles';
 
+const windowSize = {
+    w: window.innerWidth,
+    h: window.innerHeight
+};
+
 const BackgroundDecoration = () => {
 
     const [ centerOffset, setCenterOffset ] = useState({ x: 0, y: 0 });
 
     const mousePosition = useMousePosition();
-
-    const windowSize = {
-        w: window.innerWidth,
-        h: window.innerHeight
-    };
 
     useEffect(() => {
         setCenterOffset({
@@ -33,7 +33,7 @@ const BackgroundDecoration = () => {
                 size={500}
                 color="secundary"
                 /*style={{
-                    left: ((.9 + (.9 * centerOffset.x / -8)) * 100) + '%',
+                    left: ((.9 + (.9 * centerOffset.x / -12)) * 100) + '%',
                     top: ((-.12 + (-.12 * centerOffset.y / 2)) * 100) + '%'
                 }}*/
                 style={{
@@ -45,8 +45,8 @@ const BackgroundDecoration = () => {
                 size={500}
                 color="primary"
                 /*style={{
-                    left: ((.9 + (.9 * centerOffset.x / -8)) * 100) + '%',
-                    top: ((-.12 + (-.12 * centerOffset.y / 2)) * 100) + '%'
+                    left: ((-.12 + (-.12* centerOffset.x / 12)) * 100) + '%',
+                    top: ((.9 + (.9 * centerOffset.y / -8)) * 100) + '%'
                 }}*/
                 style={{
                     left: '-12%',

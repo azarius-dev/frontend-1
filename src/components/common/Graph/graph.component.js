@@ -106,9 +106,10 @@ const Graph = props => {
         const width = 500;
         const height = 400;
         const points = data.map((el, i) => {
+            console.log(el);
             return [
                 width / data.length * i,
-                height / data.length * i
+                el[1] / maxValue[1] * height
             ];
         });
         return points;

@@ -5,9 +5,9 @@ export const StyledSidebarLogo = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 3px solid ${ props => props.theme.colors.text };
+    border: 3px solid ${ props => props.theme.colors.secundary };
     border-radius: 50%;
-    box-shadow: ${ props => props.theme.shadows.textMedium };
+    box-shadow: ${ props => props.theme.shadows.secundaryMedium };
     width: 72px;
     height: 72px;
 `;

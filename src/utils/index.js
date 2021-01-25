@@ -50,6 +50,19 @@ export const thresholdCounterAbi = [
 	'function normalDistribution(uint256) external view returns(uint256)'
 ];
 
+export const incentivizerAbi = [
+	'function rewardPercentage() public view returns (uint256)',
+	'function blockDuration() public view returns (uint256)',
+	'function poolEnabled() public view returns (bool)',
+	'function poolLpLimit() public view returns (uint256)',
+	'function enablePoolLpLimit() public view returns (bool)',
+	'function userLpLimit() public view returns (uint256)',
+	'function enableUserLpLimit() public view returns (bool)',
+	'function revokeReward() public view returns (bool)',
+	'function totalSupply() public view returns (uint256)',
+	'function balanceOf(address) public view returns (uint256)'
+];
+
 export const orchestratorAbi = [
 	'function maximumRebaseTime() public view returns(uint256)',
 	'function rebaseRequiredSupply() public view returns(uint256)',
@@ -83,11 +96,33 @@ export const lpAbi = [
 	'event Transfer(address indexed from, address indexed to, uint amount)'
 ];
 
-export const randomNumberAbi = [
-	'function randomResult() external view returns(uint256)'
+export const mph88Abi = [
+	'function deposit(uint256) public returns(uint256)',
+	'function lockPeriod() view returns (uint256)',
+	'function treasury() view returns (address)',
+	'function debaseRewardPercentage() view returns (uint256)',
+	'function blockDuration() view returns (uint256)',
+	'function deposits(uint256) view returns (address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,bool)',
+	'function depositIds(address,uint256) view returns(uint256)',
+	'function lpDeposits(address) view returns (uint256)',
+	'function depositLength() view returns (uint256)',
+	'function daiFee() view returns (uint256)',
+	'function mphFee() view returns (uint256)',
+	'function periodFinish() view returns (uint256)',
+	'function debaseRewardDistributed() view returns (uint256)',
+	'function poolEnabled() view returns (bool)',
+	'function allowEmergencyWithdraw() view returns (bool)',
+	'function maxDepositLimit() view returns (uint256)',
+	'function totalLpLimit() view returns (uint256)',
+	'function totalLpLimitEnabled() view returns (bool)',
+	'function maxDepositLimitEnabled() view returns (bool)',
+	'function totalLpLocked() view returns (uint256)',
+	'function earned(uint256) view returns (uint256)'
 ];
 
-export const uniAbi = ['function getReserves() view returns (uint112,uint112,uint32)'];
+export const randomNumberAbi = [ 'function randomResult() external view returns(uint256)' ];
+
+export const uniAbi = [ 'function getReserves() view returns (uint112,uint112,uint32)' ];
 
 export const contractAddress = {
 	degov: '0x469E66e06fEc34839E5eB1273ba85A119B8D702F',
@@ -103,11 +138,16 @@ export const contractAddress = {
 	debaseDaiLp: '0xE98f89a2B3AeCDBE2118202826478Eb02434459A',
 	oracle: '0xb1Df2F0C76074eD466510F4440772Cc7b3D5337C',
 	stabilizerPool: '0x800479a76dc74c3a9FAAE25320A0EE4E8740996b',
-	randomNumber: '0x633ED04e5702625268948867B96e26443F316b7f'
+	randomNumber: '0x633ED04e5702625268948867B96e26443F316b7f',
+	degovEthPool: '0x4789519821ae0f49d95203b1a2ed805141bf0dae',
+	degovEthLp: '0xfc835d90ea6557b57b29361d95c4584d389e6ee8',
+	mph88Pool: '0x36f1F4125B4066cA4b768F9F5f9a737Bd4FA8f62',
+	mph88: '0x8888801aF4d980682e47f1A9036e589479e835C5'
 };
 
 export const uniAddress = {
-	'debase-DAI-POOL': 'https://info.uniswap.org/pair/0xE98f89a2B3AeCDBE2118202826478Eb02434459A'
+	'debase-DAI-POOL': 'https://info.uniswap.org/pair/0xE98f89a2B3AeCDBE2118202826478Eb02434459A',
+	'degov-ETH-POOL:': 'https://info.uniswap.org/pair/0xfc835d90ea6557b57b29361d95c4584d389e6ee8'
 };
 
 export const ownerShipAddress = {
@@ -119,11 +159,8 @@ export const ownerShipAddress = {
 	stabilizerOwnerShip: ''
 };
 
-export const etherScanAddress = 'https://etherscan.io/address/';
-export const etherScanTX = 'https://etherscan.io/tx/';
-
 export const fetcher = (library, abi) => (...args) => {
-	const [arg1, arg2, ...params] = args;
+	const [ arg1, arg2, ...params ] = args;
 	if (isAddress(arg1)) {
 		const address = arg1;
 		const method = arg2;

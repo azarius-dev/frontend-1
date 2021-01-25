@@ -32,7 +32,7 @@ const DisconnectedWalletCard = () => {
                         />
                         <DisplaySmall
                             style={{ 
-                                'font-size': '34px'
+                                'fontSize': '34px'
                             }}
                         >
                             not connected

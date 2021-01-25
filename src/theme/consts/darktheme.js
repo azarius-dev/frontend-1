@@ -23,10 +23,12 @@ darktheme.shadows = {
     textLarge: '',
 
     primarySmall: `0 0 20px ${darktheme.colors.primary}E6`,
-    primaryMedium: `0 0 70px ${darktheme.colors.primary}40`,
-    primaryLarge: '',
+    primaryMedium: `0 0 50px ${darktheme.colors.primary}40`,
+    primaryLarge: `0 0 70px ${darktheme.colors.primary}33`,
 
     secundarySmall: `0 0 20px ${darktheme.colors.secundary}99`,
+    secundaryMedium: `0 0 50px ${darktheme.colors.secundary}40`,
+    secundaryLarge: `0 0 70px ${darktheme.colors.secundary}33`,
 
     errorSmall: `0 0 40px ${darktheme.colors.error}80`,
 

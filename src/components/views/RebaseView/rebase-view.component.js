@@ -4,11 +4,10 @@ import { formatEther } from 'ethers/lib/utils';
 import { Contract } from 'ethers';
 
 /* import components */
-import { Button, Card, DisconnectedWalletCard } from '../../common';
-import { DisplayMedium } from '../../../theme';
+import { Button, List, LabeledCard, DisconnectedWalletCard } from '../../common';
 import { Section } from '../../layout';
 /* import styles */
-import { StyledRebaseView } from './rebase-view.styles';
+import { StyledRebaseView, StyledVariablesGrid } from './rebase-view.styles';
 /* import utils */
 import { contractAddress, orchestratorAbi, debasePolicyAbi, uniAbi, fetcher } from '../../../utils';
 
@@ -16,60 +15,42 @@ const RebaseView = ()  => {
 
     const { library, active } = useWeb3React();
 
+	/* fetch data */
 	const { data: priceTargetRate } = useSWR([contractAddress.debasePolicy, 'priceTargetRate'], {
 		fetcher: fetcher(library, debasePolicyAbi)
 	});
-
 	const { data: upperDeviationThreshold } = useSWR([contractAddress.debasePolicy, 'upperDeviationThreshold'], {
 		fetcher: fetcher(library, debasePolicyAbi)
 	});
-
 	const { data: lowerDeviationThreshold } = useSWR([contractAddress.debasePolicy, 'lowerDeviationThreshold'], {
 		fetcher: fetcher(library, debasePolicyAbi)
 	});
-
 	const { data: useDefaultRebaseLag } = useSWR([contractAddress.debasePolicy, 'useDefaultRebaseLag'], {
 		fetcher: fetcher(library, debasePolicyAbi)
 	});
-
 	const { data: defaultPositiveRebaseLag } = useSWR([contractAddress.debasePolicy, 'defaultPositiveRebaseLag'], {
 		fetcher: fetcher(library, debasePolicyAbi)
 	});
-
 	const { data: defaultNegativeRebaseLag } = useSWR([contractAddress.debasePolicy, 'defaultNegativeRebaseLag'], {
 		fetcher: fetcher(library, debasePolicyAbi)
 	});
-
 	const { data: minRebaseTimeIntervalSec } = useSWR([contractAddress.debasePolicy, 'minRebaseTimeIntervalSec'], {
 		fetcher: fetcher(library, debasePolicyAbi)
 	});
-
 	const { data: lastRebaseTimestampSec } = useSWR([contractAddress.debasePolicy, 'lastRebaseTimestampSec'], {
 		fetcher: fetcher(library, debasePolicyAbi)
 	});
-
 	const { data: rebaseWindowOffsetSec } = useSWR([contractAddress.debasePolicy, 'rebaseWindowOffsetSec'], {
 		fetcher: fetcher(library, debasePolicyAbi)
 	});
-
 	const { data: rebaseWindowLengthSec } = useSWR([contractAddress.debasePolicy, 'rebaseWindowLengthSec'], {
 		fetcher: fetcher(library, debasePolicyAbi)
 	});
-
 	const { data: reserves } = useSWR([contractAddress.debaseDaiLp, 'getReserves'], {
 		fetcher: fetcher(library, uniAbi)
 	});
 
-    async function handleRebase() {
-		const orchestratorContract = new Contract(contractAddress.orchestrator, orchestratorAbi, library.getSigner());
-		try {
-			await orchestratorContract.rebase();
-			alert('Rebase successfully executed', 'is-success');
-		} catch (error) {
-			alert('Rebase failed, please try again', 'is-danger');
-		}
-	}
-
+	/* list data arrays */
 	const paramsData = [
 		{
 			label: 'Target Price',
@@ -124,7 +105,6 @@ const RebaseView = ()  => {
 			toolTip: 'Default supply smoothing to use for negative supply changes'
 		}
 	];
-
 	const liveData = [
 		{
 			label: 'Current Price',
@@ -144,6 +124,31 @@ const RebaseView = ()  => {
 		}*/
 	];
 	
+	/* conditional renders */
+	const renderVariables = () => {
+		if (!active) return <DisconnectedWalletCard />
+		return (
+			<StyledVariablesGrid>
+				<LabeledCard
+					label="live"
+					color="primary"
+				>
+					<List>
+						
+					</List>
+				</LabeledCard>
+				<LabeledCard
+					label="rebasing"
+					color="primary"
+				>
+					<List>
+
+					</List>
+				</LabeledCard>
+			</StyledVariablesGrid>
+		);
+	};
+	
     return (
         <StyledRebaseView
 			data-db-el="view-rebase"
@@ -152,11 +157,7 @@ const RebaseView = ()  => {
 				color="secundary"
 				label="Variables"
 			>
-				{active ? (
-					<div>is connect - show list data via Card & List components</div>
-				) : (
-					<DisconnectedWalletCard />
-				)}
+				{renderVariables()}
 			</Section>
         </StyledRebaseView>
     );

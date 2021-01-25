@@ -1,3 +1,4 @@
 import useWindowEvent from './window-event.hook';
 import useMousePosition from './mouse-position.hook';
-export { useWindowEvent, useMousePosition };
+import useSidepanel from './sidepanel.hook';
+export { useWindowEvent, useMousePosition, useSidepanel };

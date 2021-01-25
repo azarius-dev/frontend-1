@@ -7,5 +7,4 @@ export const StyledCircle = styled.div`
     border-radius: 50%;
     width: ${ props => props.size }px;
     height: ${ props => props.size }px;
-    transition: .15s ease all;
 `;

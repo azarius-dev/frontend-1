@@ -22,12 +22,15 @@ export const StyledListItem = styled.div`
 
 export const StyledItemLabel = styled.div`
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 1px;
 `;
 
 export const StyledItemValue = styled.div`
-    font-size: 16px;
-    font-weight: 500;
-    opacity: .4;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 300;
+    color: ${props => props.theme.colors.text};
+    opacity: 1;
 `;

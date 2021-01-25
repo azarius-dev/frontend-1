@@ -1,9 +1,15 @@
 import Button from './Button/button.component';
 import IconButton from './IconButton/icon-button.component';
 import Card from './Card/card.component';
+import LabeledCard from './LabeledCard/labeledcard.component';
 import StatusIndicator from './StatusIndicator/statusindicator.component';
 import List from './List/list.component';
 import DisconnectedWalletCard from './DisconnectedWalletCard/disconnectedwallet-card.component';
+import Loader from './Loader/loader.component';
 import Spinner from './Spinner/spinner.component';
 import Graph from './Graph/graph.component';
-export { Button, IconButton, Card, StatusIndicator, List, DisconnectedWalletCard, Spinner, Graph };
+import Sidepanel from './Sidepanel/sidepanel.component';
+import Snackbar from './Snackbar/snackbar.component';
+import Pool from './Pool/pool.component';
+import Token from './Token/token.component';
+export { Button, IconButton, Card, LabeledCard, StatusIndicator, List, DisconnectedWalletCard, Loader, Spinner, Graph, Sidepanel, Snackbar, Pool, Token };

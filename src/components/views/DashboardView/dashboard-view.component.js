@@ -1,5 +1,5 @@
 /* import components */
-import { Card, Spinner } from '../../common';
+import { Card, Loader } from '../../common';
 import { Section } from '../../layout';
 import Chart from './Chart/chart.component';
 /* import styles */
@@ -27,7 +27,7 @@ const DashboardView = ()  => {
                     gutter={40}
                     color="primary"
                 >
-                    <Spinner size="medium" />
+                    <Loader size="medium" />
                 </Card>
 			</Section>
         </StyledDashboardView>

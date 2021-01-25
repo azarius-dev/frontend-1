@@ -5,7 +5,7 @@ import { StyledCard, StyledBackground, StyledBorder, StyledActiveBorderSVG, Styl
 
 const Card = props => {
 
-    const { status, color, gutter, isLoading, children } = props;
+    const { status, color, gutter, isLoading, activeParts, children } = props;
 
     const [ cardSize, setCardSize ] = useState(null);
     const cardRef = useRef(null);
@@ -14,8 +14,7 @@ const Card = props => {
         if (!status || status !== 'active' || !cardSize) {return null}
         const width = cardSize.w;
         const height = cardSize.h;
-        const circumference = (width + height) * 2;
-        const parts = 8;
+        const circumference = (width + height - 10) * 2;
         return (
             <StyledActiveBorderSVG
                 data-db-el="card-active-border-svg"
@@ -27,13 +26,13 @@ const Card = props => {
                     width={width - 2}
                     height={height - 2}
                     color={color}
-                    strokeDasharray={circumference / parts}
+                    strokeDasharray={circumference / activeParts}
                     strokeDashoffset={0}
                 >
                     <animate
                         attributeName="stroke-dashoffset"
                         from="0"
-                        to={circumference / parts * 2}
+                        to={circumference / activeParts * 2}
                         dur="1.4s"
                         begin="0s"
                         repeatCount="indefinite"
@@ -95,7 +94,8 @@ Card.defaultProps = {
     status: 'idle',
     gutter: 1,
     color: 'text',
-    isLoading: false
+    isLoading: false,
+    activeParts: 8
 };
 
 export default Card;
