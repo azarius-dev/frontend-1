@@ -1,4 +1,4 @@
-import { debaseLogo, degovLogo, daiLogo, emptyLogo } from '../../../assets/img';
+import { debaseLogoPNG, degovLogoPNG, daiLogoPNG, placeholderTokenPNG } from '../../../assets/img';
 
 /* import styles */
 import { StyledToken } from './token.styles';
@@ -11,27 +11,27 @@ const Token = props => {
         case 'debase': return (
             <StyledToken 
                 title="Debase"
-                src={debaseLogo}
+                src={debaseLogoPNG}
                 alt="Debase"
             />
         )
         case 'degov': return (
             <StyledToken 
                 title="Degov"
-                src={degovLogo}
+                src={degovLogoPNG}
                 alt="Degov"
             />
         )
         case 'dai': return (
             <StyledToken 
                 title="Dai"
-                src={daiLogo}
+                src={daiLogoPNG}
                 alt="Dai"
             />
         )
         default: return (
             <StyledToken 
-                src={emptyLogo}
+                src={placeholderTokenPNG}
             />
         )
     }

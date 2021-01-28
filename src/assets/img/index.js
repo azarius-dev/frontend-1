@@ -1,5 +1,7 @@
-import debaseLogo from './debase.png';
-import degovLogo from './degov.png';
-import daiLogo from './dai.png';
-import emptyLogo from './empty.png';
-export { debaseLogo, degovLogo, daiLogo, emptyLogo }
+import debaseLogoPNG from './debase.png';
+import degovLogoPNG from './degov.png';
+import daiLogoPNG from './dai.png';
+import placeholderTokenPNG from './empty.png';
+import cursorPNG from './cursor.png';
+import crossPNG from './cross.png';
+export { debaseLogoPNG, degovLogoPNG, daiLogoPNG, placeholderTokenPNG, cursorPNG, crossPNG }

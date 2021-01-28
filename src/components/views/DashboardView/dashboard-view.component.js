@@ -11,15 +11,15 @@ const DashboardView = ()  => {
         <StyledDashboardView>
             <Section
 				color="secundary"
-                label="charts (custom graph development)"
+                label="charts (custom graph development - wip)"
 			>
                 <StyledChartsGrid>
                     <Chart 
-                        label="debase marketcap"
+                        label="no library"
                         example="low"
                     />
                     <Chart 
-                        label="total supply"
+                        label="it's from scratch"
                         example="high"
                     />
                 </StyledChartsGrid>

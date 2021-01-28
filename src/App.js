@@ -17,6 +17,8 @@ import { GlobalStyle, NormalizerStyle, FontFaces, BackgroundDots, BackgroundGrad
 /* import assets */
 import { DashboardIcon, TuneIcon, AccountTreeIcon } from './assets/icons';
 
+import Cursor from './theme/components/cursor/cursor.component';
+
 const injectedConnector = new InjectedConnector({ supportedChainIds: [1] });
 
 /* component declaration */

@@ -1,7 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 
-/* font import */
+/* import assets */
 import BladeRunnerWOFF from '../assets/fonts/bladerunner.woff';
+import { cursorPNG } from '../assets/img';
 
 /* global styling */
 export const GlobalStyle = createGlobalStyle`
@@ -19,6 +20,7 @@ export const GlobalStyle = createGlobalStyle`
         line-height: 1.15;
         font-family: 'Oswald', sans-serif;
         font-size: 1rem;
+        cursor: url(${cursorPNG}), auto;
     }
 
     #root {

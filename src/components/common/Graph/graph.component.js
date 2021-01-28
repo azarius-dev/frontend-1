@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef, useContext } from 'react';
+import React, { Fragment, useState, useEffect, useRef, useContext } from 'react';
 import _ from 'lodash';
 
 /* import contexts */
 import { ThemeContext } from 'styled-components';
 /* import styles */
-import { StyledDebug, StyledGraph, StyledGrid, StyledActiveLineContainer, StyledActiveLineX, StyledGraphSVG, StyledPolygon } from './graph.styles';
+import { StyledDebug, StyledGraph, StyledGraphTooltip, StyledGrid, StyledActiveLineContainer, StyledActiveLineX, StyledActiveLineY, StyledActiveDot, StyledGraphSVG, StyledPolygon } from './graph.styles';
 
 const Graph = props => {
 
@@ -2944,12 +2944,9 @@ const Graph = props => {
           ]
     ]
 
-    const data = example === 'low' ? lowData : highData;
-
-    const id = Math.random();
-
     const [ gridSize, setGridSize ] = useState({ w: 0, h: 0 });
     const [ activeLineX, setActiveLineX ] = useState(null);
+    const [ activeLineY, setActiveLineY ] = useState(null);
     const [ activeValueX, setActiveValueX ] = useState(null);
     const [ activeValueY, setActiveValueY ] = useState(null);
 
@@ -2958,60 +2955,84 @@ const Graph = props => {
     const graphRef = useRef(null);
     const gridRef = useRef(null);
 
+    const data = example === 'low' ? lowData : highData;
+    const minY = _.minBy(data, arr => {return arr[1]})[1];
+    const maxY = _.maxBy(data, arr => {return arr[1]})[1];
+    const width = gridSize.w;
+    const height = gridSize.h;
+
+    const id = Math.random();
+
     const onGridMouseMove = e => {
         if (!gridRef || !gridRef.current) {return}
         const gridRect = gridRef.current.getBoundingClientRect();
         const gridRectLeft = parseInt(gridRect.left);
         const deltaX = e.clientX - gridRectLeft;
-        const currentIndexX = Math.floor(deltaX / (gridSize.w / data.length));
-        setActiveValueX(data[currentIndexX][0]);
-        setActiveValueY(data[currentIndexX][1]);
+        const currentIndex = Math.floor(deltaX / (gridSize.w / data.length));
+        setActiveValueX(data[currentIndex][0]);
+        setActiveValueY(data[currentIndex][1]);
         setActiveLineX(deltaX);
+        setActiveLineY((data[currentIndex][1] - minY) / (maxY - minY) * height);
     };
     
     const onGridMouseLeave = e => {
         setActiveLineX(null);
+        setActiveValueY(null);
         setActiveValueX(data[data.length - 1][0]);
         setActiveValueY(data[data.length - 1][1]);
     };
 
     const calculatePoints = () => {
         const points = [];
-        const minY = _.minBy(data, arr => {return arr[1]});
-        const maxY = _.maxBy(data, arr => {return arr[1]});
-        const width = gridSize.w;
-        const height = gridSize.h;
         data.map((el, i) => {
             points.push(
                 [
                     width / data.length * i,
-                    el[1] / maxY[1] * height
+                    (el[1] - minY) / (maxY - minY) * height
                 ]
             );
             points.push(
                 [
                     width / data.length * (i + 1),
-                    el[1] / maxY[1] * height
+                    (el[1] - minY) / (maxY - minY) * height
                 ]
             );
-            /*return [
-                width / data.length * i,
-                el[1] / maxY[1] * height
-            ];*/
         });
         points.unshift([0, height]);
         points.push([width, height]);
         return points;
     };
 
-    const renderActiveXLine = () => {
+    const renderActiveIndicators = () => {
         if (!activeLineX) {return}
         return (
-            <StyledActiveLineX 
-                style={{
-                    left: `${activeLineX}px`
-                }}
-            />
+            <Fragment>
+                <StyledActiveLineX
+                    style={{
+                        left: `${activeLineX}px`
+                    }}
+                />
+                <StyledActiveLineY
+                    style={{
+                        top: `${activeLineY}px`
+                    }}
+                />
+                <StyledActiveDot 
+                    style={{
+                        top: `${activeLineY}px`,
+                        left: `${activeLineX}px`
+					}}		
+                />
+                <StyledGraphTooltip 
+                    style={{
+						top: `${activeLineY}px`,
+						left: `${activeLineX}px`
+					}}
+                >
+					<div>debugValueX: {parseInt(activeValueX)}</div>
+                	<div>debugValueY: {parseInt(activeValueY)}</div>
+				</StyledGraphTooltip>
+            </Fragment>
         );
     };
 
@@ -3061,7 +3082,7 @@ const Graph = props => {
                         fill={`url(#${id})`}
                     />
                 </StyledGraphSVG>
-                {renderActiveXLine()}
+                {renderActiveIndicators()}
             </StyledGrid>
         </StyledGraph>
     );
