@@ -6,7 +6,7 @@ import { StyledChart, StyledChartHeader, StyledChartBody } from './chart.styles'
 
 const Chart = props => {
 
-    const { label, data } = props;
+    const { label, data, example } = props;
 
     return (
         <StyledChart>
@@ -23,7 +23,7 @@ const Chart = props => {
                     color="primary"
                     gutter={20}
                 >
-                    <Graph />
+                    <Graph example={example} />
                 </Card>
             </StyledChartBody>
         </StyledChart>
