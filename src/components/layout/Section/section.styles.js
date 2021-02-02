@@ -17,5 +17,8 @@ export const StyledSection = styled.div`
 
 export const StyledSectionLabel = styled.div`
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     padding-left: 60px;
 `;

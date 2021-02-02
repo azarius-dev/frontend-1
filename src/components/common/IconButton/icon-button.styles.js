@@ -2,6 +2,15 @@ import styled, { css } from 'styled-components';
 
 /* sizes */
 const sizes = {
+    small: css`
+        height: 18px;
+        width: 18px;
+
+        svg {
+            height: 8px;
+            width: 8px;
+        }
+    `,
     medium: css`
         height: 34px;
         width: 34px;

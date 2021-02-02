@@ -15,3 +15,10 @@ export const StyledVariablesGrid = styled.div`
     grid-auto-rows: max-content;
     flex-grow: 1;
 `;
+
+export const StyledRebaseGridItem = styled.div`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+`;

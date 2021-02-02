@@ -25,8 +25,7 @@ const PoolsView = ()  => {
         return (
             <StyledPoolsGrid>
                 <IncentivizerPool1 />
-                <IncentivizerPool2 />
-                <IncentivizerPool3 />
+                
             </StyledPoolsGrid>
         );
     };

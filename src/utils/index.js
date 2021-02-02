@@ -1,6 +1,15 @@
 import { Contract } from 'ethers';
 import { isAddress } from 'ethers/lib/utils';
 
+import clampNum from './clampNum';
+import toFinancialNum from './toFinancialNum';
+import toNumberFormat from './toNumberFormat';
+import formatNumToAbbreviation from './formatNumToAbbreviation';
+import calcDateDifference from './calcDateDifference';
+
+import calcTotalSupply from './calcTotalSupply';
+import calcRebasePercentage from './calcRebasePercentage';
+
 export function turncate(fullStr, strLen, separator) {
 	if (fullStr.length <= strLen) return fullStr;
 
@@ -170,3 +179,5 @@ export const fetcher = (library, abi) => (...args) => {
 	const method = arg1;
 	return library[method](arg2, ...params);
 };
+
+export { toFinancialNum, toNumberFormat, clampNum, calcTotalSupply, calcRebasePercentage, formatNumToAbbreviation, calcDateDifference };

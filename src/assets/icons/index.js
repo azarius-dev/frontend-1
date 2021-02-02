@@ -13,7 +13,8 @@ import {
     SchoolIcon,
     AccountTreeIcon,
     TouchAppIcon,
-    CloseIcon
+    CloseIcon,
+    HelpIcon
 } from './material-outline.icons';
 export {
     AddIcon,
@@ -30,5 +31,6 @@ export {
     SchoolIcon,
     AccountTreeIcon,
     TouchAppIcon,
-    CloseIcon
+    CloseIcon,
+    HelpIcon
 };

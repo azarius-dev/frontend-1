@@ -3,16 +3,29 @@ import { useState, useEffect, useRef } from 'react';
 /* import components*/
 import SectionBorderSVG from './SectionBorderSVG/section-bordersvg.component';
 import { DisplayMedium } from '../../../theme';
+import { Tooltip } from '../../common';
 /* import styles */
 import { StyledSectionContainer, StyledSection, StyledSectionLabel } from './section.styles';
+/* import assets */
+import { HelpIcon } from '../../../assets/icons';
 
 const Section = props => {
 
-    const { color, label, children } = props;
+    const { color, label, info, children } = props;
 
     const [ sectionSize, setSectionSize ] = useState(null);
     const sectionRef = useRef(null);
 
+    const renderInfo = () => {
+        if (!info || info === '') {return null}
+        return (
+            <Tooltip
+                message={info}
+            >
+                <HelpIcon />
+            </Tooltip>
+        );
+    };
     const renderLabel = () => {
         if (!label || label === '') {return null}
         return (
@@ -24,9 +37,11 @@ const Section = props => {
                 >
                     {label}
                 </DisplayMedium>
+                {renderInfo()}
             </StyledSectionLabel>
         )
     }
+
 
     const renderBorderSVG = () => {
         if (!sectionSize) {return null}

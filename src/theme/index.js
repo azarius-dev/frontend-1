@@ -1,6 +1,6 @@
 import { GlobalStyle, NormalizerStyle, FontFaces } from './global.styles';
 import { BackgroundDots, BackgroundGradient, BackgroundDecoration, DisplayLarge, DisplayMedium, DisplaySmall, TextLarge, TextMedium, TextSmall, TextMini } from './components';
-import { darktheme, lighttheme } from './consts';
+import { darktheme, lighttheme, breakpoints } from './consts';
 
 export {
     GlobalStyle,
@@ -13,6 +13,7 @@ export {
 
     darktheme,
     lighttheme,
+    breakpoints,
     
     DisplayLarge,
     DisplayMedium,

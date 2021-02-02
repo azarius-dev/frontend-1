@@ -7,11 +7,20 @@ export const StyledDashboardView = styled.div`
     gap: 60px;
 `;
 
-export const StyledChartsGrid = styled.div`
+export const StyledStatisticsGrid = styled.div`
     position: relative;
     display: grid;
     gap: 75px;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-auto-rows: max-content;
+    flex-grow: 1;
+`;
+
+export const StyledChartsGrid = styled.div`
+    position: relative;
+    display: grid;
+    gap: 75px;
+    grid-template-columns: repeat(auto-fit, minmax(425px, 1fr));
     grid-auto-rows: max-content;
     flex-grow: 1;
 `;

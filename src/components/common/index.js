@@ -12,4 +12,7 @@ import Sidepanel from './Sidepanel/sidepanel.component';
 import Snackbar from './Snackbar/snackbar.component';
 import Pool from './Pool/pool.component';
 import Token from './Token/token.component';
-export { Button, IconButton, Card, LabeledCard, StatusIndicator, List, DisconnectedWalletCard, Loader, Spinner, Graph, Sidepanel, Snackbar, Pool, Token };
+import Tabs, { Tab } from './Tabs/tabs.component';
+import { SnackbarContext, SnackbarProvider } from './Snackbar';
+import Tooltip from './Tooltip/tooltip.component';
+export { Button, IconButton, Card, LabeledCard, StatusIndicator, List, DisconnectedWalletCard, Loader, Spinner, Graph, Sidepanel, Snackbar, Pool, Token, Tabs, Tab, SnackbarContext, SnackbarProvider, Tooltip };

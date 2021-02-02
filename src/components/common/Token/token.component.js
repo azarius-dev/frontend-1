@@ -5,7 +5,7 @@ import { StyledToken } from './token.styles';
 
 const Token = props => {
 
-    const { type } = props;
+    const { type, gutter } = props;
 
     switch(type) {
         case 'debase': return (
@@ -13,6 +13,9 @@ const Token = props => {
                 title="Debase"
                 src={debaseLogoPNG}
                 alt="Debase"
+                style={{ 
+                    margin: `${gutter}px`
+                }}
             />
         )
         case 'degov': return (
@@ -20,6 +23,9 @@ const Token = props => {
                 title="Degov"
                 src={degovLogoPNG}
                 alt="Degov"
+                style={{ 
+                    margin: `${gutter}px`
+                }}
             />
         )
         case 'dai': return (
@@ -27,15 +33,26 @@ const Token = props => {
                 title="Dai"
                 src={daiLogoPNG}
                 alt="Dai"
+                style={{ 
+                    margin: `${gutter}px`
+                }}
             />
         )
         default: return (
             <StyledToken 
                 src={placeholderTokenPNG}
+                style={{ 
+                    margin: `${gutter}px`
+                }}
             />
         )
     }
 
+};
+
+Token.defaultProps = {
+    type: 'debase',
+    gutter: 6
 };
 
 export default Token;

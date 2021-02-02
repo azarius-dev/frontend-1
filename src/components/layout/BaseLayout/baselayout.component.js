@@ -1,17 +1,28 @@
+import { useContext } from 'react';
+
 /* import components */
 import { Topbar } from '../index';
 /* import styles */
 import { StyledBaseLayout, StyledLayoutBody, StyledLayoutView } from './baselayout.styles';
+/* import context */
+import { UIContext } from '../../../contexts';
 
 const BaseLayout = props => {
 
     const { sidebar, children } = props;
 
+    const { ui } = useContext(UIContext);
+
+    const renderSidebar = () => {
+        if (ui.isMobile || !sidebar) {return null}
+        return sidebar;
+    };
+
     return (
         <StyledBaseLayout
             data-db-el="base-layout"
         >
-            {sidebar ? sidebar : null}
+            {renderSidebar()}
             <StyledLayoutBody
                 data-db-el="base-layout-body"
             >

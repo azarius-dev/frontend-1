@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { breakpoints } from '../../consts';
 
 const DisplayLarge = styled.h1.attrs(props => ({
     'data-db-el': 'display-large',
@@ -25,6 +26,10 @@ const DisplayLarge = styled.h1.attrs(props => ({
         text-shadow: ${props => props.theme.shadows.primarySmall}, ${props => props.theme.shadows.primaryMedium};
         color: ${ props => props.theme.colors.primary };
         -webkit-text-fill-color: ${ props => props.theme.colors.primary };
+    }
+
+    @media ${breakpoints.mobile} {
+        font-size: 30px;
     }
 `;
 

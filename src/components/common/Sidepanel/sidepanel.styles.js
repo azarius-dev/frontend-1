@@ -71,7 +71,7 @@ export const StyledCloseAction = styled.div`
 export const StyledSidepanelBody = styled.div`
     position: relative;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: space-between;
 `;
 

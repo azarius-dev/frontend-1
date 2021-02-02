@@ -15,7 +15,7 @@ export const StyledCard = styled.div`
     display: flex;
     border-radius: 10px;
     ${ props => statuses[props.status] };
-    flex-grow: 1;
+    
 `;
 
 export const StyledBackground = styled.div`
@@ -66,6 +66,16 @@ export const StyledActiveBorderSVGRect = styled.rect`
 
 export const StyledContent = styled.div`
     position: relative;
+    display: flex;
     z-index: 3;
+    flex-grow: 1;
+`;
+
+export const StyledLoader = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    z-index: 4;
     flex-grow: 1;
 `;

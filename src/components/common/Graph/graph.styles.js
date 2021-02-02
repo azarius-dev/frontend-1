@@ -12,9 +12,10 @@ export const StyledGraph = styled.div`
     box-sizing: border-box;
     position: relative;
     display: flex;
-    height: 420px;
-    padding-top: 60px;
-    cursor: url(${crossPNG}), auto;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    /*cursor: url(${crossPNG}), auto;*/
 `;
 
 export const StyledGrid = styled.div`
@@ -57,6 +58,8 @@ export const StyledActiveDot = styled.div`
     background-color: ${props => props.theme.colors.secundary}22;
     border-radius: 50%;
     transform: translate(-50%, -50%);
+    user-select: none;
+    pointer-events none;
 
     :before {
         content: '';
@@ -68,7 +71,6 @@ export const StyledActiveDot = styled.div`
     }
 
 `;
-
 
 export const StyledGraphSVG = styled.svg`
     position: absolute;
@@ -88,9 +90,34 @@ export const StyledGraphTooltip = styled.div`
     display: flex;
     flex-direction: column;
     background-color: ${props => props.theme.colors.background};
-    box-shadow: ${ props => props.theme.shadows.background };
+    border: 1px solid ${ props => props.theme.colors.secundary };
     border-radius: 5px;
-    padding: 10px;
     z-index: 10;
+    padding: 10px;
+    gap: 5px;
+    transform: translate(-50%, 10px);
     white-space: nowrap;
+    user-select: none;
+    pointer-events none;
+    min-width: 150px;
+`;
+
+export const StyledGraphTooltipItem = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`;
+
+export const StyledGraphTooltipLabel = styled.div`
+    margin-right: auto;
+    padding-right: 20px;
+    color: ${ props => props.theme.colors.secundary };
+`;
+
+export const StyledGraphTooltipValue = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 300;
 `;

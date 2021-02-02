@@ -17,7 +17,7 @@ const Topbar = () => {
     const { account, active } = useWeb3React();
 
     const { ui } = useContext(UIContext);
-    const { walletMethods } = useContext(WalletContext);
+    const { wallet, walletMethods } = useContext(WalletContext);
 
     return (
         <StyledTopbar
@@ -50,6 +50,8 @@ const Topbar = () => {
             ) : (
                 <Button
                     color="secundary"
+                    isLoading={wallet.isConnecting}
+                    disabled={wallet.isConnecting}
                     onClick={ () => walletMethods.connectAccount() }
                 >
                     connect wallet

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { breakpoints } from '../../../theme';
 
 /* main style */
 export const StyledTopbar = styled.div`
@@ -11,6 +12,10 @@ export const StyledTopbar = styled.div`
     top: -8px;
     flex-shrink: 0;
     margin: 45px 45px 0 45px;
+
+    @media ${breakpoints.mobile} {
+        height: 80px;
+    }
 `;
 
 export const StyledAccountContainer = styled.div`

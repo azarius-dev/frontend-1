@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
 
+/* import components */
+import { Loader } from '../../common';
 /* import styles */
-import { StyledCard, StyledBackground, StyledBorder, StyledActiveBorderSVG, StyledActiveBorderSVGRect, StyledContent } from './card.styles';
+import { StyledCard, StyledBackground, StyledBorder, StyledActiveBorderSVG, StyledActiveBorderSVGRect, StyledContent, StyledLoader } from './card.styles';
 
 const Card = props => {
 
-    const { status, color, gutter, isLoading, activeParts, children } = props;
+    const { status, color, gutter, minHeight, isLoading, activeParts, children } = props;
 
     const [ cardSize, setCardSize ] = useState(null);
     const cardRef = useRef(null);
@@ -42,6 +44,23 @@ const Card = props => {
             </StyledActiveBorderSVG>
         );
     };
+    const renderContent = () => {
+        if (isLoading) {
+            return (
+                <StyledLoader>
+                    <Loader size="medium" />
+                </StyledLoader>
+            );
+        } else {
+            return (
+                <StyledContent
+                    data-db-el="card-content"
+                >
+                    {children}
+                </StyledContent>
+            );
+        }
+    };
 
     useEffect(() => {
         const resizeObserver = new ResizeObserver(() => {
@@ -65,7 +84,8 @@ const Card = props => {
             color={color}
             status={status}
             style={{
-                'padding': `${gutter}px`
+                'padding': `${gutter}px`,
+                'minHeight': `${minHeight}px`
             }}
         >
             <StyledBackground 
@@ -80,11 +100,7 @@ const Card = props => {
                 }}
             />
             {renderActiveBorder()}
-            <StyledContent
-                data-db-el="card-content"
-            >
-                {children}
-            </StyledContent>
+            {renderContent()}
         </StyledCard>
     );
 
@@ -93,6 +109,7 @@ const Card = props => {
 Card.defaultProps = {
     status: 'idle',
     gutter: 1,
+    minHeight: 0,
     color: 'text',
     isLoading: false,
     activeParts: 8

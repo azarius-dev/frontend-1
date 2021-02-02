@@ -1,10 +1,23 @@
 import React from 'react';
 
+/* import components */
+import { Spinner } from '../';
+/* import styles */
 import { StyledButton } from './button.styles';
 
 const Button = props => {
 
     const { variant, size, color, alignment, disabled, isLoading, onClick, children} = props;
+
+    const renderContent = () => {
+        if (!isLoading) return children;
+        return (
+            <Spinner
+                size="small"
+                color="text"
+            />
+        );
+    };
 
     return (
         <StyledButton
@@ -15,9 +28,13 @@ const Button = props => {
             alignment={alignment}
             disabled={disabled}
             isLoading={isLoading}
-            onClick={onClick}
+            onClick={!disabled ? onClick : null}
+            style={{ 
+                pointerEvents: disabled ? 'none' : 'auto',
+                opacity: disabled ? .5 : 1,
+            }}
         >
-            {children}
+            {renderContent()}
         </StyledButton>
     );
 

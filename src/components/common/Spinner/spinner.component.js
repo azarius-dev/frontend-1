@@ -5,20 +5,34 @@ import { StyledSpinner, StyledSpinnerSVG, StyledCircle } from './spinner.styles'
 
 const Spinner = props => {
 
-    const { size } = props;
+    const { size, color } = props;
 
     return (
-        <StyledSpinner size={size}>
+        <StyledSpinner
+            size={size}
+            color={color}
+        >
             <StyledSpinnerSVG
+                color={color}
                 width="100%"
                 height="100%"
                 viewBox="0 0 60 60"
             >
-                <circle x="6" y="6" width="48" height="48" fill="transparent" rx="12" ry="12" />
+                <StyledCircle
+                    cx="30"
+                    cy="30"
+                    r="24"
+                    fill="transparent"
+                />
             </StyledSpinnerSVG>
         </StyledSpinner>
     );
 
 }
+
+Spinner.defaultProps = {
+    size: 'small',
+    color: 'text'
+};
 
 export default Spinner;

@@ -1,21 +1,45 @@
+import { useEffect } from 'react';
+
 import useSWR from 'swr';
-import { formatEther } from 'ethers/lib/utils';
+import { formatEther, formatUnits, parseEther, parseUnits } from 'ethers/lib/utils';
 import { useWeb3React } from '@web3-react/core';
-import { contractAddress, poolAbi, fetcher } from '../../../../../utils';
+import { contractAddress, poolAbi, lpAbi, fetcher } from '../../../../../utils';
 
 /* import components */
-import { Pool } from '../../../../common';
+import { Pool, LabeledCard, List } from '../../../../common';
 
 const IncentivizerPool1 = () => {
     
     const contract = contractAddress.degovDaiLpPool;
-    const { library } = useWeb3React();
+    const { library, account } = useWeb3React();
 
-    /* fetch data */
+    const rewardTokenAddress = contractAddress.debase;
+    const stakeTokenAddress = contractAddress.dai;
+    const poolAddress = contractAddress.debaseDaiPool;
+    const percents = false;
+
+    /* fetch pool data */
 	const { data: currentReward } = useSWR([contract, 'initReward'], {
 		fetcher: fetcher(library, poolAbi)
 	});
 	const { data: getRewardDistributed } = useSWR([contract, 'rewardDistributed'], {
+		fetcher: fetcher(library, poolAbi)
+    });
+
+    /* fetch stake data */
+    const { data: rewardTokenBalance, mutate: getRewardTokenBalance } = useSWR([ rewardTokenAddress, 'balanceOf', account ], {
+        fetcher: fetcher(library, lpAbi)
+    });
+    const { data: tokenBalance, mutate: getTokenBalance } = useSWR([ stakeTokenAddress, 'balanceOf', account ], {
+		fetcher: fetcher(library, lpAbi)
+    });
+    const { data: tokenSupply, mutate: getTokenSupply } = useSWR([ rewardTokenAddress, 'totalSupply' ], {
+		fetcher: fetcher(library, lpAbi)
+    });
+    const { data: stakeBalance, mutate: getStakeBalance } = useSWR([ poolAddress, 'balanceOf', account ], {
+		fetcher: fetcher(library, poolAbi)
+    });
+    const { data: rewardBalance, mutate: getRewardBalance } = useSWR([ poolAddress, 'earned', account ], {
 		fetcher: fetcher(library, poolAbi)
 	});
 
@@ -29,7 +53,7 @@ const IncentivizerPool1 = () => {
         return parseFloat(formatEther(getRewardDistributed)).toFixed(2)
     };
 
-    /* static data */
+    /* list data */
     const linkData = [
         {
             icon: 'contract',
@@ -48,16 +72,40 @@ const IncentivizerPool1 = () => {
         ['TVL', '$894,241'],
         ['APY', '80%'],
     ];
+    const stakingCardListData = [
+        ['Balance', rewardBalance !== undefined ? parseFloat(formatEther(rewardTokenBalance)).toFixed(8) * 1 + ' Degov' : '0 Degov', 'degov'],
+        ['Claimable', percents ? rewardBalance !== undefined && tokenSupply !== undefined ? parseFloat(formatEther(rewardBalance.mul(tokenSupply).div(parseEther('1')))).toFixed(8) * 1 : '0' : rewardBalance !== undefined ? parseFloat(formatEther(rewardBalance)).toFixed(8) * 1 : '0', 'degov'],
+        ['To stake', rewardBalance !== undefined ? parseFloat(formatEther(rewardTokenBalance)).toFixed(8) * 1 : '0', 'placeholder'],
+        ['To stake', rewardBalance !== undefined ? parseFloat(formatEther(rewardTokenBalance)).toFixed(8) * 1 : '0', 'placeholder'],
+    ];
+
+    const renderSidepanelContent = () => {
+        return (
+            <LabeledCard
+                label="Debase / Dai-lp"
+                color="secundary"
+            >
+                <List data={stakingCardListData} />
+            </LabeledCard>
+        );
+    };
+    const renderSidepanelFooter = () => {
+        return (
+            <div>footer</div>
+        );
+    };
 
     return (
         <Pool 
             title="Pool 1"
             subtitle="Debase / Dai-lp"
             info=""
+            tooltip=""
             status="active"
             data={listData}
             links={linkData}
-            sidepanelContent=""
+            sidepanelContent={renderSidepanelContent()}
+            sidepanelFooter={renderSidepanelFooter()}
         />
     );
 };

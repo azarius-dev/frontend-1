@@ -20,7 +20,7 @@ export const GlobalStyle = createGlobalStyle`
         line-height: 1.15;
         font-family: 'Oswald', sans-serif;
         font-size: 1rem;
-        cursor: url(${cursorPNG}), auto;
+        /*cursor: url(${cursorPNG}), auto;*/
     }
 
     #root {

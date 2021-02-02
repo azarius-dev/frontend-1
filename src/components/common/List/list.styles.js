@@ -29,7 +29,7 @@ export const StyledItemLabel = styled.div`
 export const StyledItemValue = styled.div`
     display: flex;
     align-items: center;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 300;
     color: ${props => props.theme.colors.text};
     opacity: 1;

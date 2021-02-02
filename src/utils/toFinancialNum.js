@@ -1,0 +1,1 @@
+export default value => Number.parseFloat(value).toFixed(2);

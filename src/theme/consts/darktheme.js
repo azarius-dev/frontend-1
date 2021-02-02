@@ -30,9 +30,9 @@ darktheme.shadows = {
     secundaryMedium: `0 0 50px ${darktheme.colors.secundary}40`,
     secundaryLarge: `0 0 70px ${darktheme.colors.secundary}33`,
 
-    errorSmall: `0 0 40px ${darktheme.colors.error}80`,
+    errorSmall: `0 0 20px ${darktheme.colors.error}99`,
 
-    successmall: `0 0 40px ${darktheme.colors.success}80`,
+    successSmall: `0 0 20px ${darktheme.colors.success}99`,
 
 };
 

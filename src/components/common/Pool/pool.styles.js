@@ -13,13 +13,37 @@ export const StyledPoolHeader = styled.div`
     align-items: center;
     justify-content: flex-start;
     padding-bottom: 14px;
+    padding-right: 50px;
     gap: 12px;
+`;
+
+export const StyledTitleWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+`;
+
+export const StyledSubtitle = styled.div`
+    font-size: 14px;
+    opacity: .8;
+`;
+
+export const StyledInfo = styled.div`
+    margin-left: auto;
 `;
 
 export const StyledPoolBody = styled.div`
     position: relative;
     display: flex;
+    flex-grow: 1;
     gap: 15px;
+`;
+
+export const StyledPoolCard = styled.div`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 `;
 
 export const StyledPoolFooter = styled.div`

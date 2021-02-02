@@ -12,7 +12,7 @@ import { PowerOffIcon } from '../../../assets/icons';
 
 const DisconnectedWalletCard = () => {
 
-    const { walletMethods } = useContext(WalletContext);
+    const { wallet, walletMethods } = useContext(WalletContext);
 
     return (
         <StyledDisconnectedWalletCard
@@ -46,6 +46,8 @@ const DisconnectedWalletCard = () => {
                     >
                         <Button
                             color="secundary"
+                            isLoading={wallet.isConnecting}
+                            disabled={wallet.isConnecting}
                             onClick={() => walletMethods.connectAccount()}
                         >
                             connect wallet
