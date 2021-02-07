@@ -41,7 +41,7 @@ const Button = props => {
 };
 
 Button.defaultProps = {
-    variant: 'primary',
+    variant: 'default',
     size: 'medium',
     color: 'primary',
     alignment: 'center',

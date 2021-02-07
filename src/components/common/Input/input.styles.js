@@ -17,6 +17,7 @@ const sizes = {
         padding-left: 12px;
         padding-right: 12px;
         font-size: 14px;
+        font-weight: 600;
 
         svg {
             height: 18px;
@@ -52,17 +53,19 @@ export const StyledInputContainer = styled.div`
     display: flex;
     align-items: center;
     flex-shrink: 0;
+    flex-grow: 1;
 `;
 
 export const StyledInput = styled.input`
+    box-sizing: border-box;
     flex-grow: 1;
     position: relative;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
-    color: ${ props => props.theme.inputText };
-    background-color: ${ props => props.theme.input };
-    border: 1px solid ${ props => props.theme.border };
-    border-radius: 3px;
+    color: ${ props => props.theme.colors.text };
+    background-color: ${ props => props.theme.colors.background };
+    border: 2px solid ${ props => props.theme.colors.text };
+    border-radius: 10px;
     outline: none;
     transition: .1s ease border, background-color;
     width: inherit;
@@ -78,12 +81,11 @@ export const StyledInput = styled.input`
     }
 
     &:hover {
-        border: 1px solid ${ props => props.theme.primary };
+        border: 2px solid ${ props => props.theme.colors.primary };
     }
 
     &:focus {
-        border: 1px solid ${ props => props.theme.primary };
-        background-color: ${ props => props.theme.primaryActive };
+        border: 2px solid ${ props => props.theme.colors.primary };
     }
 
     ${ props => sizes[props.size] }

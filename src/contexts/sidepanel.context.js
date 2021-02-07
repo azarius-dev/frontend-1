@@ -1,9 +1,9 @@
 import React from 'react';
 
 /* import components */
-import { Sidepanel } from '../components/common';
+import { Sidepanel } from 'components/layout';
 /* import hooks */
-import { useSidepanel } from '../hooks';
+import { useSidepanel } from 'hooks';
 /* create context */
 const SidepanelContext = React.createContext({});
 

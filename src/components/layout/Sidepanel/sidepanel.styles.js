@@ -9,6 +9,15 @@ const moveIn = keyframes`
     }
 `;
 
+const fadeIn = keyframes`
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+`;
+
 export const StyledSidepanelContainer = styled.div`
     position: fixed;
     z-index: 10001;
@@ -46,14 +55,14 @@ export const StyledSidepanel = styled.div`
     flex-direction: column;
     justify-content: space-between;
     margin: 45px;
-    padding: 45px;
-    width: 450px;
+    width: 400px;
     box-shadow: ${props => props.theme.shadows[props.color + 'Medium']};
     background-color: ${props => props.theme.colors.background};
     border: 2px solid ${props => props.theme.colors[props.color]};
     border-radius: 10px;
     pointer-events: auto;
     animation: ${moveIn} .4s cubic-bezier(0.47, 0.13, 0.22, 1.26);
+    /*animation: ${fadeIn} .2s ease;*/
 `;
 
 export const StyledSidepanelHeader = styled.div`
@@ -61,6 +70,7 @@ export const StyledSidepanelHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 30px;
 `;
 
 export const StyledCloseAction = styled.div`
@@ -73,6 +83,9 @@ export const StyledSidepanelBody = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 30px;
+    padding-top: 0;
+    flex-grow: 1;
 `;
 
 export const StyledSidepanelFooter = styled.div`
@@ -80,4 +93,5 @@ export const StyledSidepanelFooter = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    /*padding: 30px;*/
 `;

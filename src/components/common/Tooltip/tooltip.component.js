@@ -10,10 +10,10 @@ import { StyledTooltipWrapper, StyledTooltipContainer, StyledTooltip } from './t
 
 const Tooltip = props => {
 
-    const { message, isHtml, location, followCursor, offset, enterDelay, leaveDelay, children } = props;
+    const { message, isHtml, position, followCursor, offset, enterDelay, leaveDelay, children } = props;
 
     const [ active, setActive ] = useState(false);
-    const [ position, setPosition ] = useState({ x: 0, y: 0 });
+    const [ positionXY, setPositionXY ] = useState({ x: 0, y: 0 });
     const [ wrapperRect, setWrapperRect ] = useState(null);
 
     const { rootNode } = useContext(RootContext);
@@ -45,75 +45,75 @@ const Tooltip = props => {
         const originWidth = followCursor ? 0 : wrapperRect.width;
         const originHeight = followCursor ? 0 : wrapperRect.height;
 
-        switch(location) {
+        switch(position) {
             case 'top-left': {
-                return setPosition({
+                return setPositionXY({
                     x: originLeft,
                     y: originTop - offset - tooltipHeight
                 });
             }
             case 'top-center': {
-                return setPosition({
+                return setPositionXY({
                     x: originLeft + (originWidth / 2) - (tooltipWidth / 2),
                     y: originTop - offset - tooltipHeight
                 });
             }
             case 'top-right': {
-                return setPosition({
+                return setPositionXY({
                     x: originLeft + originWidth - tooltipWidth,
                     y: originTop - offset - tooltipHeight
                 });
             }
             case 'right-top': {
-                return setPosition({
+                return setPositionXY({
                     x: originLeft + originWidth + offset,
                     y: originTop
                 });
             }
             case 'right-center': {
-                return setPosition({
+                return setPositionXY({
                     x: originLeft + originWidth + offset,
                     y: originTop + (originHeight / 2) - (tooltipHeight / 2),
                 });
             }
             case 'right-bottom': {
-                return setPosition({
+                return setPositionXY({
                     x: originLeft + originWidth + offset,
                     y: originTop + originHeight - tooltipHeight
                 });
             }
             case 'bottom-right': {
-                return setPosition({
+                return setPositionXY({
                     x: originLeft + originWidth - tooltipWidth,
                     y: originTop + originHeight + offset
                 });
             }
             case 'bottom-center': {
-                return setPosition({
+                return setPositionXY({
                     x: originLeft + (originWidth / 2) - (tooltipWidth / 2),
                     y: originTop + originHeight + offset
                 });
             }
             case 'bottom-left': {
-                return setPosition({
+                return setPositionXY({
                     x: originLeft + originWidth - tooltipWidth,
                     y: originTop + originHeight + offset
                 });
             }
             case 'left-bottom': {
-                return setPosition({
+                return setPositionXY({
                     x: originLeft - offset - tooltipWidth,
                     y: originTop + originHeight
                 });
             }
             case 'left-center': {
-                return setPosition({
+                return setPositionXY({
                     x: originLeft - offset - tooltipWidth,
                     y: originTop + (originHeight / 2) - (tooltipHeight / 2),
                 });
             }
             case 'left-top': {
-                return setPosition({
+                return setPositionXY({
                     x: originLeft - offset - tooltipWidth,
                     y: originTop
                 });
@@ -129,8 +129,8 @@ const Tooltip = props => {
                     <StyledTooltip
                         ref={tooltipRef}s
                         style={{ 
-                            left: position.x,
-                            top: position.y
+                            left: positionXY.x,
+                            top: positionXY.y
                         }}
                     >
                         {message}
@@ -173,7 +173,7 @@ const Tooltip = props => {
 Tooltip.defaultProps = {
     message: '',
     isHtml: false,
-    location: 'top-center',
+    position: 'top-center',
     followCursor: false,
     offset: 10,
     enterDelay: null,

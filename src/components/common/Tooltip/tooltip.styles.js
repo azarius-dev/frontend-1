@@ -23,7 +23,10 @@ export const StyledTooltip = styled.div`
     background-color: ${props => props.theme.colors.background};
     border: 1px solid ${ props => props.theme.colors.secundary };
     border-radius: 5px;
+    max-width: 300px;
     padding: 10px;
+    font-size: 14px;
+    line-height: 150%;
     user-select: none;
     pointer-events none;
 `;

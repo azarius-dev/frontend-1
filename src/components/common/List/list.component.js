@@ -5,14 +5,15 @@ import { StyledList, StyledListItem, StyledItemLabel, StyledItemValue } from './
 
 const List = props => {
 
-    const { data } = props;
+    const { alternateRows, data } = props;
 
     const renderListItems = () => {
         return data.map((item, i) => {
-            const [ label, value, currency, tooltip ] = item;
+            const { label, value, valueType, tooltip } = item;
             return (
                 <StyledListItem
                     key={i}
+                    alternateRows={alternateRows}
                 >   
                     <Tooltip
                         key={i}
@@ -24,7 +25,7 @@ const List = props => {
                         </StyledItemLabel>
                     </Tooltip>
                     <StyledItemValue>
-                        {currency && currency !== '' ? <Token type={currency} /> : ''}
+                        {valueType && valueType !== '' ? <Token type={valueType} /> : ''}
                         {value}
                     </StyledItemValue>
                 </StyledListItem>
@@ -40,6 +41,10 @@ const List = props => {
         );
     } else return null;
 
+};
+
+List.defaultProps = {
+    alternateRows: true
 };
 
 export default List;

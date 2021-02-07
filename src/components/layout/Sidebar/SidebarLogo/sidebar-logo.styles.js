@@ -4,15 +4,29 @@ export const StyledSidebarLogo = styled.div`
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
-    border: 3px solid ${ props => props.theme.colors.secundary };
-    border-radius: 50%;
-    box-shadow: ${ props => props.theme.shadows.secundaryMedium };
-    width: 72px;
-    height: 72px;
+    height: 115px;
+    gap: 20px;
+    user-select: none;
+    text-decoration: none;
 `;
 
-export const StyledLogoImg = styled.img`
-    width: 60px;
-    height: 60px;
+export const StyledImgLogoWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border: 3px solid ${ props => props.theme.colors.text };
+    border-radius: 50%;
+    box-shadow: ${ props => props.theme.shadows.secundaryMedium };
+`;
+
+export const StyledImgLogo = styled.img`
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+`;
+
+export const StyledTextLogo = styled.div`
+    font-size: 26px;
 `;

@@ -1,4 +1,23 @@
-import IncentivizerPool1 from './incentivizer-pool1-degov_dailp.component';
-import IncentivizerPool2 from './incentivizer-pool2-dai.component';
-import IncentivizerPool3 from './incentivizer-pool3-debase_dailp.component';
-export { IncentivizerPool1, IncentivizerPool2, IncentivizerPool3 };
+import { DegovDailpCard, DegovDailpStake } from './DegovDailp';
+import { DaiCard, DaiStake } from './Dai';
+import { DebaseDailpCard, DebaseDailpStake } from './DebaseDailp';
+import { DegovEthCard, DegovEthStake } from './DegovEth';
+import { DM88Card, DM88Stake } from './DM88';
+export {
+
+    DegovDailpCard,
+    DegovDailpStake,
+
+    DaiCard,
+    DaiStake,
+
+    DebaseDailpCard,
+    DebaseDailpStake,
+
+    DegovEthCard,
+    DegovEthStake,
+
+    DM88Card,
+    DM88Stake
+
+};

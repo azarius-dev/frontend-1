@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { StyledIconButton, StyledBackground, StyledBorder, StyledIcon } from './icon-button.styles';
+import { StyledIconButton, StyledIcon } from './icon-button.styles';
 
 const IconButton = props => {
 
-    const { color, size, edge, disabled, isLoading, onClick, children} = props;
+    const { variant, color, size, edge, disabled, isLoading, onClick, children} = props;
 
     return (
         <StyledIconButton
+            variant={variant}
             color={color}
             size={size}
             edge={edge}
@@ -15,14 +16,6 @@ const IconButton = props => {
             isLoading={isLoading}
             onClick={onClick}
         >   
-            <StyledBackground 
-                color={color}
-                edge={edge}
-            />
-            <StyledBorder 
-                color={color}
-                edge={edge}
-            />
             <StyledIcon>
                 {children}
             </StyledIcon>
@@ -32,6 +25,7 @@ const IconButton = props => {
 };
 
 IconButton.defaultProps = {
+    variant: 'default',
     color: 'text',
     size: 'medium',
     edge: 'smooth',

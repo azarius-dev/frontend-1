@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 /* import components */
-import { Card, Graph, Tabs, Tab } from '../../../common';
-import { DisplaySmall } from '../../../../theme';
+import { Card, Graph, Tabs, Tab } from 'components/common';
+import { DisplaySmall } from 'theme';
 /* import styles */
 import { StyledTabbedChartCard, StyledCardHeader, StyledHeaderCurrentValue } from './tabbed-chart-card.styles';
 

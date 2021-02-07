@@ -12,9 +12,12 @@ export const StyledTopbar = styled.div`
     top: -8px;
     flex-shrink: 0;
     margin: 45px 45px 0 45px;
+    gap: 30px;
 
     @media ${breakpoints.mobile} {
         height: 80px;
+        padding-left: 40px;
+        margin: 20px 20px 0 20px;
     }
 `;
 

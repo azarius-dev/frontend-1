@@ -10,7 +10,6 @@ export default () => {
     const defaultOptions = {
         maxQueue: 4
     };
-
     const defaultData = {
         delay: 3000,
         message: '',
@@ -30,12 +29,11 @@ export default () => {
         /*if (data.id) {
             const index = snackbarQueue.findIndex(snackbar => snackbar.id === lastSnackbar.id);
             if (index < 0) {return}
-            //snackbarQueue.splice(index, 1);
-            //return setSnackbarQueue(snackbarQueue);
+            snackbarQueue.splice(index, 1);
+            return setSnackbarQueue(snackbarQueue);
         } else {
             data.id = new Date();
         }*/
-        data.id = new Date();
         const localSnackbarQueue = _.cloneDeep(snackbarQueue);
         const localSnackbarData = Object.assign({}, defaultData, data);
         localSnackbarQueue.push(localSnackbarData);

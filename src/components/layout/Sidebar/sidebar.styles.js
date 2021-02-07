@@ -16,7 +16,6 @@ export const StyledSidebarHeader = styled.div`
     position: relative;
     display: flex;
     justify-content: flex-start;
-    padding-top: 20px;
 `;
 export const StyledLogo = styled.div`
     position: relative;

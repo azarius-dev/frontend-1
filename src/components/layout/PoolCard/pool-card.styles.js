@@ -25,7 +25,7 @@ export const StyledTitleWrapper = styled.div`
 
 export const StyledSubtitle = styled.div`
     font-size: 14px;
-    opacity: .8;
+    opacity: .6;
 `;
 
 export const StyledInfo = styled.div`
@@ -51,6 +51,21 @@ export const StyledPoolFooter = styled.div`
     display: flex;
     align-items: center;
     padding-top: 30px;
+`;
+
+export const StyledPoolLists = styled.div`
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-auto-rows: max-content;
+    flex-grow: 1;
+    padding: 15px 0;
+`;
+
+export const StyledHighlightData = styled.div`
+    color: ${ props => props.theme.colors.primary };
+    border-top: 1px solid ${props => props.theme.colors.primary}33;
+    background-color: ${ props => props.theme.colors.background}33;
 `;
 
 export const StyledPoolLinks = styled.div`

@@ -1,14 +1,14 @@
 import { useContext } from 'react';
 
 /* import components */
-import { Button, Card, StatusIndicator } from '../';
-import { DisplaySmall, TextSmall } from '../../../theme';
+import { Button, Card, StatusIndicator } from 'components/common';
+import { DisplaySmall, TextSmall } from 'theme';
 /* import contexts */
-import { WalletContext } from '../../../contexts';
+import { WalletContext } from 'contexts';
 /* import styles */
 import { StyledDisconnectedWalletCard, StyledDisconnectedWalletDecoration, StyledContent, StyledContentHeading, StyledContentFooter } from './disconnectedwallet-card.styles';
 /* import assets */
-import { PowerOffIcon } from '../../../assets/icons';
+import { PowerOffIcon } from 'assets/icons';
 
 const DisconnectedWalletCard = () => {
 
@@ -45,6 +45,7 @@ const DisconnectedWalletCard = () => {
                         data-db-el="disconnectedwallet-card-content-footer"
                     >
                         <Button
+                            variant="offset"
                             color="secundary"
                             isLoading={wallet.isConnecting}
                             disabled={wallet.isConnecting}

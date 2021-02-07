@@ -65,14 +65,20 @@ class App extends React.Component {
 		const prevState = _.cloneDeep(this.state);
 		const { ui } = prevState;
 		ui.activeRoute = data;
-		this.setState({ ui });
+		this.setState(prevState => {
+			//const prevState = _.cloneDeep(this.state);
+			const { ui } = prevState;
+			ui.activeRoute = data;
+			return { ui }
+		});
 	};
 	detectMobileViewport = e => {
-		if (window.offsetWidth > 576) {return}
-		const prevState = _.cloneDeep(this.state);
-		const { ui } = prevState;
-		ui.isMobile = window.innerWidth > 576 ? false : true;
-		this.setState({ ui });
+		this.setState(() => {
+			const prevState = _.cloneDeep(this.state);
+			const { ui } = prevState;
+			ui.isMobile = window.innerWidth < 576;
+			return { ui };
+		});
 	};
 
 	/* WALLET LOGIC */
@@ -144,7 +150,7 @@ class App extends React.Component {
 					data={[
 						{
 							id: 'dashboard-view',
-							label: 'Overview',
+							label: 'Dashboard',
 							icon: <DashboardIcon />,
 							link: '/'
 						},
@@ -282,10 +288,10 @@ class App extends React.Component {
 	/* LIFECYCLE */
 	componentDidMount() {
 
+		this.detectMobileViewport();
 		this.detectActiveAccount();
 
 		/* detect if mobile device viewport */
-		this.detectMobileViewport();
 		window.addEventListener('resize', this.detectMobileViewport);
 
 		/* init data */

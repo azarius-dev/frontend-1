@@ -1,11 +1,11 @@
+import React from 'react';
 import { useWeb3React } from '@web3-react/core';
 
 /* import components */
-import { IncentivizerPool1, IncentivizerPool2, IncentivizerPool3 } from './Pools/incentivizers';
-import { Section } from '../../layout';
-import { DisconnectedWalletCard } from '../../common';
+import { Section, DisconnectedWalletCard } from 'components/layout';
+import { DegovDailpCard, DaiCard, DebaseDailpCard, DegovEthCard, DM88Card } from './Pools/incentivizers';
 /* import styles */
-import { StyledPoolsView, StyledPoolsGrid } from './pools-view.styles';
+import { StyledPoolsView, StyledGridsWrapper, StyledPoolsGrid } from './pools-view.styles';
 
 const PoolsView = ()  => {
 
@@ -21,12 +21,23 @@ const PoolsView = ()  => {
     };
 
     const renderIncentivizerPools = () => {
-        if (!active) {return <DisconnectedWalletCard />}
+        if (!active) return <DisconnectedWalletCard />;
         return (
-            <StyledPoolsGrid>
-                <IncentivizerPool1 />
-                
-            </StyledPoolsGrid>
+            <React.Fragment>
+                <StyledPoolsGrid
+                    minWidthCol="340px"
+                >
+                    <DegovDailpCard />
+                    <DaiCard />
+                    <DebaseDailpCard />
+                </StyledPoolsGrid>
+                <StyledPoolsGrid
+                    minWidthCol="680px"
+                >
+                    <DegovEthCard />
+                    <DM88Card />
+                </StyledPoolsGrid>
+            </React.Fragment>
         );
     };
 
@@ -36,7 +47,9 @@ const PoolsView = ()  => {
                 color="secundary"
                 label="Incentivizers"
             >
-                {renderIncentivizerPools()}
+                <StyledGridsWrapper>
+                    {renderIncentivizerPools()}
+                </StyledGridsWrapper>
             </Section>
             <Section
                 color="secundary"

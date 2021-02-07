@@ -4,6 +4,7 @@ export const StyledTabs = styled.div`
     position: relative;
     display: flex;
     width: 100%;
+    height: 100%;
 
     ${ props => props.horizontal ? css`
         flex-direction: column;

@@ -9,12 +9,6 @@ const Input = props => {
     const [ localValue, setLocalValue ] = useState(value);
     const inputRef = useRef(null);
 
-    /*const forceNumberRange = value => {
-        if (type !== 'number') { return value }
-        if (value < min) {return min}
-        if (value > max) {return max}
-    };*/
-
     const onChangeValue = e => {
         let value = e.target.value;
 
@@ -99,7 +93,7 @@ Input.defaultProps = {
     placeholder: 'placeholder',
     min: 0,
     max: 100000,
-    size: 'small',
+    size: 'normal',
     onFocus: () => null,
     onChange: () => null,
 };

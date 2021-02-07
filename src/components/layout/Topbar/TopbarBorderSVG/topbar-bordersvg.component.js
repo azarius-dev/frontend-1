@@ -5,7 +5,7 @@ import { ThemeContext } from 'styled-components';
 /* import styles */
 import { StyledTopbarBorderSVG, StyledRect } from './topbar-bordersvg.styles';
 
-const TopbarBorderSVG = () => {
+const TopbarBorderSVG = ({ parentSize }) => {
 
     const theme = useContext(ThemeContext);
 
@@ -30,8 +30,8 @@ const TopbarBorderSVG = () => {
                 <StyledRect 
                     x="2"
                     y="2"
-                    width="100%"
-                    height="111px"
+                    width={parentSize.width}
+                    height={parentSize.height - 4}
                     stroke={`url(#${primaryRectId})`}
                 />
             </StyledTopbarBorderSVG>
@@ -51,8 +51,8 @@ const TopbarBorderSVG = () => {
                 <StyledRect 
                     x="2"
                     y="2"
-                    width="100%"
-                    height="111px"
+                    width={parentSize.width}
+                    height={parentSize.height - 4}
                     stroke={`url(#${secundaryRectId})`}
                 />
             </StyledTopbarBorderSVG>

@@ -1,11 +1,10 @@
 import { useState, useContext, useEffect } from 'react';
 
 /* import components */
-import { LabeledCard, List, Token } from '../../common';
-import { Section } from '../../layout';
-import TabbedChartCard from './TabbedChartCard/tabbed-chart-card.component';
+import { LabeledCard, List, Token } from 'components/common';
+import { Section, TabbedChartCard } from 'components/layout';
 /* import context */
-import { UIContext, TokenDataContext, TokenHistoryContext } from '../../../contexts';
+import { UIContext, TokenDataContext, TokenHistoryContext } from 'contexts';
 /* import styles */
 import { StyledDashboardView, StyledStatisticsGrid, StyledChartsGrid } from './dashboard-view.styles';
 
@@ -16,7 +15,7 @@ const extractTimeRange = (arr, days) => {
 const DashboardView = ()  => {
 
     const [ debaseListData, setDebaseListData ] = useState(null);
-    const [ degovListData, setDebgovListData ] = useState(null);
+    const [ degovListData, setDegovListData ] = useState(null);
 
     const [ debasePriceChart, setDebasePriceChart ] = useState(null);
     const [ debaseMarketcapChart, setDebaseMarketcapChart ] = useState(null);
@@ -32,14 +31,38 @@ const DashboardView = ()  => {
         if (!tokenData) {return}
         const { debasePrice, debaseCircSupply, debaseMarketcap, degovPrice, degovCircSupply, degovMarketcap } = tokenData;
         setDebaseListData([
-            ['Price', debasePrice, 'dai'],
-            ['Circulating supply', debaseCircSupply, 'debase'],
-            ['Marketcap', debaseMarketcap, 'dai'],
+            {
+                label: 'Price',
+                value: debasePrice,
+                valueType: 'dai'
+            },
+            {
+                label: 'Circulating supply',
+                value: debaseCircSupply,
+                valueType: 'debase'
+            },
+            {
+                label: 'Marketcap',
+                value: debaseMarketcap,
+                valueType: 'dai'
+            }
         ]);
-        setDebgovListData([
-            ['Price', degovPrice, 'dai'],
-            ['Circulating supply', degovCircSupply, 'degov'],
-            ['Marketcap', degovMarketcap, 'dai'],
+        setDegovListData([
+            {
+                label: 'Price',
+                value: degovPrice,
+                valueType: 'dai'
+            },
+            {
+                label: 'Circulating supply',
+                value: degovCircSupply,
+                valueType: 'degov'
+            },
+            {
+                label: 'Marketcap',
+                value: degovMarketcap,
+                valueType: 'dai'
+            }
         ]);
     }, [tokenData]);
 
@@ -169,7 +192,7 @@ const DashboardView = ()  => {
 			</Section>
             <Section
 				color="secundary"
-                label="performance charts"
+                label="charts"
 			>
                 <StyledChartsGrid>
                     <TabbedChartCard 

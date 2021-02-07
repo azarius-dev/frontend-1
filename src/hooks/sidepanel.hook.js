@@ -6,7 +6,7 @@ export default () => {
     const [ sidepanelData, setSidepanelData] = useState(null);
 
     const defaultData = {
-        title: 'Sidepanel',
+        headerContent: 'sidepanel',
         bodyContent: '',
         footerContent: '',
         color: 'primary',

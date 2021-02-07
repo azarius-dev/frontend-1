@@ -5,6 +5,11 @@ export const StyledList = styled.div`
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+
+    &:not(:first-child) {
+        border-left: 1px solid ${ props => props.theme.colors.primary };
+    }
+
 `;
 
 export const StyledListItem = styled.div`
@@ -16,7 +21,7 @@ export const StyledListItem = styled.div`
     padding: 0 34px;
 
     &:nth-child(odd) {
-        background-color: ${props => props.theme.colors.background}33;
+        background-color: ${props => props.alternateRows ? props.theme.colors.background + '33' : 'transparent'};
     }
 `;
 
@@ -31,6 +36,5 @@ export const StyledItemValue = styled.div`
     align-items: center;
     font-size: 16px;
     font-weight: 300;
-    color: ${props => props.theme.colors.text};
     opacity: 1;
 `;

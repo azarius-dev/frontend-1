@@ -38,6 +38,15 @@ const Token = props => {
                 }}
             />
         )
+        case 'placeholder': return (
+            <StyledToken 
+                src={placeholderTokenPNG}
+                alt="placeholder"
+                style={{ 
+                    margin: `${gutter}px`
+                }}
+            />
+        )
         default: return (
             <StyledToken 
                 src={placeholderTokenPNG}

@@ -67,6 +67,7 @@ export const StyledActiveBorderSVGRect = styled.rect`
 export const StyledContent = styled.div`
     position: relative;
     display: flex;
+    flex-direction: column;
     z-index: 3;
     flex-grow: 1;
 `;

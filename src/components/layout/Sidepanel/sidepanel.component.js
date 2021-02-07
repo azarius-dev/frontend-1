@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 
 /* import components */
-import { IconButton } from '..';
-import { DisplaySmall } from '../../../theme';
+import { IconButton } from 'components/common';
+import { DisplaySmall } from 'theme';
 /* import styles */
 import { StyledSidepanelContainer, StyledBackdrop, StyledSidepanel, StyledSidepanelHeader, StyledSidepanelBody, StyledSidepanelFooter, StyledCloseAction } from './sidepanel.styles';
 /* import contexts */
-import { SidepanelContext } from '../../../contexts';
+import { SidepanelContext } from 'contexts';
 /* import icons */
-import { CloseIcon } from '../../../assets/icons';
+import { CloseIcon } from 'assets/icons';
 
 const Sidepanel = () => {
 
     const { handleSidepanel, sidepanelData } = useContext(SidepanelContext);
-    const { color, hasBackdrop, detectOutsideClick, title, bodyContent, footerContent } = sidepanelData;
+    const { color, hasBackdrop, detectOutsideClick, headerContent, bodyContent, footerContent } = sidepanelData;
     const sidepanelRef = useRef(null)
 
     const onClickDocument = e => {
@@ -25,15 +25,6 @@ const Sidepanel = () => {
     const renderBackdrop = () => {
         if (!hasBackdrop) {return null}
         return <StyledBackdrop />
-    };
-
-    const renderTitle = () => {
-        if (!title || title === '') {return null}
-        return (
-            <DisplaySmall>
-                {title}
-            </DisplaySmall>
-        );
     };
 
     useEffect(() => {
@@ -53,10 +44,12 @@ const Sidepanel = () => {
                 color={color}
             >
                 <StyledSidepanelHeader>
-                    {renderTitle()}
+                    {headerContent}
                     <StyledCloseAction>
                         <IconButton
-                            size="large"
+                            variant="flat"
+                            edge="rounded"
+                            size="medium"
                             color={color}
                             onClick={() => handleSidepanel()}
                         >

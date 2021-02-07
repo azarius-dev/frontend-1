@@ -1,35 +1,42 @@
+import { useContext } from 'react';
+
 import useSWR from 'swr';
 import { formatEther } from 'ethers/lib/utils';
 import { useWeb3React } from '@web3-react/core';
-import { contractAddress, poolAbi, fetcher } from '../../../../../utils';
+import { contractAddress, poolAbi, fetcher } from 'utils';
 
 /* import components */
-import { Pool } from '../../../../common';
+import { PoolCard } from 'components/layout';
+import DaiStake from './dai-stake.component';
 
-const IncentivizerPool2 = () => {
+const DaiCard = () => {
     
     const contract = contractAddress.debaseDaiPool;
     const { library } = useWeb3React();
 
-    /* fetch data */
+    /* static data */
+    const poolTooltip = '';
+    const poolInfo = '';
+
+    /* fetch pool data */
 	const { data: currentReward } = useSWR([contract, 'initReward'], {
 		fetcher: fetcher(library, poolAbi)
 	});
 	const { data: getRewardDistributed } = useSWR([contract, 'rewardDistributed'], {
 		fetcher: fetcher(library, poolAbi)
-	});
+    });
 
     /* calculate data */
     const getHalvingReward = () => {
         if (!currentReward) {return '/'}
-        return parseFloat(formatEther(currentReward)).toFixed(2)
+        return parseFloat(formatEther(currentReward)).toFixed(6)
     };
     const getTotalClaimed = () => {
         if (!getRewardDistributed) {return '/'}
         return parseFloat(formatEther(getRewardDistributed)).toFixed(2)
     };
 
-    /* static data */
+    /* list data */
     const linkData = [
         {
             icon: 'contract',
@@ -41,25 +48,49 @@ const IncentivizerPool2 = () => {
         }
     ];
     const listData = [
-        ['Total reward', '10,000', 'debase'],
-        ['Halving period', '1 day'],
-        ['Halving reward', getHalvingReward(), 'debase'],
-        ['Total claimed', getTotalClaimed(), 'debase'],
-        ['TVL', '$0'],
-        ['APY', '0%'],
+        {
+            label: 'Total reward',
+            value: '10,000',
+            valueType: 'debase'
+        },
+        {
+            label: 'Halving period',
+            value: '1 day'
+        },
+        {
+            label: 'Halving reward',
+            value: getHalvingReward(),
+            valueType: 'debase'
+        },
+        {
+            label: 'Total claimed',
+            value: getTotalClaimed(),
+            valueType: 'debase'
+        },
+        {
+            label: 'TVL',
+            value: '$0'
+        }
+    ];
+    const highlightData = [
+        {
+            label: 'ABR',
+            value: '0%'
+        }
     ];
 
     return (
-        <Pool 
+        <PoolCard 
             title="Pool 2"
-            subtitle="Debase / Dai-lp"
-            info=""
+            subtitle="Dai"
+            tooltip={poolTooltip}
             status="inactive"
             data={listData}
+            highlightData={highlightData}
             links={linkData}
-            sidepanelContent=""
+            sidepanelContent={<DaiStake info={poolInfo} />}
         />
     );
 };
 
-export default IncentivizerPool2;
+export default DaiCard;

@@ -1,41 +1,42 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { useWeb3React } from '@web3-react/core';
 
 /* import components */
 import TopbarBorderSVG from './TopbarBorderSVG/topbar-bordersvg.component';
-import { Button, Card, StatusIndicator } from '../../common';
-import { DisplayLarge } from '../../../theme/components';
+import { Button, Card, StatusIndicator, Tooltip } from 'components/common';
+import { DisplayLarge } from 'theme/components';
 /* import contexts */
-import { UIContext, WalletContext } from '../../../contexts';
+import { UIContext, WalletContext } from 'contexts';
+/* import hooks */
+import { useReferenceSize } from 'hooks';
 /* import styles */
 import { StyledTopbar, StyledAccountContainer, StyledAccountAddress } from './topbar.styles';
-/* import assets */
-import { PowerOffIcon } from '../../../assets/icons';
 
 const Topbar = () => {
 
+    const topbarRef = useRef(null);
+
     const { account, active } = useWeb3React();
+    const topbarSize = useReferenceSize(topbarRef);
 
     const { ui } = useContext(UIContext);
     const { wallet, walletMethods } = useContext(WalletContext);
 
-    return (
-        <StyledTopbar
-            data-db-el="topbar"
-        >
-            <TopbarBorderSVG 
-                data-db-el="topbar-border-svg"
-            />
-            <DisplayLarge>
-                {ui.activeRoute.label}
-            </DisplayLarge>
-            {active ? (
+    const renderConnectButton = () => {
+        if (ui.isMobile) {return null}
+        if (active) {
+            return (
                 <StyledAccountContainer
                     data-db-el="topbar-account-container"
                 >
-                    <StatusIndicator
-                        status="active"
-                    />
+                    <Tooltip
+                        message="Metamask connected"
+                        position="left-center"
+                    >
+                        <StatusIndicator
+                            status="active"
+                        />
+                    </Tooltip>
                     <Card
                         title={account}
                         color="secundary"
@@ -47,16 +48,34 @@ const Topbar = () => {
                         </StyledAccountAddress>
                     </Card>
                 </StyledAccountContainer>
-            ) : (
-                <Button
-                    color="secundary"
-                    isLoading={wallet.isConnecting}
-                    disabled={wallet.isConnecting}
-                    onClick={ () => walletMethods.connectAccount() }
-                >
-                    connect wallet
-                </Button>
-            )}
+            );
+        }
+        return (
+            <Button
+                variant="offset"
+                color="secundary"
+                isLoading={wallet.isConnecting}
+                disabled={wallet.isConnecting}
+                onClick={ () => walletMethods.connectAccount() }
+            >
+                connect wallet
+            </Button>
+        );
+    };
+
+    return (
+        <StyledTopbar
+            ref={topbarRef}
+            data-db-el="topbar"
+        >
+            <TopbarBorderSVG 
+                data-db-el="topbar-border-svg"
+                parentSize={topbarSize}
+            />
+            <DisplayLarge>
+                {ui.activeRoute.label}
+            </DisplayLarge>
+            {renderConnectButton()}
         </StyledTopbar>
     );
 

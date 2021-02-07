@@ -1,11 +1,8 @@
 import { useWeb3React } from '@web3-react/core';
 
 /* import components */
-import { DisconnectedWalletCard } from '../../common';
-import { Section } from '../../layout';
+import { Section, DisconnectedWalletCard } from 'components/layout';
 import RebaseVariables from './rebase-variables.component';
-/* import context */
-import { SnackbarContext, Tooltip } from '../../common';
 /* import styles */
 import { StyledRebaseView } from './rebase-view.styles';
 
@@ -26,7 +23,6 @@ const RebaseView = ()  => {
 			<Section
 				color="secundary"
 				label="Variables"
-				info="Lorem ipsum"
 			>
 				{renderVariables()}
 			</Section>
