@@ -136,9 +136,9 @@ const DM88Card = () => {
     ];
     const highlightData = [
         {
-            label: 'ABR',
+            label: 'APR',
             value: '330% DEBASE, 40% MPH, 4.8% DAI',
-			tooltip: 'POOL APY'
+			tooltip: 'POOL APR'
         }
     ];
 

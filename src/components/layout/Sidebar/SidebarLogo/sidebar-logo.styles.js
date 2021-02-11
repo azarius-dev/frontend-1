@@ -8,6 +8,7 @@ export const StyledSidebarLogo = styled.div`
     gap: 20px;
     user-select: none;
     text-decoration: none;
+    padding-left: 20px;
 `;
 
 export const StyledImgLogoWrapper = styled.div`

@@ -12,15 +12,9 @@ const SidebarLogo = () => {
     return (
         <Link
             to="/"
-            style={{ textDecoration: 'none' }}
+            style={{ textDecoration: 'none', flexGrow: 1 }}
         >
             <StyledSidebarLogo>
-                <StyledImgLogoWrapper>
-                    <StyledImgLogo 
-                        src={debaseLogoPNG}
-                        alt="Debaseonomics"
-                    />
-                </StyledImgLogoWrapper>
                 <DisplaySmall>
                     <StyledTextLogo>
                         debase

@@ -74,7 +74,7 @@ const DegovDailpCard = () => {
     ];
     const highlightData = [
         {
-            label: 'ABR',
+            label: 'APR',
             value: '80%'
         }
     ];

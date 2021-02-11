@@ -74,7 +74,7 @@ const DaiCard = () => {
     ];
     const highlightData = [
         {
-            label: 'ABR',
+            label: 'APR',
             value: '0%'
         }
     ];

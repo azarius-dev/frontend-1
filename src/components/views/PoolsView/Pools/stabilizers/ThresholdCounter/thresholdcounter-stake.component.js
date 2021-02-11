@@ -12,7 +12,7 @@ import { PoolStake } from 'components/layout';
 /* import context */
 import { SnackbarContext } from 'components/common';
 
-const DegovEthStake = ({ info }) => {
+const ThresholdCounterStake = ({ info }) => {
 
     const { account, library } = useWeb3React();
 
@@ -30,11 +30,11 @@ const DegovEthStake = ({ info }) => {
 
     /* static data */
     const rewardTokenAddress = contractAddress.debase;
-    const stakeTokenAddress = contractAddress.degovEthLp;
-    const poolAddress = contractAddress.degovEthPool;
-    const percents = true;
+    const stakeTokenAddress = contractAddress.debaseDaiLp;
+    const poolAddress = contractAddress.stabilizerPool;
+    const percents = false;
     const unit = 18;
-    const tokenText = 'Degov/Eth-Lp';
+    const tokenText = 'Dai-lp';
     const rewardText = 'Debase';
 
     /* fetch pool data */
@@ -337,4 +337,4 @@ const DegovEthStake = ({ info }) => {
 
 };
 
-export default DegovEthStake;
+export default ThresholdCounterStake;

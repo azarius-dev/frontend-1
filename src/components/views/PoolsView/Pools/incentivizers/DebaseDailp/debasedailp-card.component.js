@@ -74,7 +74,7 @@ const DebaseDailpCard = () => {
     ];
     const highlightData = [
         {
-            label: 'ABR',
+            label: 'APR',
             value: '0%'
         }
     ];
