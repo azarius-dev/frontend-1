@@ -9,7 +9,7 @@ const DisplayLarge = styled.h1.attrs(props => ({
     padding: 0;
     margin: 0;
     font-family: 'bladerunner', sans-serif;
-    font-size: 54px;
+    font-size: 45px;
     font-weight: 500;
     text-transform: lowercase;
     color: ${ props => props.theme.colors.text };

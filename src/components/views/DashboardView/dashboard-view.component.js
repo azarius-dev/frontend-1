@@ -1,11 +1,8 @@
 import { useState, useContext, useEffect } from 'react';
 
-/* import components */
 import { LabeledCard, List, Token } from 'components/common';
 import { Section, TabbedChartCard } from 'components/layout';
-/* import context */
 import { UIContext, TokenDataContext, TokenHistoryContext } from 'contexts';
-/* import styles */
 import { StyledDashboardView, StyledStatisticsGrid, StyledChartsGrid } from './dashboard-view.styles';
 
 const extractTimeRange = (arr, days) => {

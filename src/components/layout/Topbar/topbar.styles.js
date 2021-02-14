@@ -7,8 +7,9 @@ export const StyledTopbar = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 115px;
+    height: 100px;
     padding-left: 60px;
+    padding-top: 10px;
     top: -8px;
     flex-shrink: 0;
     margin: 45px 45px 0 45px;

@@ -29,5 +29,5 @@ export const StyledImgLogo = styled.img`
 `;
 
 export const StyledTextLogo = styled.div`
-    font-size: 26px;
+    font-size: 32px;
 `;

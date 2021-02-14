@@ -5,13 +5,9 @@ import { useWeb3React } from '@web3-react/core';
 import { formatEther } from 'ethers/lib/utils';
 import { Contract } from 'ethers';
 
-/* import components */
 import { Button, List, LabeledCard, Spinner } from 'components/common';
-/* import context */
 import { SnackbarContext } from '../../common';
-/* import styles */
 import { StyledVariablesGrid, StyledRebaseGridItem } from './rebase-view.styles';
-/* import utils */
 import { contractAddress, orchestratorAbi, debasePolicyAbi, uniAbi, fetcher, calcDateDifference } from 'utils';
 
 const RebaseVariables = ()  => {
