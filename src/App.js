@@ -1,24 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import _ from 'lodash';
+import { ThemeProvider } from 'styled-components';
 
 import { getWeb3ReactContext, UnsupportedChainIdError } from '@web3-react/core';
 import { InjectedConnector, NoEthereumProviderError, UserRejectedRequestError } from '@web3-react/injected-connector';
 
-/* import components */
 import { BaseLayout, SideBar, Navigation } from './components/layout';
 import { DashboardView, RebaseView, PoolsView } from './components/views';
-/* import contexts */
-import { RootContext, UIContext, WalletContext, SidepanelProvider, TokenDataContext, TokenHistoryContext } from './contexts';
+import { RootContext, UIContext, WalletContext, SidepanelProvider, TokenDataContext, TokenHistoryContext, TreasuryDataContext } from './contexts';
 import { SnackbarContext, SnackbarProvider } from './components/common';
-import { ThemeProvider } from 'styled-components';
-/* import styles */
 import { GlobalStyle, NormalizerStyle, FontFaces, BackgroundDots, BackgroundGradient, BackgroundDecoration, darktheme } from './theme';
-/* import assets */
 import { DashboardIcon, TuneIcon, AccountTreeIcon } from './assets/icons';
-/* import api */
-import { getDebasePrice, getDegovPrice, getUsdPrice, getDebaseCircSupply, getDegovCircSupply, getRebaseHistory, getDebaseYearHistory } from './api';
-/* import utils */
+import { getDebasePrice, getDegovPrice, getUsdPrice, getDebaseCircSupply, getDegovCircSupply, getRebaseHistory, getDebaseYearHistory, getTreasuryBalance } from './api';
 import { toFinancialNum, toNumberFormat, calcTotalSupply, calcRebasePercentage } from './utils';
 
 const injectedConnector = new InjectedConnector({ supportedChainIds: [1] });
@@ -36,7 +30,8 @@ class App extends React.Component {
 			isMobile: false,
 			isLoading: {
 				tokenData: true,
-				tokenHistory: true
+				tokenHistory: true,
+				treasuryData: true
 			}
 		},
 
@@ -51,6 +46,11 @@ class App extends React.Component {
 		},
 
 		tokenHistory: [],
+
+		treasuryData: {
+			mph88Balance: 0,
+			daiBalance: 0
+		},
 
 		wallet: {
 			isConnecting: false,
@@ -284,6 +284,24 @@ class App extends React.Component {
 			if (callback) {callback()}
 		});
 	}
+	initTreasuryData = async callback => {
+		const treasuryBalance = await getTreasuryBalance();
+		console.log(treasuryBalance);
+
+		this.setState(() => {
+			const prevState = _.cloneDeep(this.state);
+			const { ui, treasuryData } = prevState;
+
+			treasuryData.mph88Balance = treasuryBalance.totalMPHEarned ? toNumberFormat(treasuryBalance.totalMPHEarned * 0.21) : 'err';
+			treasuryData.daiBalance = treasuryBalance.totalDepositByPool && treasuryBalance.totalDepositByPool[0] && treasuryBalance.totalDepositByPool[0].totalActiveDeposit ? toNumberFormat(treasuryBalance.totalDepositByPool[0].totalActiveDeposit * 0.21) : 'err';
+
+			ui.isLoading.treasuryData = false;
+
+			return { ui, treasuryData };
+		}, () => {
+			if (callback) callback();
+		});
+	}
 
 	/* LIFECYCLE */
 	componentDidMount() {
@@ -297,6 +315,7 @@ class App extends React.Component {
 		/* init data */
 		this.initTokenData();
 		this.initTokenHistory();
+		this.initTreasuryData();
 
 	}
 	componentWillUnmount() {
@@ -306,7 +325,7 @@ class App extends React.Component {
 	/* COMPONENT RETURN RENDER */
 	render() {
 
-		const { wallet, ui, tokenData, tokenHistory } = this.state;
+		const { wallet, ui, tokenData, tokenHistory, treasuryData } = this.state;
 		const { rootNode } = this.props;
 
 		const uiMethods = {
@@ -337,13 +356,15 @@ class App extends React.Component {
 							<SnackbarProvider maxQueue={3}>
 								<TokenDataContext.Provider value={{ tokenData }}>
 									<TokenHistoryContext.Provider value={{ tokenHistory }}>
-										<SidepanelProvider>
-											<Router>
-												<BaseLayout sidebar={this.renderSidebar()}>
-													{this.renderViews()}
-												</BaseLayout>
-											</Router>
-										</SidepanelProvider>
+										<TreasuryDataContext.Provider value={{ treasuryData }}>
+											<SidepanelProvider>
+												<Router>
+													<BaseLayout sidebar={this.renderSidebar()}>
+														{this.renderViews()}
+													</BaseLayout>
+												</Router>
+											</SidepanelProvider>
+										</TreasuryDataContext.Provider>
 									</TokenHistoryContext.Provider>
 								</TokenDataContext.Provider>
 							</SnackbarProvider>

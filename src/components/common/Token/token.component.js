@@ -1,4 +1,4 @@
-import { debaseLogoPNG, degovLogoPNG, daiLogoPNG, placeholderTokenPNG } from '../../../assets/img';
+import { debaseLogoPNG, degovLogoPNG, daiLogoPNG, mph88LogoPng, placeholderTokenPNG } from '../../../assets/img';
 
 /* import styles */
 import { StyledToken } from './token.styles';
@@ -33,6 +33,16 @@ const Token = props => {
                 title="Dai"
                 src={daiLogoPNG}
                 alt="Dai"
+                style={{ 
+                    margin: `${gutter}px`
+                }}
+            />
+        )
+        case 'mph88': return (
+            <StyledToken 
+                title="Mph88"
+                src={mph88LogoPng}
+                alt="mph88"
                 style={{ 
                     margin: `${gutter}px`
                 }}

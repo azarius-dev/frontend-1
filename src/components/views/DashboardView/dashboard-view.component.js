@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 
 import { LabeledCard, List, Token } from 'components/common';
 import { Section, TabbedChartCard } from 'components/layout';
-import { UIContext, TokenDataContext, TokenHistoryContext } from 'contexts';
+import { UIContext, TokenDataContext, TokenHistoryContext, TreasuryDataContext } from 'contexts';
 import { StyledDashboardView, StyledStatisticsGrid, StyledChartsGrid } from './dashboard-view.styles';
 
 const extractTimeRange = (arr, days) => {
@@ -13,6 +13,7 @@ const DashboardView = ()  => {
 
     const [ debaseListData, setDebaseListData ] = useState(null);
     const [ degovListData, setDegovListData ] = useState(null);
+    const [ treasuryListData, setTreasuryListData ] = useState(null);
 
     const [ debasePriceChart, setDebasePriceChart ] = useState(null);
     const [ debaseMarketcapChart, setDebaseMarketcapChart ] = useState(null);
@@ -22,6 +23,7 @@ const DashboardView = ()  => {
     const { ui } = useContext(UIContext);
     const { tokenData } = useContext(TokenDataContext);
     const { tokenHistory } = useContext(TokenHistoryContext);
+    const { treasuryData } = useContext(TreasuryDataContext);
 
     /* set token data list values */
     useEffect(() => {
@@ -62,7 +64,6 @@ const DashboardView = ()  => {
             }
         ]);
     }, [tokenData]);
-
     /* set token history chart values */
     useEffect(() => {
         if (!tokenHistory || tokenHistory.length === 0) {return}
@@ -161,6 +162,23 @@ const DashboardView = ()  => {
         ]);
 
     }, [tokenHistory]);
+    /* set treasury data list values */
+    useEffect(() => {
+        if (!treasuryData) {return}
+        const { mph88Balance, daiBalance } = treasuryData;
+        setTreasuryListData([
+            {
+                label: 'MPH88 balance',
+                value: mph88Balance,
+                valueType: 'mph88'
+            },
+            {
+                label: 'Dai balance',
+                value: daiBalance,
+                valueType: 'dai'
+            }
+        ]);
+    }, [treasuryData]);
 
     return (
         <StyledDashboardView>
@@ -184,6 +202,14 @@ const DashboardView = ()  => {
                         color="primary"
                     >
                         <List data={degovListData} />
+                    </LabeledCard>
+                    <LabeledCard
+                        isLoading={ui.isLoading.treasuryData}
+                        label="treasury"
+                        gutter={0}
+                        color="primary"
+                    >
+                        <List data={treasuryListData} />
                     </LabeledCard>
                 </StyledStatisticsGrid>
 			</Section>
