@@ -13,9 +13,7 @@ const TabbedChartCard = props => {
     const [ currentValueY, setCurrentValueY ] = useState(null);
 
     const onChangeValueY = value => {
-        if (value) {
-            setCurrentValueY(value);
-        }
+        setCurrentValueY(value);
     };
 
     const renderTabs = () => {
@@ -55,7 +53,7 @@ const TabbedChartCard = props => {
                     {label}
                 </DisplaySmall>
                 <StyledHeaderCurrentValue>
-                    {currentValueY ? currentValueY.toFixed(2) : ''}
+                    {currentValueY !== null && currentValueY !== undefined ? currentValueY.toFixed(2) : ''}
                     {symbol}
                 </StyledHeaderCurrentValue>
             </StyledCardHeader>

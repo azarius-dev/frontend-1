@@ -161,10 +161,6 @@ const Graph = props => {
         <StyledGraph
             ref={graphRef}
         >   
-            {/*<StyledDebug>
-                <div>{labelX}: {activeValueX}</div>
-                <div>{labelY}: {activeValueY}</div>
-            </StyledDebug>*/}
             <StyledGrid
                 ref={gridRef}
                 onMouseLeave={e => onGridMouseLeave(e)}

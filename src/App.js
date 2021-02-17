@@ -42,7 +42,7 @@ class App extends React.Component {
 
 			degovPrice: 0,
 			degovCircSupply: 0,
-			debaseMarketcap: 0,
+			degovMarketcap: 0,
 		},
 
 		tokenHistory: [],
@@ -286,7 +286,6 @@ class App extends React.Component {
 	}
 	initTreasuryData = async callback => {
 		const treasuryBalance = await getTreasuryBalance();
-		console.log(treasuryBalance);
 
 		this.setState(() => {
 			const prevState = _.cloneDeep(this.state);
