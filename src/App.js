@@ -156,7 +156,7 @@ class App extends React.Component {
 						},
 						{
 							id: 'rebase-view',
-							label: 'Rebas',
+							label: 'Reba',
 							icon: <TuneIcon />,
 							link: '/rebase'
 						},
