@@ -1,9 +1,10 @@
+import { useContext } from 'react';
 import useSWR from 'swr';
 import { formatEther } from 'ethers/lib/utils';
 import { useWeb3React } from '@web3-react/core';
 import { contractAddress, fetcher, incentivizerAbi, lpAbi } from 'utils';
 
-/* import components */
+import { TokenDataContext } from 'contexts';
 import { Spinner } from 'components/common';
 import { PoolCard } from 'components/layout';
 import DegovEthStake from './degoveth-stake.component';
@@ -12,6 +13,7 @@ const DegovEthCard = () => {
     
     const contract = contractAddress.debaseDaiPool;
     const { library } = useWeb3React();
+    const { tokenData } = useContext(TokenDataContext);
 
     /* static data */
     const poolTooltip = 'Incentivizes holding Degov Eth LP by giving debase as a continuous reward';
@@ -46,8 +48,14 @@ const DegovEthCard = () => {
 		fetcher: fetcher(library, lpAbi)
 	});
 
+    const { data: debaseTotalSupply } = useSWR([ contractAddress.debase, 'totalSupply' ], {
+		fetcher: fetcher(library, incentivizerAbi)
+	});
+
     /* calculate data */
-    
+    /*const calcAPR = () => {
+        if (tokenData.debasePrice && debaseTotalSupply && rewardPercentage && totalSupply)
+    };*/
 
     /* list data */
     const linkData = [
