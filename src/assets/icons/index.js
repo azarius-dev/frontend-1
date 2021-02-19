@@ -16,7 +16,16 @@ import {
     CloseIcon,
     HelpIcon
 } from './material-outline.icons';
+import { 
+    GithubIcon,
+    MediumIcon,
+    TelegramIcon,
+    TwitterIcon,
+    DiscordIcon
+} from './fontawesome.icons';
 export {
+
+    // material
     AddIcon,
     AccountBalanceWalletIcon,
     ContentCopyIcon,
@@ -32,5 +41,12 @@ export {
     AccountTreeIcon,
     TouchAppIcon,
     CloseIcon,
-    HelpIcon
+    HelpIcon,
+
+    // fontawesome
+    GithubIcon,
+    MediumIcon,
+    TelegramIcon,
+    TwitterIcon,
+    DiscordIcon
 };

@@ -1,6 +1,20 @@
 {
-    "compilerOptions": {
-        "baseUrl": "src"
+	"compilerOptions": {
+		"target": "esnext",
+		"baseUrl": "./src",
+		"jsx": "react",
+		"paths": {
+			"@api/*": ["./api/*"],
+			"@assets/*": ["./assets/*"],
+			"@constants/*": ["./constants/*"],
+			"@core/*": ["./core/*"],
+			"@domains/*": ["./domains/*"],
+			"@hooks/*": ["./hooks/*"],
+			"@styles/*": ["./styles/*"],
+			"@utils/*": ["./utils/*"],
+			
+			"@dapp/*": ["./domains/Dapp/*"]
+		}
     },
-    "include": ["src"]
-  }
+    "exclude": ["node_modules", "**/node_modules/*", "build"]
+}
