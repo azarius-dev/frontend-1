@@ -1,17 +1,5 @@
-import styled, { css, keyfram@common/feedback/Spinner/styled-componentsn/Spinner/styled-components';
-@common/feedback/Spinner/@animations
-
-const rotateCounterClockwise = keyframes`
-    0% {
-        transform: rotate(0deg);
-    }
-    50% {
-        transform: rotate(-180deg);
-    }
-    100% {
-        transform: rotate(-360deg);
-    }
-`;
+import styled, { css } from 'styled-components';
+import { rotate } from '@core/animations';
 
 /* sizes */
 const sizes = {
@@ -28,8 +16,8 @@ const sizes = {
         height: 32px;
     `,
     large: css`
-        width: 40px;
-        height: 40px;
+        width: 48px;
+        height: 48px;
     `,
 };
 
@@ -43,11 +31,12 @@ export const StyledSpinner = styled.div`
 
 export const StyledSpinnerSVG = styled.svg`
     position: relative;
-    stroke: ${ props => props.theme.colors[props.color] };
-    stroke-width: 6px;
+    stroke: ${props => props.theme.colors[props.color]};
+    stroke-width: 4px;
     stroke-dasharray: 50px;
+    stroke-linecap: round;
     transform-origin: center center;
-    animation: ${rotateCounterClockwise} .9s linear infinite;
+    animation: ${rotate} .9s linear infinite reverse;
 `;
 export const StyledCircle = styled.circle`
     position: relative;

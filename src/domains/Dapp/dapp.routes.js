@@ -1,37 +1,53 @@
-import { DashboardIcon, TuneIcon, AccountTreeIcon } from '@assets';
-import { Dashboard, Pools, Rebase } from '@dapp/views';
+import {
+    DashboardIcon,
+    TuneIcon,
+    AccountTreeIcon
+} from '@assets';
+import {
+    Dashboard,
+    Pools,
+    Rebase,
+    Roadmap,
+    Faq
+} from '@dapp/views';
 
-const dappRoutes = Object.freeze({
-    DASHBOARD: {
+const DAPP_ROUTES = [
+    {
         label: 'dashboard',
         path: '/',
-        icon: DashboardIcon,
-        component: Dashboard
+        icon: <DashboardIcon />,
+        component: <Dashboard />
     },
-    POOLS: {
-        name: 'pools',
+    {
+        label: 'pools',
         path: '/pools',
-        icon: AccountTreeIcon,
-        component: Pools,
-        subroutes: {
-            DEBUG1: {
-                name: 'debug1',
+        icon: <AccountTreeIcon />,
+        component: <Pools />,
+        subroutes: [
+            {
+                label: 'debug1',
                 path: '/pools/debug1',
                 component: <div>debu1g</div>
             },
-            DEBUG2: {
-                name: 'debug2',
+            {
+                label: 'debug2',
                 path: '/pools/debug2',
                 component: <div>debu2g</div>
             }
-        }
+        ]
     },
-    REBASE: {
-        name: 'rebase',
+    {
+        label: 'rebase',
         path: '/rebase',
-        icon: TuneIcon,
-        component: Rebase
+        icon: <TuneIcon />,
+        component: <Rebase />
+    },
+    {
+        label: 'dev',
+        path: '/dev',
+        icon: <TuneIcon />,
+        component: <Faq />
     }
-});
+];
 
-export default dappRoutes;
+export default DAPP_ROUTES;

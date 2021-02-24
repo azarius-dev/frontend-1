@@ -1,3 +1,3 @@
-import React from '@domains/Dapp/contexts/react';
+import React from 'react';
 const UIContext = React.createContext([]);
 export default UIContext;

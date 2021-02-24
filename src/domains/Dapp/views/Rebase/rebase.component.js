@@ -1,34 +1,28 @@
-import { useWeb3React } from '@domains/Dapp/views/Rebase/@web3-react/core';
+import { Fragment } from 'react';
+import { useWeb3React } from '@web3-react/core';
 
-/* import components */
-import { Section, DisconnectedWalletCard } from '@domains/Dapp/views/Rebase/@domains/Dapp/views/Dashboard/components/layout';
+import { Section, DisconnectedWalletCard } from '@dapp/components';
+
 import RebaseVariables from './components/rebase-variables.component';
-/* import styles */
-import { StyledRebaseView } from './rebase.styles';
+import { StyledRebase, StyledGridItem } from './rebase.styles';
 
-const RebaseView = ()  => {
+const Rebase = ()  => {
 
 	const { active } = useWeb3React();
 
-	/* conditional renders */
 	const renderVariables = () => {
 		if (!active) return <DisconnectedWalletCard />
 		return <RebaseVariables />
 	};
 
     return (
-        <StyledRebaseView
-			data-db-el="view-rebase"
-		>
-			<Section
-				color="secundary"
-				label="Variables"
-			>
+        <Fragment>
+			<Section label="Variables">
 				{renderVariables()}
 			</Section>
-        </StyledRebaseView>
+        </Fragment>
     );
 
 };
 
-export default RebaseView;
+export default Rebase;

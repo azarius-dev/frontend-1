@@ -1,4 +1,4 @@
-import styled, { css } from '@common/input/Input/styled-components';
+import styled, { css } from 'styled-components';
 
 const sizes = {
     small: css`
@@ -13,10 +13,9 @@ const sizes = {
         }
     `,
     normal: css`
-        height: 32px;
-        padding-left: 12px;
-        padding-right: 12px;
-        font-size: 14px;
+        height: 50px;
+        padding: 0 20px;
+        font-size: 16px;
         font-weight: 600;
 
         svg {
@@ -60,11 +59,12 @@ export const StyledInput = styled.input`
     box-sizing: border-box;
     flex-grow: 1;
     position: relative;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    line-height: 100%;
     color: ${ props => props.theme.colors.text };
-    background-color: ${ props => props.theme.colors.background };
-    border: 2px solid ${ props => props.theme.colors.text };
+    background-color: ${props => props.theme.colors.secundary}0D;
+    border: 1px solid ${props => props.theme.colors.text}44;
     border-radius: 10px;
     outline: none;
     transition: .1s ease border, background-color;
@@ -81,11 +81,12 @@ export const StyledInput = styled.input`
     }
 
     &:hover {
-        border: 2px solid ${ props => props.theme.colors.primary };
+        border: 1px solid ${ props => props.theme.colors.secundaryLight };
     }
 
     &:focus {
-        border: 2px solid ${ props => props.theme.colors.primary };
+        border: 1px solid ${props => props.theme.colors.secundaryLight};
+        box-shadow: ${props => props.theme.shadows.secundary};
     }
 
     ${ props => sizes[props.size] }

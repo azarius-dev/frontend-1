@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from '@common/navigation/Tabs/react';
+import React, { useState, useEffect } from 'react';
 
 /* import styles */
 import { StyledTabs, StyledTabsNavigation, StyledTabButton, StyledTabContent } from './tabs.styles';

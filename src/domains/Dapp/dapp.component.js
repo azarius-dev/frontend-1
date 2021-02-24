@@ -1,30 +1,46 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import _ from 'lodash';
-
 import { getWeb3ReactContext, UnsupportedChainIdError } from '@web3-react/core';
 import { InjectedConnector, NoEthereumProviderError, UserRejectedRequestError } from '@web3-react/injected-connector';
 
-import { dappRoutes } from '@/dapp.routes';
-
-import { SideBar, Navigation } from '@dapp/components';
-import { UIContext, WalletContext, TokenDataContext, TokenHistoryContext, TreasuryDataContext } from './contexts';
-import { getDebasePrice, getDegovPrice, getUsdPrice, getDebaseCircSupply, getDegovCircSupply, getRebaseHistory, getDebaseYearHistory, getTreasuryBalance } from '@api';
-import { toFinancialNum, toNumberFormat, calcTotalSupply, calcRebasePercentage } from '@utils';
-
-import { StyledDapp } from './dapp.styles';
+import {
+	getDebasePrice,
+	getDegovPrice,
+	getUsdPrice,
+	getDebaseCircSupply,
+	getDegovCircSupply,
+	getRebaseHistory,
+	getDebaseYearHistory,
+	getTreasuryBalance
+} from '@api';
+import { parseFloatFixed, parseNumToUsFormat } from '@utils';
+import { Background, Sidebar, Navigation, Topbar } from '@dapp/components';
+import {
+	UIContext,
+	WalletContext,
+	TokenDataContext,
+	TokenHistoryContext,
+	TreasuryDataContext
+} from '@dapp/contexts';
+import { calcRebasePercentage, calcTotalSupply } from '@dapp/utils';
+import DAPP_ROUTES from './dapp.routes';
+import {
+	StyledDapp,
+	StyledPage,
+	StyledPageInner,
+	StyledContent
+} from './dapp.styles';
 
 const injectedConnector = new InjectedConnector({ supportedChainIds: [1] });
 
-/* component declaration */
-class App extends React.Component {
+class Dapp extends React.Component {
 
 	static contextType = getWeb3ReactContext();
 
 	/* GLOBAL STATE */
 	state = {
 		ui: {
-			theme: 'dark',
 			activeRoute: {},
 			isMobile: false,
 			isLoading: {
@@ -60,23 +76,26 @@ class App extends React.Component {
 	}
 
 	/* UI LOGIC */
-	changeActiveRoute = data => {
-		const prevState = _.cloneDeep(this.state);
-		const { ui } = prevState;
-		ui.activeRoute = data;
-		this.setState(prevState => {
-			//const prevState = _.cloneDeep(this.state);
-			const { ui } = prevState;
-			ui.activeRoute = data;
-			return { ui }
-		});
-	};
 	detectMobileViewport = e => {
 		this.setState(() => {
 			const prevState = _.cloneDeep(this.state);
 			const { ui } = prevState;
 			ui.isMobile = window.innerWidth < 576;
 			return { ui };
+		});
+	};
+	detectActiveRoute = path => {
+		const localPath = path !== undefined ? path : window.location.pathname;
+		const strippedLocalPath = localPath.split('/')[1];
+		const index = DAPP_ROUTES.findIndex(route => route.path.split('/')[1] === strippedLocalPath);
+		this.setState(prevState => {
+			const { ui } = prevState;
+			if (index === -1) {
+				ui.activeRoute = DAPP_ROUTES[0]
+			} else {
+				ui.activeRoute = DAPP_ROUTES[index];
+			}
+			return { ui }
 		});
 	};
 
@@ -154,14 +173,14 @@ class App extends React.Component {
 			const prevState = _.cloneDeep(this.state);
 			const { ui, tokenData } = prevState;
 
-			tokenData.debasePrice = debasePrice !== 0 ? toFinancialNum(debasePrice) : 'err';
-			tokenData.degovPrice = debasePrice !== 0 ? toFinancialNum(degovPrice * UsdPrice) : 'err';
+			tokenData.debasePrice = debasePrice !== 0 ? parseFloatFixed(debasePrice) : 'err';
+			tokenData.degovPrice = debasePrice !== 0 ? parseFloatFixed(degovPrice * UsdPrice) : 'err';
 
-			tokenData.debaseCircSupply = toNumberFormat(debaseCircSupply);
-			tokenData.degovCircSupply = toNumberFormat(degovCircSupply);
+			tokenData.debaseCircSupply = parseNumToUsFormat(debaseCircSupply);
+			tokenData.degovCircSupply = parseNumToUsFormat(degovCircSupply);
 
-			tokenData.debaseMarketcap = debasePrice !== 0 ? toNumberFormat(debasePrice * debaseCircSupply) : 'err';
-			tokenData.degovMarketcap = debasePrice !== 0 ? toNumberFormat(degovPrice * UsdPrice * degovCircSupply) : 'err';
+			tokenData.debaseMarketcap = debasePrice !== 0 ? parseNumToUsFormat(debasePrice * debaseCircSupply) : 'err';
+			tokenData.degovMarketcap = debasePrice !== 0 ? parseNumToUsFormat(degovPrice * UsdPrice * degovCircSupply) : 'err';
 
 			ui.isLoading.tokenData = false;
 
@@ -196,7 +215,7 @@ class App extends React.Component {
 			const [ timestamp, price ] = day;
 			const date = new Date(timestamp).toLocaleDateString();
 			const index = yearHistory.findIndex(obj => obj.date === date);
-			yearHistory[index].price = parseFloat(toFinancialNum(price));
+			yearHistory[index].price = parseFloat(parseFloatFixed(price));
 		});
 
 		/* marketcap */
@@ -245,8 +264,8 @@ class App extends React.Component {
 			const prevState = _.cloneDeep(this.state);
 			const { ui, treasuryData } = prevState;
 
-			treasuryData.mph88Balance = treasuryBalance.totalMPHEarned ? toNumberFormat(treasuryBalance.totalMPHEarned * 0.21) : 'err';
-			treasuryData.daiBalance = treasuryBalance.totalDepositByPool && treasuryBalance.totalDepositByPool[0] && treasuryBalance.totalDepositByPool[0].totalActiveDeposit ? toNumberFormat(treasuryBalance.totalDepositByPool[0].totalActiveDeposit * 0.21) : 'err';
+			treasuryData.mph88Balance = treasuryBalance.totalMPHEarned ? parseNumToUsFormat(treasuryBalance.totalMPHEarned * 0.21) : 'err';
+			treasuryData.daiBalance = treasuryBalance.totalDepositByPool && treasuryBalance.totalDepositByPool[0] && treasuryBalance.totalDepositByPool[0].totalActiveDeposit ? parseNumToUsFormat(treasuryBalance.totalDepositByPool[0].totalActiveDeposit * 0.21) : 'err';
 
 			ui.isLoading.treasuryData = false;
 
@@ -261,6 +280,7 @@ class App extends React.Component {
 
 		this.detectMobileViewport();
 		this.detectActiveAccount();
+		this.detectActiveRoute();
 
 		/* detect if mobile device viewport */
 		window.addEventListener('resize', this.detectMobileViewport);
@@ -281,7 +301,7 @@ class App extends React.Component {
 		const { wallet, ui, tokenData, tokenHistory, treasuryData } = this.state;
 
 		const uiMethods = {
-			changeActiveRoute: this.changeActiveRoute
+			detectActiveRoute: this.detectActiveRoute
 		};
 
 		const walletMethods = {
@@ -298,22 +318,37 @@ class App extends React.Component {
 						<TokenHistoryContext.Provider value={{ tokenHistory }}>
 							<TreasuryDataContext.Provider value={{ treasuryData }}>
 
+								<Background />
 								<StyledDapp>
-									<Sidebar />
-									<StyledDappContent>
-										<Topbar />
-										<Router>
-											<Switch>
-												{dappRoutes.map((route, i) => (
-													<Route
-														key={route.label + i}
-														path={route.path}
-														render={route.component}
-													/>
-												))}
-											</Switch>
-										</Router>
-									</StyledDappContent>
+									<Router>
+										<Sidebar>
+											<Navigation routes={DAPP_ROUTES} />
+										</Sidebar>
+										<StyledPage>
+											<StyledPageInner>
+												<Topbar routes={DAPP_ROUTES} />
+												<StyledContent>
+													<Switch>
+														{DAPP_ROUTES.map((route, i) => {
+															const { label, path, component, subroutes } = route;
+															if (i === 0) return;
+															return (
+																<Route
+																	key={label}
+																	path={path}
+																>
+																	{component}
+																</Route>
+															);
+														})}
+														<Route path={DAPP_ROUTES[0].path}>
+															{DAPP_ROUTES[0].component}
+														</Route>
+													</Switch>
+												</StyledContent>
+											</StyledPageInner>
+										</StyledPage>
+									</Router>
 								</StyledDapp>
 
 							</TreasuryDataContext.Provider>
@@ -326,4 +361,18 @@ class App extends React.Component {
 
 }
 
-export default App;
+export default Dapp;
+
+/*
+{subroutes && subroutes.length !== 0 && subroutes.map((subroute, i) => {
+																		return (
+																			<Route
+																				key={subroute.label}
+																				path={subroute.path}
+																			>
+																				{subroute.component}
+																			</Route>
+																		)
+																	})}
+																	{subroutes && subroutes.length > 0 && component}
+																	*/

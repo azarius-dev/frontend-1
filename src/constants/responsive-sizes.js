@@ -1,2 +1,0 @@
-export const DEVICE_MOBILE_WIDTH = 576;
-export const DEVICE_TABLET_WIDTH = 992;

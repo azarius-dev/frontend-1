@@ -1,11 +1,15 @@
-import React from '@common/feedback/Spinner/react';
+import React from 'react';
 
-/* import styles */
-import { StyledSpinner, StyledSpinnerSVG, StyledCircle } from './spinner.styles';
+import {
+    StyledSpinner,
+    StyledSpinnerSVG,
+    StyledCircle
+} from './spinner.styles';
 
-const Spinner = props => {
-
-    const { size, color } = props;
+const Spinner = ({
+    size = 'medium',
+    color = 'text'
+}) => {
 
     return (
         <StyledSpinner
@@ -28,11 +32,6 @@ const Spinner = props => {
         </StyledSpinner>
     );
 
-}
-
-Spinner.defaultProps = {
-    size: 'small',
-    color: 'text'
 };
 
 export default Spinner;

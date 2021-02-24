@@ -1,23 +1,26 @@
-import { Button, IconButton, ContextMenu, TreeView, TreeItem, TreeList } from './controls';
-import { Banner, Dialog, Snackbar, Spinner, Loader, Tooltip, Backdrop } from './feedback';
+import { Button, IconButton } from './controls';
+import { Graph, List, Timeline, Countdown, Progress } from './data';
+import { Banner, Snackbar, Spinner, Tooltip, Backdrop } from './feedback';
 import { FormField, Input, Slider, Switch } from './input';
-import { Card, Modal, SidePanel } from './layout';
+import { Card, Flexbox } from './layout';
 import { Tabs, Tab } from './navigation';
-import { DisplaySmall, DisplayMedium, DisplayLarge, TextSmall, TextMedium, TextLarge } from './typography';
+import { DisplaySmall, DisplayMedium, DisplayLarge, TextMini, TextSmall, TextMedium, TextLarge } from './typography';
 import { Portal } from './utils';
 export { 
     // CONTROLS
-    Button, IconButton, ContextMenu, TreeView, TreeItem, TreeList,
+    Button, IconButton,
+    // DATA
+    Graph, List, Timeline, Countdown, Progress,
     // FEEDBACK
-    Banner, Dialog, Snackbar, Spinner, Loader, Tooltip, Backdrop,
+    Banner, Snackbar, Spinner, Tooltip, Backdrop,
     // INPUT
     FormField, Input, Slider, Switch,
     // LAYOUT
-    Card, Modal, SidePanel,
+    Card, Flexbox,
     // NAVIGATION
     Tabs, Tab,
     // TYPOGRAPHY
-    DisplaySmall, DisplayMedium, DisplayLarge, TextSmall, TextMedium, TextLarge,
+    DisplaySmall, DisplayMedium, DisplayLarge, TextMini, TextSmall, TextMedium, TextLarge,
     // UTILS
     Portal
 };

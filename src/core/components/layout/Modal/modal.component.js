@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 
-import { IconButton, DisplayMedium } from '@common';
-import { CloseIcon, ChevronRightIcon } from '@domains/Dapp/components/DisconnectedWalletCard/domains/Dapp/layout/Sidepanel/assets/icons';
-import { clampNum } from 'utils';
+import { IconButton, DisplayMedium } from '@core/components';
+import { CloseIcon } from '@assets';
+import { clampNum } from '@utils';
 import {
     StyledModal,
     StyledModalHeader,
@@ -11,7 +11,7 @@ import {
     StyledModalActions,
     StyledModalResizer
 } from './modal.styles';
-import useClickOutside from 'hooks/use-clickoutside.hook';
+import useClickOutside from '@hooks';
 
 const Modal = ({
     children,

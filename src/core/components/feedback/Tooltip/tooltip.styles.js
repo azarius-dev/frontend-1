@@ -1,4 +1,4 @@
-import styled from '@common/feedback/Tooltip/styled-components';
+import styled from 'styled-components';
 
 export const StyledTooltipWrapper = styled.div`
 
@@ -21,10 +21,11 @@ export const StyledTooltip = styled.div`
     display: flex;
     flex-direction: column;
     background-color: ${props => props.theme.colors.background};
-    border: 1px solid ${ props => props.theme.colors.secundary };
-    border-radius: 5px;
+    border: 2px solid ${props => props.theme.colors.secundaryLight};
+    box-shadow: ${props => props.theme.shadows.secundary};
+    border-radius: 10px;
     max-width: 300px;
-    padding: 10px;
+    padding: 8px 12px;
     font-size: 14px;
     line-height: 150%;
     user-select: none;

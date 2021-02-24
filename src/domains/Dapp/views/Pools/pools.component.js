@@ -1,18 +1,16 @@
-import React from '@domains/Dapp/views/Pools/react';
-import { useWeb3React } from '@domains/Dapp/views/Pools/@web3-react/core';
+import React, { Fragment } from 'react';
+import { useWeb3React } from '@web3-react/core';
 
-/* import components */
-import { Section, DisconnectedWalletCard } from '@domains/Dapp/views/Pools/domains/Dapp/views/DashboardView/components/layout';
-import { DegovDailpCard, DaiCard, DebaseDailpCard, DegovEthCard, DM88Card } from './Pools/incentivizers';
-import { ThresholdCounterCard, ThresholdCounterV2Card } from './Pools/stabilizers';
-/* import styles */
-import { StyledPoolsView, StyledGridsWrapper, StyledPoolsGrid } from './pools.styles';
+import { Section, DisconnectedWalletCard, Grid } from '@dapp/components';
+/*import { DegovDailpCard, DaiCard, DebaseDailpCard, DegovEthCard, DM88Card } from './Pools/incentivizers';
+import { ThresholdCounterCard, ThresholdCounterV2Card } from './Pools/stabilizers';*/
+import { StyledPools } from './pools.styles';
 
-const PoolsView = ()  => {
+const Pools = ()  => {
 
     const { active } = useWeb3React();
 
-    const renderIncentivizerPools = () => {
+    /*const renderIncentivizerPools = () => {
         if (!active) return <DisconnectedWalletCard />;
         return (
             <React.Fragment>
@@ -42,27 +40,19 @@ const PoolsView = ()  => {
                 <ThresholdCounterV2Card />
             </StyledPoolsGrid>
         )
-    };
+    };*/
 
     return (
-        <StyledPoolsView>
-            <Section
-                color="secundary"
-                label="Incentivizers"
-            >
-                <StyledGridsWrapper>
-                    {renderIncentivizerPools()}
-                </StyledGridsWrapper>
+        <Fragment>
+            <Section label="Incentivizers">
+                <DisconnectedWalletCard />
             </Section>
-            <Section
-                color="secundary"
-                label="Stabilizers"
-            >
-                {renderStabilizerPools()}
+            <Section label="Stabilizers">
+                <DisconnectedWalletCard />
             </Section>
-        </StyledPoolsView>
+        </Fragment>
     );
 
 };
 
-export default PoolsView;
+export default Pools;

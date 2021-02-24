@@ -1,10 +1,9 @@
-import styled, { css } from '@common/navigation/Tabs/styled-components';
+import styled, { css } from 'styled-components';
 
 export const StyledTabs = styled.div`
     position: relative;
     display: flex;
     width: 100%;
-    height: 100%;
 
     ${ props => props.horizontal ? css`
         flex-direction: column;
@@ -43,10 +42,11 @@ export const StyledTabButton = styled.div`
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    background-color: ${ props => props.theme.background };
+    background-color: ${ props => props.theme.colors.background };
     font-size: 14px;
     font-weight: 700;
     transition: .1s ease all;
+    user-select: none;
 
     ${ props => props.outlined ? css`
         align-items: flex-start;
@@ -68,20 +68,20 @@ export const StyledTabButton = styled.div`
         padding: 0 14px;
         font-weight: 600;
         border-radius: 50px;
-        box-shadow: ${ props => props.theme.shadows.small };
+        box-shadow: ${ props => props.theme.shadows.textSmall };
 
         &:hover {
-            background-color: ${ props => props.theme.input };
+            background-color: ${ props => props.theme.colors.input };
         }
 
     ` : '' }
 
     ${ props => props.pills && props.active ? css`
-        background-color: ${ props => props.theme.primary }!important;
-        border: 1px solid ${ props => props.theme.primary };
-        color: ${ props => props.theme.textInvert };
-        fill: color: ${ props => props.theme.textInvert };
-        box-shadow: ${ props => props.theme.shadows.primary };
+        background-color: ${ props => props.theme.colors.primary }!important;
+        border: 1px solid ${ props => props.theme.colors.primary };
+        color: ${ props => props.theme.colors.textInvert };
+        fill: color: ${ props => props.theme.colors.textInvert };
+        box-shadow: ${ props => props.theme.colors.shadows.primary };
     ` : '' }
 
 `;

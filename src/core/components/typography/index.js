@@ -1,3 +1,3 @@
 import { DisplaySmall, DisplayMedium, DisplayLarge } from './display';
-import { TextSmall, TextMedium, TextLarge } from './text';
-export { DisplaySmall, DisplayMedium, DisplayLarge, TextSmall, TextMedium, TextLarge };
+import { TextMini, TextSmall, TextMedium, TextLarge } from './text';
+export { DisplaySmall, DisplayMedium, DisplayLarge, TextMini, TextSmall, TextMedium, TextLarge };

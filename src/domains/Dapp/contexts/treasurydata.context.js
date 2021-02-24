@@ -1,3 +1,3 @@
-import React from '@domains/Dapp/contexts/react';
+import React from 'react';
 const TreasuryDataContext = React.createContext([]);
 export default TreasuryDataContext;

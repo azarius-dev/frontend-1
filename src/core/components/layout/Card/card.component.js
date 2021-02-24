@@ -1,27 +1,35 @@
-import { useState, useRef, useEffect } from '@common/layout/Card/react';
+import { useState, useRef, useEffect } from 'react';
 
-/* import components */
-import { Loader } from '../../common';
-/* import styles */
-import { StyledCard, StyledBackground, StyledBorder, StyledActiveBorderSVG, StyledActiveBorderSVGRect, StyledContent, StyledLoader } from './card.styles';
-
-const Card = props => {
-
-    const { status, color, gutter, minHeight, isLoading, activeParts, children } = props;
+import { Spinner } from '@core/components';
+import {
+    StyledCard,
+    StyledBackground,
+    StyledBorder,
+    StyledActiveBorderSVG,
+    StyledActiveBorderSVGRect,
+    StyledContent,
+    StyledLoader
+} from './card.styles';
+const Card = ({
+    children,
+    color = "primary",
+    gutter,
+    minHeight,
+    isActive = false,
+    isLoading = false,
+    activeParts
+}) => {
 
     const [ cardSize, setCardSize ] = useState(null);
     const cardRef = useRef(null);
 
     const renderActiveBorder = () => {
-        if (!status || status !== 'active' || !cardSize) {return null}
+        if (!isActive || !cardSize) {return null}
         const width = cardSize.w;
         const height = cardSize.h;
         const circumference = (width + height - 10) * 2;
         return (
-            <StyledActiveBorderSVG
-                data-db-el="card-active-border-svg"
-                color={color}
-            >
+            <StyledActiveBorderSVG color={color}>
                 <StyledActiveBorderSVGRect
                     x="2"
                     y="2"
@@ -48,17 +56,11 @@ const Card = props => {
         if (isLoading) {
             return (
                 <StyledLoader>
-                    <Loader size="medium" />
+                    <Spinner />
                 </StyledLoader>
             );
         } else {
-            return (
-                <StyledContent
-                    data-db-el="card-content"
-                >
-                    {children}
-                </StyledContent>
-            );
+            return children;
         }
     };
 
@@ -80,25 +82,13 @@ const Card = props => {
     return (
         <StyledCard
             ref={cardRef}
-            data-db-el="card"
             color={color}
-            status={status}
+            isActive
             style={{
                 'padding': `${gutter}px`,
                 'minHeight': `${minHeight}px`
             }}
         >
-            <StyledBackground 
-                data-db-el="card-background"
-                color={color}
-            />
-            <StyledBorder 
-                data-db-el="card-border"
-                color={color}
-                style={{
-                    opacity: status === 'inactive' ? .2 : 1
-                }}
-            />
             {renderActiveBorder()}
             {renderContent()}
         </StyledCard>
@@ -110,8 +100,6 @@ Card.defaultProps = {
     status: 'idle',
     gutter: 1,
     minHeight: 0,
-    color: 'text',
-    isLoading: false,
     activeParts: 8
 };
 

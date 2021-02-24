@@ -1,15 +1,15 @@
-import { useState, useContext, useEffect } from '@domains/Dapp/views/Dashboard/react';
+import { Fragment, useState, useContext, useEffect } from 'react';
 
-import { LabeledCard, List, Token } from '@domains/Dapp/views/Dashboard/domains/Dapp/layout/Sidepanel/domains/Dapp/layout/PoolStake/domains/Dapp/views/DashboardView/components/common';
-import { Section, TabbedChartCard } from '@domains/Dapp/views/Dashboard/components/layout';
-import { UIContext, TokenDataContext, TokenHistoryContext, TreasuryDataContext } from '@domains/Dapp/views/Dashboard/domains/Dapp/layout/Sidepanel/domains/Dapp/views/DashboardView/contexts';
-import { StyledDashboardView, StyledStatisticsGrid, StyledChartsGrid } from './dashboard.styles';
+import { List } from '@core/components';
+import { Section, TabbedChartCard, LabeledCard, Token, Grid } from '@dapp/components';
+import { UIContext, TokenDataContext, TokenHistoryContext, TreasuryDataContext } from '@dapp/contexts';
+import { StyledDashboard } from './dashboard.styles';
 
 const extractTimeRange = (arr, days) => {
     return arr.slice(Math.max(arr.length - days, 0));
 };
 
-const DashboardView = ()  => {
+const Dashboard = () => {
 
     const [ debaseListData, setDebaseListData ] = useState(null);
     const [ degovListData, setDegovListData ] = useState(null);
@@ -181,12 +181,9 @@ const DashboardView = ()  => {
     }, [treasuryData]);
 
     return (
-        <StyledDashboardView>
-            <Section
-				color="secundary"
-                label="current statistics"
-			>
-                <StyledStatisticsGrid>
+        <Fragment>
+            <Section label="current statistics">
+                <Grid>
                     <LabeledCard
                         isLoading={ui.isLoading.tokenData}
                         label="debase"
@@ -211,13 +208,10 @@ const DashboardView = ()  => {
                     >
                         <List data={treasuryListData} />
                     </LabeledCard>
-                </StyledStatisticsGrid>
+                </Grid>
 			</Section>
-            <Section
-				color="secundary"
-                label="charts"
-			>
-                <StyledChartsGrid>
+            <Section label="charts">
+                <Grid>
                     <TabbedChartCard 
                         isLoading={ui.isLoading.tokenHistory}
                         label="price"
@@ -258,11 +252,11 @@ const DashboardView = ()  => {
                         symbol="%"
                         tabsData={debaseRebaseChart}
                     />
-                </StyledChartsGrid>
+                </Grid>
 			</Section>
-        </StyledDashboardView>
+        </Fragment>
     );
 
 };
 
-export default DashboardView;
+export default Dashboard;

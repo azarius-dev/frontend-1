@@ -8,9 +8,8 @@
 			"@assets/*": ["./assets/*"],
 			"@constants/*": ["./constants/*"],
 			"@core/*": ["./core/*"],
-			"@domains/*": ["./domains/*"],
 			"@hooks/*": ["./hooks/*"],
-			"@styles/*": ["./styles/*"],
+			"@theme/*": ["./theme/*"],
 			"@utils/*": ["./utils/*"],
 			
 			"@dapp/*": ["./domains/Dapp/*"]

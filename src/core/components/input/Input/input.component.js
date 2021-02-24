@@ -1,10 +1,25 @@
-import React, { useState, useEffect, useRef } from '@common/input/Input/react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { StyledInputContainer, StyledInput, StyledAdornment } from './input.styles';
 
-const Input = props => {
-
-    const { id, type, value, status, min, max, placeholder, size, adornments, forceLowerCase, forceRemoveSpecialChars, isFocused, onFocus, onChange, onBlur, style } = props;
+const Input = ({
+    id,
+    type,
+    value,
+    status,
+    min,
+    max,
+    placeholder,
+    size = 'medium',
+    adornments,
+    forceLowerCase,
+    forceRemoveSpecialChars,
+    isFocused,
+    onFocus,
+    onChange,
+    onBlur,
+    style
+}) => {
 
     const [ localValue, setLocalValue ] = useState(value);
     const inputRef = useRef(null);

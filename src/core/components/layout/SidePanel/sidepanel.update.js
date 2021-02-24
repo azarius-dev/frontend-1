@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import { IconButton, DisplayMedium } from '@common';
+import { IconButton, DisplayMedium } from '@domains/Dapp/components/layout/Topbar/@common';
 import { clampNum } from 'utils';
-import { CloseIcon, ResizeHorizontalIcon, PinIcon } from '@domains/Dapp/components/DisconnectedWalletCard/domains/Dapp/layout/Sidepanel/assets/icons';
+import { CloseIcon, ResizeHorizontalIcon, PinIcon } from '@domains/Dapp/components/layout/Section/@assets';
 
 import {
     StyledPanel,

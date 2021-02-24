@@ -1,12 +1,12 @@
-import { useState, useEffect, useContext, useRef } from '@common/feedback/Tooltip/react';
-import { createPortal } from '@common/feedback/Tooltip/react-dom';
+import { useState, useEffect, useContext, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
-/* import context */
-import { RootContext } from '../../../contexts';
-/* import hooks */
-import { useMousePosition } from '../../../hooks';
-/* import styles */
-import { StyledTooltipWrapper, StyledTooltipContainer, StyledTooltip } from './tooltip.styles';
+import { useMousePosition } from '@hooks';
+import {
+    StyledTooltipWrapper,
+    StyledTooltipContainer,
+    StyledTooltip
+} from './tooltip.styles';
 
 const Tooltip = props => {
 
@@ -16,7 +16,7 @@ const Tooltip = props => {
     const [ positionXY, setPositionXY ] = useState({ x: 0, y: 0 });
     const [ wrapperRect, setWrapperRect ] = useState(null);
 
-    const { rootNode } = useContext(RootContext);
+    const rootNode = document.getElementById('root');
 
     const wrapperRef = useRef(null);
     const tooltipRef = useRef(null);

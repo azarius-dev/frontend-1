@@ -1,45 +1,25 @@
-import styled, { css } from '@common/layout/Card/styled-components';
-
-const statuses = {
-    idle: css`
-        box-shadow: ${ props => props.theme.shadows[props.color + 'Medium'] };
-    `,
-    active: css`
-        box-shadow: ${ props => props.theme.shadows[props.color + 'Medium'] };
-    `
-}
+import styled from 'styled-components';
 
 export const StyledCard = styled.div`
     position: relative;
     box-sizing: border-box;
     display: flex;
     border-radius: 10px;
-    ${ props => statuses[props.status] };
-    
-`;
+    border: 2px solid ${props => props.theme.colors[props.color + 'Light']};
+    background-color: ${props => props.theme.colors.background};
+    box-shadow: ${props => props.theme.shadows[props.color]};
 
-export const StyledBackground = styled.div`
-    position: absolute;
-    z-index: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-radius: 10px;
-    background-color: ${props => props.theme.colors[props.color]}0D;
-    background-image: linear-gradient(120deg, ${props => props.theme.colors[props.color]}26 0%, ${props => props.theme.colors[props.color]}00 80%);
-    backdrop-filter: blur(5px);
-`;
-
-export const StyledBorder = styled.div`
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border: 1px solid ${props => props.theme.colors[props.color]};
-    border-radius: 10px;
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: ${props => props.theme.colors[props.color]};
+        border-radius: 5px;
+        opacity: .05;
+    }
 `;
 
 export const StyledActiveBorderSVG = styled.svg`
@@ -62,14 +42,6 @@ export const StyledActiveBorderSVGRect = styled.rect`
     stroke-width: 3px;
     stroke-linecap: round;
     rx: 10px;
-`;
-
-export const StyledContent = styled.div`
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    z-index: 3;
-    flex-grow: 1;
 `;
 
 export const StyledLoader = styled.div`

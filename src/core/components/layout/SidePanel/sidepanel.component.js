@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 
-import { IconButton, DisplayMedium, Tooltip } from '@common';
+import { IconButton, DisplayMedium, Tooltip } from '@domains/Dapp/components/layout/Topbar/@common';
 import { UIContext, ViewportContext } from '@editor/contexts';
 import { StyledPanel, StyledPanelResizer, StyledPanelHeader, StyledPanelActions, StyledPanelContent } from './sidepanel.styles';
 import { CloseIcon, ResizeHorizontalIcon, PinIcon } from '@icons';

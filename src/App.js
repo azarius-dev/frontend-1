@@ -1,9 +1,8 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
-import { THEME_DARK } from '@constants';
-import { Dapp } from '@domains';
-import { NormalizerStyle, GlobalStyle, FontFaces } from '@styles';
+import { NormalizerStyle, GlobalStyle, FontFaces, THEME_DARK } from '@theme';
+import { Dapp } from 'domains';
 
 class App extends React.Component {
 
