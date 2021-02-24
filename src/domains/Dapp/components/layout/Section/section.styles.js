@@ -11,6 +11,7 @@ export const StyledSection = styled.div`
 export const StyledBody = styled.div`
     position: relative;
     display: flex;
+    flex-direction: column;
     padding: 40px;
     border-radius: 10px;
     border: 1px solid ${props => props.theme.colors.text}1A;
