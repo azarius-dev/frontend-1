@@ -1,8 +1,6 @@
 import {
     DisconnectedWalletCard,
     LabeledCard,
-    PoolCard,
-    PoolStake,
     StatusIndicator,
     TabbedChartCard,
     Token
@@ -24,8 +22,6 @@ export {
     
     DisconnectedWalletCard,
     LabeledCard,
-    PoolCard,
-    PoolStake,
     StatusIndicator,
     TabbedChartCard,
     Token,
