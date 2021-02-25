@@ -1,1 +1,1 @@
-# Debase frontend
+# UWU frontend
