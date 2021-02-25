@@ -23,6 +23,11 @@ const GlobalStyle = createGlobalStyle`
         height: 100%;
         width: 100%;
         overflow: hidden;
+
+        a {
+            text-decoration: none;
+        }
+
     }
 `;
 

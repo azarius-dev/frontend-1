@@ -9,6 +9,13 @@ export const StyledCountdown = styled.div`
     width: 100%;
 `;
 
+export const StyledUnitWrapper = styled.div`
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+`;
+
 export const StyledUnit = styled.div`
     position: relative;
     display: flex;

@@ -21,8 +21,7 @@ const Progress = ({ variant, currentValue, totalValue, label }) => {
                 <StyledIndicator style={{ left: `${Number(currentValue) / Number(totalValue) * 100}%` }}>
                     <Tooltip
                         message={currentValue}
-                        position="bottom-center"
-                        followMouse={true}
+                        followCursor={true}
                         offset={15}
                     >
                         <StyledIndicatorInner />

@@ -4,20 +4,27 @@ import { secondsToDhms } from '@utils';
 import { DisplaySmall } from '@core/components';
 import {
     StyledCountdown,
+    StyledUnitWrapper,
     StyledUnit,
     StyledTime
 } from './countdown.styles';
 
-const Countdown = ({ endDate, onEnd }) => {
+const getDateTimeDifference = (startDate, endDate) => {return (endDate - startDate) / 1000}
 
-    const [ counter, setCounter ] = useState((Date.parse(endDate) - Date.now()) / 1000);
+const Countdown = ({
+    endDate,
+    endMessage = 'Countdown has ended',
+    onEnd
+}) => {
+
+    const [ counter, setCounter ] = useState(getDateTimeDifference(Date.now(), Date.parse(endDate)));
 
     useEffect(() => {
         let timeoutID;
         if (counter > 0) {
             timeoutID = setTimeout(() => {
                 setCounter(counter - 1)
-            }, 1000)
+            }, 1000);
         } else onEnd && onEnd()
         return () => {
             clearTimeout(timeoutID);
@@ -26,7 +33,7 @@ const Countdown = ({ endDate, onEnd }) => {
 
     return (
         <StyledCountdown>
-            {secondsToDhms(counter).map((unit, i) => {
+            {counter > 0 && secondsToDhms(counter).map((unit, i) => {
                 const { label, value } = unit;
                 return (
                     <Fragment>

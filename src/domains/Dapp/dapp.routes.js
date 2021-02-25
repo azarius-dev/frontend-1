@@ -1,10 +1,10 @@
 import {
     DashboardIcon,
-    TuneIcon,
     AccountTreeIcon
 } from '@assets';
 import {
-    SeedingRound
+    SeedingRound,
+    Pools
 } from '@dapp/views';
 
 const DAPP_ROUTES = [
@@ -13,6 +13,12 @@ const DAPP_ROUTES = [
         path: '/',
         icon: <DashboardIcon />,
         component: <SeedingRound />
+    },
+    {
+        label: 'pools',
+        path: '/pools',
+        icon: <AccountTreeIcon />,
+        component: <Pools />
     }
 ];
 
