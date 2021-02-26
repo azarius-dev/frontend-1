@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core';
 
-import { TextSmall } from '@core/components';
+import { TextSmall, DisplaySmall } from '@core/components';
 import { Section, DisconnectedWalletCard, Grid, PoolCard } from '@dapp/components';
 //import { StyledPools } from './pools.styles';
 import POOLS_ROUTES from './pools.routes';
@@ -23,8 +23,11 @@ const Pools = ()  => {
                     isActive
                 >
                     <TextSmall>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Lorem ipsum dolor sit amet, consectetur adipiscin
                     </TextSmall>
+                    <DisplaySmall>
+                        APR: 360%
+                    </DisplaySmall>
                 </PoolCard>
                 <PoolCard
                     label="pool example"

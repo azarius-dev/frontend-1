@@ -1,9 +1,15 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 
-import { Card, Countdown, Progress, Button, Input, Flexbox } from '@core/components';
+import { Card, Countdown, Progress, Button, Input, Flexbox, TextSmall } from '@core/components';
 import { Section, LabeledCard, Grid } from '@dapp/components';
 
 const SeedingRound = () => {
+
+    const [ purchaseInputValue, setPurchaseInputValue ] = useState(null);
+
+    const onChangeInputPurchase = value => {
+        setPurchaseInputValue(value);
+    };
 
     return (
         <Fragment>
@@ -13,7 +19,7 @@ const SeedingRound = () => {
                         label="time remaining"
                         gutter={40}
                     >
-                        <Countdown endDate="2021-06-20" />
+                        <Countdown endDate="2021-04-20" />
                     </LabeledCard>
                     <LabeledCard
                         label="total funds collected"
@@ -22,7 +28,7 @@ const SeedingRound = () => {
                         <Progress
                             currentValue={513}
                             totalValue={2000}
-                            label="eth"
+                            label="bnb"
                         />
                     </LabeledCard>
                 </Flexbox>
@@ -38,13 +44,18 @@ const SeedingRound = () => {
                     <LabeledCard
                         label="purchase funds"
                         gutter={40}
-                    >
-                        <Flexbox
-                            gap="15px"
-                            direction="horizontal"
-                        >
-                            <Input />
-                            <Button>purchase</Button>
+                    >   
+                        <Flexbox gap="20px">
+                            <TextSmall>{purchaseInputValue * .3} UWU</TextSmall>
+                            <Flexbox
+                                gap="15px"
+                                direction="horizontal"
+                            >
+                                <Input 
+                                    onChange={onChangeInputPurchase}
+                                />
+                                <Button>purchase</Button>
+                            </Flexbox>
                         </Flexbox>
                     </LabeledCard>
                 </Grid>

@@ -1,13 +1,13 @@
 // import the pool page view here
-/*import {
-    
-} from './views';*/
+import {
+    Dai
+} from './views';
 
 const POOLS_ROUTES = [
     {
         label: 'pool1',
         path: '/pools/pool1',
-        component: <div>pool example 1</div>,
+        component: <Dai />,
     },
     {
         label: 'pool2',
