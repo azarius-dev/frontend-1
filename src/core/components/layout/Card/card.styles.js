@@ -4,6 +4,8 @@ export const StyledCard = styled.div`
     position: relative;
     box-sizing: border-box;
     display: flex;
+    flex-direction: column;
+    gap: 20px;
     border-radius: 10px;
     border: 2px solid ${props => props.theme.colors[props.color + 'Light']};
     background-color: ${props => props.theme.colors.background};

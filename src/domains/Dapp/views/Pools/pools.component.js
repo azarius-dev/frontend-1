@@ -25,8 +25,8 @@ const Pools = ()  => {
                     <TextSmall>
                         Lorem ipsum dolor sit amet, consectetur adipiscin
                     </TextSmall>
-                    <DisplaySmall>
-                        APR: 360%
+                    <DisplaySmall color="secundary">
+                        APR: 360% - example
                     </DisplaySmall>
                 </PoolCard>
                 <PoolCard
@@ -38,6 +38,9 @@ const Pools = ()  => {
                     <TextSmall>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     </TextSmall>
+                    <DisplaySmall color="secundary">
+                        APR: 360% - example
+                    </DisplaySmall>
                 </PoolCard>
                 <PoolCard
                     label="pool example"
@@ -47,6 +50,9 @@ const Pools = ()  => {
                     <TextSmall>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     </TextSmall>
+                    <DisplaySmall color="secundary">
+                        APR: 360% - example
+                    </DisplaySmall>
                 </PoolCard>
             </Grid>
         );
