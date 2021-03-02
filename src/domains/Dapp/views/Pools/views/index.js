@@ -1,4 +1,2 @@
 import Dai from './Dai';
-export {
-    Dai
-};
+export { Dai };

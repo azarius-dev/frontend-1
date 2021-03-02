@@ -16,26 +16,14 @@ import {
 } from '@api';
 import { parseFloatFixed, parseNumToUsFormat } from '@utils';
 import { Background, Sidebar, Navigation, Topbar } from '@dapp/components';
-import {
-	UIContext,
-	WalletContext,
-	TokenDataContext,
-	TokenHistoryContext,
-	TreasuryDataContext
-} from '@dapp/contexts';
+import { UIContext, WalletContext, TokenDataContext, TokenHistoryContext, TreasuryDataContext } from '@dapp/contexts';
 import { calcRebasePercentage, calcTotalSupply } from '@dapp/utils';
 import DAPP_ROUTES from './dapp.routes';
-import {
-	StyledDapp,
-	StyledPage,
-	StyledPageInner,
-	StyledContent
-} from './dapp.styles';
+import { StyledDapp, StyledPage, StyledPageInner, StyledContent } from './dapp.styles';
 
-const injectedConnector = new InjectedConnector({ supportedChainIds: [1] });
+const injectedConnector = new InjectedConnector({ supportedChainIds: [ 97 ] });
 
 class Dapp extends React.Component {
-
 	static contextType = getWeb3ReactContext();
 
 	/* GLOBAL STATE */
@@ -57,7 +45,7 @@ class Dapp extends React.Component {
 
 			degovPrice: 0,
 			degovCircSupply: 0,
-			degovMarketcap: 0,
+			degovMarketcap: 0
 		},
 
 		tokenHistory: [],
@@ -73,10 +61,10 @@ class Dapp extends React.Component {
 			isNoEthereumProviderError: false,
 			isUserRejectedRequestError: false
 		}
-	}
+	};
 
 	/* UI LOGIC */
-	detectMobileViewport = e => {
+	detectMobileViewport = (e) => {
 		this.setState(() => {
 			const prevState = _.cloneDeep(this.state);
 			const { ui } = prevState;
@@ -84,18 +72,18 @@ class Dapp extends React.Component {
 			return { ui };
 		});
 	};
-	detectActiveRoute = path => {
+	detectActiveRoute = (path) => {
 		const localPath = path !== undefined ? path : window.location.pathname;
 		const strippedLocalPath = localPath.split('/')[1];
-		const index = DAPP_ROUTES.findIndex(route => route.path.split('/')[1] === strippedLocalPath);
-		this.setState(prevState => {
+		const index = DAPP_ROUTES.findIndex((route) => route.path.split('/')[1] === strippedLocalPath);
+		this.setState((prevState) => {
 			const { ui } = prevState;
 			if (index === -1) {
-				ui.activeRoute = DAPP_ROUTES[0]
+				ui.activeRoute = DAPP_ROUTES[0];
 			} else {
 				ui.activeRoute = DAPP_ROUTES[index];
 			}
-			return { ui }
+			return { ui };
 		});
 	};
 
@@ -106,9 +94,7 @@ class Dapp extends React.Component {
 		const ethereum = window.ethereum;
 		if (ethereum && ethereum.isMetaMask) {
 			this.updateWalletStatus('isConnecting', true, () => {
-				ethereum
-				.request({ method: 'eth_accounts' })
-				.then(data => {
+				ethereum.request({ method: 'eth_accounts' }).then((data) => {
 					if (data.length !== 0) {
 						this.connectAccount();
 					} else {
@@ -117,51 +103,62 @@ class Dapp extends React.Component {
 				});
 			});
 		}
-	}
+	};
 	connectAccount = async () => {
 		this.updateWalletStatus('isConnecting', true);
 		await this.context.activate(injectedConnector);
 		this.detectWalletError(() => {
 			this.updateWalletStatus('isConnecting', false);
 		});
-	}
+	};
 	updateWalletStatus = (status, value, callback) => {
-		this.setState(() => {
-			const prevState = _.cloneDeep(this.state);
-			const { wallet } = prevState;
-			wallet[status] = value;
-			return { wallet };
-		}, () => {
-			if (callback) {
-				callback()
-			}
-		});
-	}
-	detectWalletError = callback => {
-		const { error } = this.context;
-		this.setState(() => {
-			const prevState = _.cloneDeep(this.state);
-			const { wallet } = prevState;
-			wallet.isUnsupportedChainIdError = false;
-			wallet.isNoEthereumProviderError = false;
-			wallet.isUserRejectedRequestError = false;
-			return { wallet };
-		}, () => {
-			this.setState(() => {
+		this.setState(
+			() => {
 				const prevState = _.cloneDeep(this.state);
 				const { wallet } = prevState;
-				wallet.isUnsupportedChainIdError = error instanceof UnsupportedChainIdError;
-				wallet.isNoEthereumProviderError = error instanceof NoEthereumProviderError;
-				wallet.isUserRejectedRequestError = error instanceof UserRejectedRequestError;
+				wallet[status] = value;
 				return { wallet };
-			}, () => {
-				if (callback) {callback()}
-			});
-		});
-	}
+			},
+			() => {
+				if (callback) {
+					callback();
+				}
+			}
+		);
+	};
+	detectWalletError = (callback) => {
+		const { error } = this.context;
+		this.setState(
+			() => {
+				const prevState = _.cloneDeep(this.state);
+				const { wallet } = prevState;
+				wallet.isUnsupportedChainIdError = false;
+				wallet.isNoEthereumProviderError = false;
+				wallet.isUserRejectedRequestError = false;
+				return { wallet };
+			},
+			() => {
+				this.setState(
+					() => {
+						const prevState = _.cloneDeep(this.state);
+						const { wallet } = prevState;
+						wallet.isUnsupportedChainIdError = error instanceof UnsupportedChainIdError;
+						wallet.isNoEthereumProviderError = error instanceof NoEthereumProviderError;
+						wallet.isUserRejectedRequestError = error instanceof UserRejectedRequestError;
+						return { wallet };
+					},
+					() => {
+						if (callback) {
+							callback();
+						}
+					}
+				);
+			}
+		);
+	};
 
 	/* ASYNC METHODS */
-	initTokenData = async callback => {
+	initTokenData = async (callback) => {
 		const debasePrice = await getDebasePrice();
 		const degovPrice = await getDegovPrice();
 		const UsdPrice = await getUsdPrice();
@@ -169,27 +166,34 @@ class Dapp extends React.Component {
 		const debaseCircSupply = await getDebaseCircSupply();
 		const degovCircSupply = await getDegovCircSupply();
 
-		this.setState(() => {
-			const prevState = _.cloneDeep(this.state);
-			const { ui, tokenData } = prevState;
+		this.setState(
+			() => {
+				const prevState = _.cloneDeep(this.state);
+				const { ui, tokenData } = prevState;
 
-			tokenData.debasePrice = debasePrice !== 0 ? parseFloatFixed(debasePrice) : 'err';
-			tokenData.degovPrice = debasePrice !== 0 ? parseFloatFixed(degovPrice * UsdPrice) : 'err';
+				tokenData.debasePrice = debasePrice !== 0 ? parseFloatFixed(debasePrice) : 'err';
+				tokenData.degovPrice = debasePrice !== 0 ? parseFloatFixed(degovPrice * UsdPrice) : 'err';
 
-			tokenData.debaseCircSupply = parseNumToUsFormat(debaseCircSupply);
-			tokenData.degovCircSupply = parseNumToUsFormat(degovCircSupply);
+				tokenData.debaseCircSupply = parseNumToUsFormat(debaseCircSupply);
+				tokenData.degovCircSupply = parseNumToUsFormat(degovCircSupply);
 
-			tokenData.debaseMarketcap = debasePrice !== 0 ? parseNumToUsFormat(debasePrice * debaseCircSupply) : 'err';
-			tokenData.degovMarketcap = debasePrice !== 0 ? parseNumToUsFormat(degovPrice * UsdPrice * degovCircSupply) : 'err';
+				tokenData.debaseMarketcap =
+					debasePrice !== 0 ? parseNumToUsFormat(debasePrice * debaseCircSupply) : 'err';
+				tokenData.degovMarketcap =
+					debasePrice !== 0 ? parseNumToUsFormat(degovPrice * UsdPrice * degovCircSupply) : 'err';
 
-			ui.isLoading.tokenData = false;
+				ui.isLoading.tokenData = false;
 
-			return { ui, tokenData };
-		}, () => {
-			if (callback) {callback()}
-		});
-	}
-	initTokenHistory = async callback => {
+				return { ui, tokenData };
+			},
+			() => {
+				if (callback) {
+					callback();
+				}
+			}
+		);
+	};
+	initTokenHistory = async (callback) => {
 		const dateToday = new Date();
 
 		const debaseHistory = await getDebaseYearHistory();
@@ -214,7 +218,7 @@ class Dapp extends React.Component {
 		debaseHistory.prices.forEach((day, i) => {
 			const [ timestamp, price ] = day;
 			const date = new Date(timestamp).toLocaleDateString();
-			const index = yearHistory.findIndex(obj => obj.date === date);
+			const index = yearHistory.findIndex((obj) => obj.date === date);
 			yearHistory[index].price = parseFloat(parseFloatFixed(price));
 		});
 
@@ -222,7 +226,7 @@ class Dapp extends React.Component {
 		debaseHistory.market_caps.forEach((day, i) => {
 			const [ timestamp, marketcap ] = day;
 			const date = new Date(timestamp).toLocaleDateString();
-			const index = yearHistory.findIndex(obj => obj.date === date);
+			const index = yearHistory.findIndex((obj) => obj.date === date);
 			yearHistory[index].marketcap = marketcap;
 		});
 
@@ -230,7 +234,7 @@ class Dapp extends React.Component {
 		rebaseHistory.rebases.reverse().forEach((rebase, i, arr) => {
 			const { timestamp } = rebase;
 			const date = new Date(timestamp * 1000).toLocaleDateString();
-			const index = yearHistory.findIndex(obj => obj.date === date);
+			const index = yearHistory.findIndex((obj) => obj.date === date);
 			yearHistory[index].totalSupply = calcTotalSupply(i, arr);
 			yearHistory[index].rebasePercentage = calcRebasePercentage(i, arr);
 		});
@@ -248,36 +252,50 @@ class Dapp extends React.Component {
 			}
 		});
 
-		this.setState(() => {
-			const prevState = _.cloneDeep(this.state);
-			const { ui } = prevState;
-			ui.isLoading.tokenHistory = false;
-			return { ui, tokenHistory: yearHistory };
-		}, () => {
-			if (callback) {callback()}
-		});
-	}
-	initTreasuryData = async callback => {
+		this.setState(
+			() => {
+				const prevState = _.cloneDeep(this.state);
+				const { ui } = prevState;
+				ui.isLoading.tokenHistory = false;
+				return { ui, tokenHistory: yearHistory };
+			},
+			() => {
+				if (callback) {
+					callback();
+				}
+			}
+		);
+	};
+	initTreasuryData = async (callback) => {
 		const treasuryBalance = await getTreasuryBalance();
 
-		this.setState(() => {
-			const prevState = _.cloneDeep(this.state);
-			const { ui, treasuryData } = prevState;
+		this.setState(
+			() => {
+				const prevState = _.cloneDeep(this.state);
+				const { ui, treasuryData } = prevState;
 
-			treasuryData.mph88Balance = treasuryBalance.totalMPHEarned ? parseNumToUsFormat(treasuryBalance.totalMPHEarned * 0.21) : 'err';
-			treasuryData.daiBalance = treasuryBalance.totalDepositByPool && treasuryBalance.totalDepositByPool[0] && treasuryBalance.totalDepositByPool[0].totalActiveDeposit ? parseNumToUsFormat(treasuryBalance.totalDepositByPool[0].totalActiveDeposit * 0.21) : 'err';
+				treasuryData.mph88Balance = treasuryBalance.totalMPHEarned
+					? parseNumToUsFormat(treasuryBalance.totalMPHEarned * 0.21)
+					: 'err';
+				treasuryData.daiBalance =
+					treasuryBalance.totalDepositByPool &&
+					treasuryBalance.totalDepositByPool[0] &&
+					treasuryBalance.totalDepositByPool[0].totalActiveDeposit
+						? parseNumToUsFormat(treasuryBalance.totalDepositByPool[0].totalActiveDeposit * 0.21)
+						: 'err';
 
-			ui.isLoading.treasuryData = false;
+				ui.isLoading.treasuryData = false;
 
-			return { ui, treasuryData };
-		}, () => {
-			if (callback) callback();
-		});
-	}
+				return { ui, treasuryData };
+			},
+			() => {
+				if (callback) callback();
+			}
+		);
+	};
 
 	/* LIFECYCLE */
 	componentDidMount() {
-
 		this.detectMobileViewport();
 		this.detectActiveAccount();
 		this.detectActiveRoute();
@@ -289,7 +307,6 @@ class Dapp extends React.Component {
 		this.initTokenData();
 		this.initTokenHistory();
 		this.initTreasuryData();
-
 	}
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.detectMobileViewport);
@@ -297,7 +314,6 @@ class Dapp extends React.Component {
 
 	/* COMPONENT RETURN RENDER */
 	render() {
-
 		const { wallet, ui, tokenData, tokenHistory, treasuryData } = this.state;
 
 		const uiMethods = {
@@ -317,7 +333,6 @@ class Dapp extends React.Component {
 					<TokenDataContext.Provider value={{ tokenData }}>
 						<TokenHistoryContext.Provider value={{ tokenHistory }}>
 							<TreasuryDataContext.Provider value={{ treasuryData }}>
-
 								<Background />
 								<StyledDapp>
 									<Router>
@@ -333,10 +348,7 @@ class Dapp extends React.Component {
 															const { label, path, component } = route;
 															if (i === 0) return;
 															return (
-																<Route
-																	key={label}
-																	path={path}
-																>
+																<Route key={label} path={path}>
 																	{component}
 																</Route>
 															);
@@ -350,7 +362,6 @@ class Dapp extends React.Component {
 										</StyledPage>
 									</Router>
 								</StyledDapp>
-
 							</TreasuryDataContext.Provider>
 						</TokenHistoryContext.Provider>
 					</TokenDataContext.Provider>
@@ -358,7 +369,6 @@ class Dapp extends React.Component {
 			</UIContext.Provider>
 		);
 	}
-
 }
 
 export default Dapp;
