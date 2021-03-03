@@ -1,5 +1,5 @@
-import { DashboardIcon, AccountTreeIcon } from '@assets';
-import { SeedingRound, Pools } from '@dapp/views';
+import { DashboardIcon, AccountTreeIcon, TuneIcon } from '@assets';
+import { SeedingRound, Pools, Rebase } from '@dapp/views';
 
 const DAPP_ROUTES = [
 	{
@@ -13,6 +13,12 @@ const DAPP_ROUTES = [
 		path: '/pools',
 		icon: <AccountTreeIcon />,
 		component: <Pools />
+	},
+	{
+		label: 'rebase',
+		path: '/rebase',
+		icon: <TuneIcon />,
+		component: <Rebase />
 	}
 ];
 

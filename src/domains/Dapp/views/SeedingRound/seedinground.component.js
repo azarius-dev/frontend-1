@@ -7,6 +7,7 @@ import { ABI_SEED, CONTRACT_ADDRESS } from '@constants/index';
 import { fetcher } from '@utils/index';
 
 const SeedingRound = () => {
+	
 	const { library, account } = useWeb3React();
 	const [ purchaseInputValue, setPurchaseInputValue ] = useState(null);
 	const onChangeInputPurchase = (value) => {
@@ -17,18 +18,15 @@ const SeedingRound = () => {
 		fetcher: fetcher(library, ABI_SEED)
 	});
 
-	useEffect(
-		() => {
-			library.on('block', () => {
-				getPriceAtLaunch(undefined, true);
-			});
-			return () => {
-				library.removeAllListeners('block');
-			};
-		},
-		[ library, getPriceAtLaunch ]
-	);
-
+	useEffect(() => {
+		library && library.on('block', () => {
+			getPriceAtLaunch && getPriceAtLaunch(undefined, true);
+		});
+		return () => {
+			library && library.removeAllListeners('block');
+		};
+	},[ library, getPriceAtLaunch ]);
+	
 	console.log(priceAtLaunch);
 
 	return (

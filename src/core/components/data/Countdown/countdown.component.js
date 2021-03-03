@@ -36,7 +36,7 @@ const Countdown = ({
             {counter > 0 && secondsToDhms(counter).map((unit, i) => {
                 const { label, value } = unit;
                 return (
-                    <Fragment>
+                    <Fragment key={`unit-${i}`}>
                         {i !== 0 && <StyledTime>:</StyledTime>}
                         <StyledUnit key={`unit-${i}`}>
                             <StyledTime>{value}</StyledTime>

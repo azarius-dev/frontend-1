@@ -372,17 +372,3 @@ class Dapp extends React.Component {
 }
 
 export default Dapp;
-
-/*
-{subroutes && subroutes.length !== 0 && subroutes.map((subroute, i) => {
-																		return (
-																			<Route
-																				key={subroute.label}
-																				path={subroute.path}
-																			>
-																				{subroute.component}
-																			</Route>
-																		)
-																	})}
-																	{subroutes && subroutes.length > 0 && component}
-																	*/

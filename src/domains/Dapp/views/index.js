@@ -1,3 +1,4 @@
 import SeedingRound from './SeedingRound';
 import Pools from './Pools';
-export { SeedingRound, Pools };
+import Rebase from './Rebase';
+export { SeedingRound, Pools, Rebase };
