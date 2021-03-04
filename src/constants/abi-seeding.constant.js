@@ -12,7 +12,7 @@ const ABI_SEED = [
 	'function remainingUwUDistributionEndsAt() external view returns(uint256)',
 	'function remainingUwUDistributionEnabled() external view returns(bool)',
 	'function BNBDeposited() external view returns(uint256)',
-	'function UwUDeposited() external view returns(uint256)'
+	'function UwUDistributed() external view returns(uint256)'
 ];
 
 export default ABI_SEED;
