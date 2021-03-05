@@ -5,7 +5,7 @@ import { Card, Countdown, Progress, Button, Input, Flexbox, TextSmall } from '@c
 import { Section, LabeledCard, Grid } from '@dapp/components';
 import { ABI_LP, ABI_SEED, CONTRACT_ADDRESS } from '@constants/index';
 import { fetcher } from '@utils/index';
-import { formatEther, parseEther } from 'ethers/lib/utils';
+import { formatEther, parseEther, parseUnits } from 'ethers/lib/utils';
 import { Contract } from 'ethers/lib/ethers';
 
 const SeedingData = () => {
@@ -136,11 +136,11 @@ const SeedingData = () => {
 		const poolContract = new Contract(CONTRACT_ADDRESS.seed, ABI_SEED, library.getSigner());
 		const tokenContract = new Contract(CONTRACT_ADDRESS.bnb, ABI_LP, library.getSigner());
 		try {
-			const toStake = parseUnits(stakeAmount, 1);
-			let allowance = await tokenContract.allowance(account, poolAddress);
+			const toStake = parseUnits(purchaseInputValue, 1);
+			let allowance = await tokenContract.allowance(account, CONTRACT_ADDRESS.seed);
 			let transaction;
 			if (allowance.lt(toStake)) {
-				transaction = await tokenContract.approve(poolAddress, toStake);
+				transaction = await tokenContract.approve(CONTRACT_ADDRESS.seed, toStake);
 				await transaction.wait(1);
 			}
 			await poolContract.deposit(toStake);
