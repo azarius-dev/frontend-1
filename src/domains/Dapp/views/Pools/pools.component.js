@@ -15,18 +15,23 @@ const Pools = () => {
 		if (!active) return <DisconnectedWalletCard />;
 		return (
 			<Grid>
-				<PoolCard label="pool example" info="tooltip info" routePath="/pools/pool1" isActive>
+				<PoolCard label="Debase Bridge Pool" info="tooltip info" routePath="/pools/debase-bridge-pool" isActive>
 					<TextSmall>Lorem ipsum dolor sit amet, consectetur adipiscin</TextSmall>
 					<DisplaySmall color="secundary">APR: 360% - example</DisplaySmall>
 				</PoolCard>
-				<PoolCard label="pool example" info="tooltip info" routePath="/pools/pool2" isActive>
+				<PoolCard
+					label="Debase/Eth Lp Bridge Pool"
+					info="tooltip info"
+					routePath="/pools/debase-eth-lp-bridge-pool"
+					isActive
+				>
 					<TextSmall>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
 						labore et dolore magna aliqua.
 					</TextSmall>
 					<DisplaySmall color="secundary">APR: 360% - example</DisplaySmall>
 				</PoolCard>
-				<PoolCard label="pool example" info="tooltip info" routePath="/pools/pool3">
+				<PoolCard label="UwU/Busd Lp Pool" info="tooltip info" routePath="/pools/uwu-busd-lp-pool">
 					<TextSmall>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
 						labore et dolore magna aliqua.
@@ -40,7 +45,7 @@ const Pools = () => {
 	return (
 		<Switch>
 			<Route exact path={path}>
-				<Section label="Pool category?">{renderPools()}</Section>
+				<Section label="Mining Pools">{renderPools()}</Section>
 			</Route>
 
 			{POOLS_ROUTES.map((route, i) => {

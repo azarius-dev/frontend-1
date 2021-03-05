@@ -1,21 +1,21 @@
 // import the pool page view here
-import { Dai } from './views';
+import { BscMining, EthBridge } from './views';
 
 const POOLS_ROUTES = [
 	{
-		label: 'pool1',
-		path: '/pools/pool1',
-		component: <Dai />
+		label: 'Debase Bridge',
+		path: '/pools/debase-bridge-pool',
+		component: <EthBridge />
 	},
 	{
-		label: 'pool2',
-		path: '/pools/pool2',
-		component: <div>pool example 2</div>
+		label: 'Debase Eth LP Bridge',
+		path: '/pools/debase-eth-lp-bridge-pool',
+		component: <EthBridge />
 	},
 	{
-		label: 'pool3',
-		path: '/pools/pool3',
-		component: <div>pool example 3</div>
+		label: 'UwU Busd Lp Pool',
+		path: '/pools/uwu-busd-lp-pool',
+		component: <BscMining />
 	}
 ];
 
