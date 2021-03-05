@@ -3,9 +3,10 @@ import { useWeb3React } from '@web3-react/core';
 import useSWR from 'swr';
 import { Card, Countdown, Progress, Button, Input, Flexbox, TextSmall } from '@core/components';
 import { Section, LabeledCard, Grid } from '@dapp/components';
-import { ABI_SEED, CONTRACT_ADDRESS } from '@constants/index';
+import { ABI_LP, ABI_SEED, CONTRACT_ADDRESS } from '@constants/index';
 import { fetcher } from '@utils/index';
 import { formatEther, parseEther } from 'ethers/lib/utils';
+import { Contract } from 'ethers/lib/ethers';
 
 const SeedingData = () => {
 	const { library, account } = useWeb3React();
@@ -13,6 +14,7 @@ const SeedingData = () => {
 	const onChangeInputPurchase = (value) => {
 		setPurchaseInputValue(value);
 	};
+	const [ depositLoading, setDepositLoading ] = useState(false);
 
 	const { data: priceAtLaunch, mutate: getPriceAtLaunch } = useSWR([ CONTRACT_ADDRESS.seed, 'priceAtLaunch' ], {
 		fetcher: fetcher(library, ABI_SEED)
@@ -129,14 +131,31 @@ const SeedingData = () => {
 		]
 	);
 
-	console.log(userData);
+	async function handleDeposit() {
+		setDepositLoading(true);
+		const poolContract = new Contract(CONTRACT_ADDRESS.seed, ABI_SEED, library.getSigner());
+		const tokenContract = new Contract(CONTRACT_ADDRESS.bnb, ABI_LP, library.getSigner());
+		try {
+			const toStake = parseUnits(stakeAmount, 1);
+			let allowance = await tokenContract.allowance(account, poolAddress);
+			let transaction;
+			if (allowance.lt(toStake)) {
+				transaction = await tokenContract.approve(poolAddress, toStake);
+				await transaction.wait(1);
+			}
+			await poolContract.deposit(toStake);
+		} catch (error) {
+			console.log(error);
+		}
+		setDepositLoading(false);
+	}
 
 	return (
 		<Fragment>
 			<Section label="general info">
 				<Flexbox gap="60px">
 					<LabeledCard label="time remaining" gutter={40}>
-						<Countdown endDate="2021-04-20" />
+						{seedEndsAt ? <Countdown endTime={1614992251} /> : null}
 					</LabeledCard>
 					{BNBDeposited && BNBCap ? (
 						<LabeledCard label="total funds collected" gutter={40}>

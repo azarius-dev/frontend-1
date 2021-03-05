@@ -6,21 +6,41 @@ import { Card, Flexbox } from './layout';
 import { Tabs, Tab } from './navigation';
 import { DisplaySmall, DisplayMedium, DisplayLarge, TextMini, TextSmall, TextMedium, TextLarge } from './typography';
 import { Portal } from './utils';
-export { 
-    // CONTROLS
-    Button, IconButton,
-    // DATA
-    Graph, List, Timeline, Countdown, Progress,
-    // FEEDBACK
-    Banner, Snackbar, Spinner, Tooltip, Backdrop,
-    // INPUT
-    FormField, Input, Slider, Switch,
-    // LAYOUT
-    Card, Flexbox,
-    // NAVIGATION
-    Tabs, Tab,
-    // TYPOGRAPHY
-    DisplaySmall, DisplayMedium, DisplayLarge, TextMini, TextSmall, TextMedium, TextLarge,
-    // UTILS
-    Portal
+export {
+	// CONTROLS
+	Button,
+	IconButton,
+	// DATA
+	Graph,
+	List,
+	Timeline,
+	Countdown,
+	Progress,
+	// FEEDBACK
+	Banner,
+	Snackbar,
+	Spinner,
+	Tooltip,
+	Backdrop,
+	// INPUT
+	FormField,
+	Input,
+	Slider,
+	Switch,
+	// LAYOUT
+	Card,
+	Flexbox,
+	// NAVIGATION
+	Tabs,
+	Tab,
+	// TYPOGRAPHY
+	DisplaySmall,
+	DisplayMedium,
+	DisplayLarge,
+	TextMini,
+	TextSmall,
+	TextMedium,
+	TextLarge,
+	// UTILS
+	Portal
 };

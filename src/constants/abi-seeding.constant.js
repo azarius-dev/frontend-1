@@ -11,6 +11,7 @@ const ABI_SEED = [
 	'function remainingUwUDistributionDuration() external view returns(uint256)',
 	'function remainingUwUDistributionEndsAt() external view returns(uint256)',
 	'function remainingUwUDistributionEnabled() external view returns(bool)',
+	'function deposit(uint256) external',
 	'function BNBDeposited() external view returns(uint256)',
 	'function UwUDistributed() external view returns(uint256)',
 	'function Users(address) external view returns(uint256,uint256,uint256)'
