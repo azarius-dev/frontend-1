@@ -14,7 +14,9 @@ import {
     AccountTreeIcon,
     TouchAppIcon,
     CloseIcon,
-    HelpIcon
+    HelpIcon,
+    ShoppingBagIcon,
+    ChevronRightIcon
 } from './material-outline.icons';
 import { 
     GithubIcon,
@@ -42,6 +44,8 @@ export {
     TouchAppIcon,
     CloseIcon,
     HelpIcon,
+    ShoppingBagIcon,
+    ChevronRightIcon,
 
     // fontawesome
     GithubIcon,

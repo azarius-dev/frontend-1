@@ -1,9 +1,17 @@
-import { Card, DisplaySmall } from '@core/components';
+import { HelpIcon } from '@assets/icons';
+import { Card, DisplaySmall, Tooltip } from '@core/components';
 import { StyledLabeledCard, StyledCardHeader } from './labeledcard.styles';
 
-const LabeledCard = props => {
-
-    const { label, info, status, color, gutter, isLoading, activeParts, children } = props;
+const LabeledCard = ({
+    children,
+    label = "Labeled card",
+    info,
+    status,
+    color,
+    gutter = 40,
+    isLoading,
+    activeParts
+}) => {
 
     return (
         <StyledLabeledCard>
@@ -11,6 +19,15 @@ const LabeledCard = props => {
                 <DisplaySmall color="primary">
                     {label}
                 </DisplaySmall>
+
+                { info && info !== '' && (
+                    <Tooltip
+                        message={info}
+                    >
+                        <HelpIcon />
+                    </Tooltip>
+                )}
+
             </StyledCardHeader>
             <Card
                 status={status}
@@ -25,9 +42,5 @@ const LabeledCard = props => {
     );
 
 };
-
-LabeledCard.defaultProps = {
-    label: 'Label'
-}
 
 export default LabeledCard;

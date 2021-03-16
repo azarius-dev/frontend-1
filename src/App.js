@@ -1,7 +1,13 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
-import { NormalizerStyle, GlobalStyle, FontFaces, THEME_DARK } from '@theme';
+import {
+	NormalizerStyle,
+	GlobalStyle,
+	FontFaces,
+	THEME_DARK
+} from '@theme';
+import { RootContext } from 'contexts';
 import { Dapp } from 'domains';
 
 class App extends React.Component {
@@ -13,7 +19,9 @@ class App extends React.Component {
 				<GlobalStyle />
 				<NormalizerStyle />
 				<FontFaces />
-				<Dapp />
+				<RootContext.Provider value={this.props}>
+					<Dapp />
+				</RootContext.Provider>
 			</ThemeProvider>
         );
     }

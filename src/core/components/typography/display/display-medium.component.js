@@ -11,7 +11,7 @@ const DisplayMedium = styled(Display).attrs(props => ({
     text-shadow: ${props => props.color ? props.theme.shadows[props.color + 'Text'] : props.theme.shadows.base};
     color: transparent;
     -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: ${props => props.color ? props.theme.colors[props.color] : props.theme.colors.text};
+    -webkit-text-stroke-color: ${props => props.color ? props.theme.colors[props.color + 'Light'] : props.theme.colors.text};
 `;
 
 export default DisplayMedium;

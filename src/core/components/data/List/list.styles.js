@@ -29,6 +29,8 @@ export const StyledItemLabel = styled.div`
     font-size: 16px;
     font-weight: 500;
     letter-spacing: 1px;
+    color: ${props => props.theme.colors[props.color + 'Light']};
+    text-shadow: ${props => props.theme.shadows[props.color + 'Text']};
 `;
 
 export const StyledItemValue = styled.div`
@@ -37,4 +39,6 @@ export const StyledItemValue = styled.div`
     font-size: 16px;
     font-weight: 300;
     opacity: 1;
+    color: ${props => props.theme.colors[props.color + 'Light']};
+    text-shadow: ${props => props.theme.shadows[props.color + 'Text']};
 `;

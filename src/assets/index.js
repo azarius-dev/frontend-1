@@ -29,7 +29,8 @@ import {
     MediumIcon,
     TelegramIcon,
     TwitterIcon,
-    DiscordIcon
+    DiscordIcon,
+    ShoppingBagIcon
 } from './icons';
 export {
 
@@ -62,6 +63,7 @@ export {
     TouchAppIcon,
     CloseIcon,
     HelpIcon,
+    ShoppingBagIcon,
 
     // ICONS - fontawesome
     GithubIcon,

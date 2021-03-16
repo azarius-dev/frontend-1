@@ -1,92 +1,108 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState, useContext } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import useSWR from 'swr';
-import { Card, Countdown, Progress, Button, Input, Flexbox, TextSmall } from '@core/components';
-import { Section, LabeledCard, Grid } from '@dapp/components';
-import { ABI_LP, ABI_SEED, CONTRACT_ADDRESS } from '@constants/index';
-import { fetcher } from '@utils/index';
-import { formatEther, parseEther, parseUnits } from 'ethers/lib/utils';
+import { formatEther, parseUnits } from 'ethers/lib/utils';
 import { Contract } from 'ethers/lib/ethers';
+import useSWR from 'swr';
+
+import {
+	ABI_LP,
+	ABI_SEED,
+	CONTRACT_ADDRESS
+} from '@constants';
+import { fetcher } from '@utils';
+import {
+	List,
+	Countdown,
+	Progress,
+	Button,
+	Input,
+	Flexbox,
+	TextMini,
+	DisplayMedium
+} from '@core/components';
+import {
+	Section,
+	LabeledCard,
+	Grid
+} from '@dapp/components';
+import { SnackbarManagerContext } from '@dapp/managers';
+import { StyledConversionText } from './seedingdata.styles';
 
 const SeedingData = () => {
-	const { library, account } = useWeb3React();
-	const [ purchaseInputValue, setPurchaseInputValue ] = useState(null);
-	const onChangeInputPurchase = (value) => {
-		setPurchaseInputValue(value);
-	};
-	const [ depositLoading, setDepositLoading ] = useState(false);
 
+	const { library, account } = useWeb3React();
+	const [ depositInputValue, setDepositInputValue ] = useState('');
+	const [ isDepositLoading, setIsDepositLoading ] = useState(false);
+	const { openSnackbar } = useContext(SnackbarManagerContext);
+
+	const onChangeInputDeposit = value => {
+		setDepositInputValue(value);
+	};
+
+	// $ before, busd after
 	const { data: priceAtLaunch, mutate: getPriceAtLaunch } = useSWR([ CONTRACT_ADDRESS.seed, 'priceAtLaunch' ], {
 		fetcher: fetcher(library, ABI_SEED)
 	});
 
-	const { data: tokenExchangeRate, mutate: getTokenExchangeRate } = useSWR(
-		[ CONTRACT_ADDRESS.seed, 'tokenExchangeRate' ],
-		{
-			fetcher: fetcher(library, ABI_SEED)
-		}
-	);
+	// use in input field -> convert bnb to uwu
+	const { data: tokenExchangeRate, mutate: getTokenExchangeRate } = useSWR([ CONTRACT_ADDRESS.seed, 'tokenExchangeRate' ], {
+		fetcher: fetcher(library, ABI_SEED)
+	});
 
+	// use as end value in progress bar
 	const { data: BNBCap, mutate: getBNBCap } = useSWR([ CONTRACT_ADDRESS.seed, 'BNBCap' ], {
 		fetcher: fetcher(library, ABI_SEED)
 	});
 
+	// max amount of bnb a user can purchase per wallet
 	const { data: walletBNBCap, mutate: getWalletBNBCap } = useSWR([ CONTRACT_ADDRESS.seed, 'walletBNBCap' ], {
 		fetcher: fetcher(library, ABI_SEED)
 	});
 
-	const { data: walletCap, mutate: getWalletCap } = useSWR([ CONTRACT_ADDRESS.seed, 'walletCap' ], {
-		fetcher: fetcher(library, ABI_SEED)
-	});
-
+	// label: Seeding for -- UWU at the end
 	const { data: UwUDistribution, mutate: getUwUDistribution } = useSWR([ CONTRACT_ADDRESS.seed, 'UwUDistribution' ], {
 		fetcher: fetcher(library, ABI_SEED)
 	});
 
-	const { data: seedDuration, mutate: getSeedDuration } = useSWR([ CONTRACT_ADDRESS.seed, 'seedDuration' ], {
-		fetcher: fetcher(library, ABI_SEED)
-	});
-
+	// timestamp
 	const { data: seedEndsAt, mutate: getSeedEndsAt } = useSWR([ CONTRACT_ADDRESS.seed, 'seedEndsAt' ], {
 		fetcher: fetcher(library, ABI_SEED)
 	});
 
+	// is seeding period active
 	const { data: seedEnabled, mutate: getSeedEnabled } = useSWR([ CONTRACT_ADDRESS.seed, 'seedEnabled' ], {
 		fetcher: fetcher(library, ABI_SEED)
 	});
+	
+	// create new countdown when enabled
+	const { data: remainingUwUDistributionEndsAt, mutate: getRemainingUwUDistributionEndsAt } = useSWR([ CONTRACT_ADDRESS.seed, 'remainingUwUDistributionEndsAt' ], {
+		fetcher: fetcher(library, ABI_SEED)
+	});
 
-	const { data: remainingUwUDistributionDuration, mutate: getRemainingUwUDistributionDuration } = useSWR(
-		[ CONTRACT_ADDRESS.seed, 'remainingUwUDistributionDuration' ],
-		{
-			fetcher: fetcher(library, ABI_SEED)
-		}
-	);
-
-	const { data: remainingUwUDistributionEndsAt, mutate: getRemainingUwUDistributionEndsAt } = useSWR(
-		[ CONTRACT_ADDRESS.seed, 'remainingUwUDistributionEndsAt' ],
-		{
-			fetcher: fetcher(library, ABI_SEED)
-		}
-	);
-
-	const { data: remainingUwUDistributionEnabled, mutate: getRemainingUwUDistributionEnabled } = useSWR(
-		[ CONTRACT_ADDRESS.seed, 'remainingUwUDistributionEnabled' ],
-		{
-			fetcher: fetcher(library, ABI_SEED)
-		}
-	);
-
+	// detect if distribution countdown needs to be shown
+	const { data: remainingUwUDistributionEnabled, mutate: getRemainingUwUDistributionEnabled } = useSWR([ CONTRACT_ADDRESS.seed, 'remainingUwUDistributionEnabled' ], {
+		fetcher: fetcher(library, ABI_SEED)
+	});
+	
+	// current value in the progress bar
 	const { data: BNBDeposited, mutate: getBNBDeposited } = useSWR([ CONTRACT_ADDRESS.seed, 'BNBDeposited' ], {
 		fetcher: fetcher(library, ABI_SEED)
 	});
 
+	// add below uwu UwUDistribution
 	const { data: UwUDistributed, mutate: getUwUDistributed } = useSWR([ CONTRACT_ADDRESS.seed, 'UwUDistributed' ], {
 		fetcher: fetcher(library, ABI_SEED)
 	});
 
+	// 3 values, show in wallet data
 	const { data: userData, mutate: getUserData } = useSWR([ CONTRACT_ADDRESS.seed, 'Users', account ], {
 		fetcher: fetcher(library, ABI_SEED)
 	});
+
+	// current bnb balance of user wallet
+	const { data: balance, mutate: getBalance } = useSWR([ CONTRACT_ADDRESS.bnb, 'balanceOf', account ], {
+        fetcher: fetcher(library, ABI_LP)
+    });
 
 	useEffect(
 		() => {
@@ -95,17 +111,15 @@ const SeedingData = () => {
 				getTokenExchangeRate(undefined, true);
 				getBNBCap(undefined, true);
 				getWalletBNBCap(undefined, true);
-				getWalletCap(undefined, true);
 				getUwUDistribution(undefined, true);
-				getSeedDuration(undefined, true);
 				getSeedEndsAt(undefined, true);
 				getSeedEnabled(undefined, true);
-				getRemainingUwUDistributionDuration(undefined, true);
 				getRemainingUwUDistributionEndsAt(undefined, true);
 				getRemainingUwUDistributionEnabled(undefined, true);
 				getBNBDeposited(undefined, true);
 				getUwUDistributed(undefined, true);
 				getUserData(undefined, true);
+				getBalance(undefined, true);
 			});
 			return () => {
 				library && library.removeAllListeners('block');
@@ -117,26 +131,71 @@ const SeedingData = () => {
 			getTokenExchangeRate,
 			getBNBCap,
 			getWalletBNBCap,
-			getWalletCap,
 			getUwUDistribution,
-			getSeedDuration,
 			getSeedEndsAt,
 			getSeedEnabled,
-			getRemainingUwUDistributionDuration,
 			getRemainingUwUDistributionEndsAt,
 			getRemainingUwUDistributionEnabled,
 			getBNBDeposited,
 			getUwUDistributed,
-			getUserData
+			getUserData,
+			getBalance
 		]
 	);
+	
+	const seedingListData = [
+		{
+			label: 'Price at launch',
+			value: priceAtLaunch ? formatEther(priceAtLaunch) : '...',
+			tooltip: '**update**'
+		},
+		{
+			label: 'Max BNB seeding per user',
+			value: walletBNBCap ? formatEther(walletBNBCap) : '...',
+			tooltip: '**update**'
+		},
+		{
+			label: 'UwU distributed',
+			value: UwUDistribution && UwUDistributed ? `${formatEther(UwUDistributed)} / ${formatEther(UwUDistribution)}` : '...',
+			tooltip: '**update**'
+		},
+
+	];
+
+	const walletListData = [
+		{
+			label: 'BNB wallet balance',
+			value: balance ? formatEther(balance) : '...',
+			tooltip: '**update**'
+		},
+		{
+			label: 'BNB Deposited',
+			value: userData && userData[0] ? formatEther(userData[0]) : '...',
+			tooltip: '**update**'
+		},
+		{
+			label: 'UwU Deposited',
+			value: userData && userData[1] ? formatEther(userData[1]) : '...',
+			tooltip: '**update**'
+		},
+		{
+			label: 'Lp sent',
+			value: userData && userData[2] ? formatEther(userData[2]) : '...',
+			tooltip: '**update**'
+		}
+	];
+
+	async function handleMaxBNB() {
+		// create formula to calculate max amount of bnb a user can purchase with the input field
+		setDepositInputValue(formatEther(balance));
+	}
 
 	async function handleDeposit() {
-		setDepositLoading(true);
+		setIsDepositLoading(true);
 		const poolContract = new Contract(CONTRACT_ADDRESS.seed, ABI_SEED, library.getSigner());
 		const tokenContract = new Contract(CONTRACT_ADDRESS.bnb, ABI_LP, library.getSigner());
 		try {
-			const toStake = parseUnits(purchaseInputValue, 1);
+			const toStake = parseUnits(depositInputValue, 1);
 			let allowance = await tokenContract.allowance(account, CONTRACT_ADDRESS.seed);
 			let transaction;
 			if (allowance.lt(toStake)) {
@@ -144,47 +203,110 @@ const SeedingData = () => {
 				await transaction.wait(1);
 			}
 			await poolContract.deposit(toStake);
+			openSnackbar({
+				message: 'BNB deposited',
+				status: 'success'
+			});
 		} catch (error) {
-			console.log(error);
+			openSnackbar({
+				message: 'BNB deposit has failed',
+				status: 'error'
+			});
 		}
-		setDepositLoading(false);
+		setIsDepositLoading(false);
 	}
 
 	return (
 		<Fragment>
-			<Section label="general info">
+			<Section label="seeding info">
 				<Flexbox gap="60px">
-					<LabeledCard label="time remaining" gutter={40}>
-						{seedEndsAt ? <Countdown endTime={1614992251} /> : null}
+					<LabeledCard
+						label="general"
+						gutter={0}
+					>
+						<List
+							data={seedingListData}
+						/>
 					</LabeledCard>
-					{BNBDeposited && BNBCap ? (
-						<LabeledCard label="total funds collected" gutter={40}>
+					<LabeledCard label="time remaining">
+
+						{seedEnabled && seedEndsAt ? (
+							<Countdown
+								timestamp={seedEndsAt}
+								message="Seeding ended"
+							/>
+						) : <DisplayMedium color="secundary">Seeding has not started yet</DisplayMedium>}
+
+					</LabeledCard>
+
+					{remainingUwUDistributionEnabled && remainingUwUDistributionEndsAt && (
+						<LabeledCard label="uwu distribution time remaining">
+								<Countdown
+									timestamp={remainingUwUDistributionEndsAt}
+									message="UwU distribution has ended"
+								/>
+						</LabeledCard>
+					)}
+					
+					{BNBDeposited && BNBCap && (
+						<LabeledCard label="total funds collected">
 							<Progress
 								currentValue={formatEther(BNBDeposited)}
 								totalValue={formatEther(BNBCap)}
 								label="bnb"
 							/>
 						</LabeledCard>
-					) : null}
+					)}
+
 				</Flexbox>
 			</Section>
 			<Section label="personal data">
 				<Grid>
-					<LabeledCard label="wallet data" gutter={40}>
+					<LabeledCard
+						label="deposit BNB funds"
+						gutter={40}
+						info="** update info **"
+					>
 						<Flexbox gap="20px">
-							{userData ? <TextSmall>{formatEther(userData[0])} UWU</TextSmall> : null}
+
+							<Flexbox gap="15px" direction="horizontal">
+								<Input
+									value={depositInputValue}
+									placeholder="Enter funds"
+									onChange={onChangeInputDeposit}
+								/>
+								<Button
+									color="primary"
+									onClick={handleMaxBNB}
+								>
+									max
+								</Button>
+							</Flexbox>
+							
+							{tokenExchangeRate && (
+								<StyledConversionText>
+									<TextMini>
+										converts to {depositInputValue * formatEther(tokenExchangeRate)} UwU
+									</TextMini>
+								</StyledConversionText>
+							)}
+
+							<Button
+								isLoading={isDepositLoading}
+								onClick={handleDeposit}
+							>
+								deposit
+							</Button>
+
 						</Flexbox>
 					</LabeledCard>
-					<LabeledCard label="purchase funds" gutter={40}>
-						<Flexbox gap="20px">
-							{tokenExchangeRate ? (
-								<TextSmall>{purchaseInputValue * formatEther(tokenExchangeRate)} UWU</TextSmall>
-							) : null}
-							<Flexbox gap="15px" direction="horizontal">
-								<Input onChange={onChangeInputPurchase} />
-								<Button>purchase</Button>
-							</Flexbox>
-						</Flexbox>
+					<LabeledCard
+						label="wallet balance"
+						gutter={0}
+					>
+						<List 
+							data={walletListData}
+						/>
 					</LabeledCard>
 				</Grid>
 			</Section>

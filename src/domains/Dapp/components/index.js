@@ -2,6 +2,7 @@ import {
     DisconnectedWalletCard,
     LabeledCard,
     PoolCard,
+    MiningPoolCard,
     StatusIndicator,
     TabbedChartCard,
     Token
@@ -14,16 +15,13 @@ import {
     Topbar,
     Grid
 } from './layout';
-import {
-    ModalManager,
-    SnackbarManager
-} from './managers';
 
 export {
     
     DisconnectedWalletCard,
     LabeledCard,
     PoolCard,
+    MiningPoolCard,
     StatusIndicator,
     TabbedChartCard,
     Token,
@@ -33,9 +31,6 @@ export {
     Section,
     Sidebar,
     Topbar,
-    Grid,
-
-    ModalManager,
-    SnackbarManager
+    Grid
 
 };

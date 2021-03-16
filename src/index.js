@@ -17,7 +17,7 @@ const getLibrary = provider => {
 ReactDOM.render(
 	<React.StrictMode>
 		<Web3ReactProvider getLibrary={getLibrary}>
-			<App />
+			<App rootNode={rootNode} />
 		</Web3ReactProvider>
 	</React.StrictMode>,
 	rootNode

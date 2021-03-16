@@ -2,15 +2,29 @@ import { Fragment, useState, useEffect } from 'react';
 
 import { secondsToDhms } from '@utils';
 import { DisplaySmall } from '@core/components';
-import { StyledCountdown, StyledUnitWrapper, StyledUnit, StyledTime } from './countdown.styles';
+import {
+	StyledCountdown,
+	StyledUnitWrapper,
+	StyledUnit,
+	StyledTime
+} from './countdown.styles';
 
 const getDateTimeDifference = (startDate, endDate) => {
 	return endDate - startDate / 1000;
 };
 
-const Countdown = ({ endTime, endMessage = 'Countdown has ended', onEnd }) => {
-	const [ counter, setCounter ] = useState(getDateTimeDifference(Date.now(), endTime));
+const Countdown = ({
+	timestamp,
+	message = 'Countdown has ended',
+	onEnd
+}) => {
 
+	console.log(timestamp);
+
+	const [ counter, setCounter ] = useState(parseInt(getDateTimeDifference(Date.now(), timestamp)));
+
+	console.log(counter);
+	
 	useEffect(
 		() => {
 			let timeoutID;
@@ -23,24 +37,23 @@ const Countdown = ({ endTime, endMessage = 'Countdown has ended', onEnd }) => {
 				clearTimeout(timeoutID);
 			};
 		},
-		[ counter ]
+		[counter]
 	);
 
 	return (
 		<StyledCountdown>
-			{counter > 0 &&
-				secondsToDhms(counter).map((unit, i) => {
-					const { label, value } = unit;
-					return (
-						<Fragment key={`unit-${i}`}>
-							{i !== 0 && <StyledTime>:</StyledTime>}
-							<StyledUnit key={`unit-${i}`}>
-								<StyledTime>{value}</StyledTime>
-								<DisplaySmall color="primary">{label}</DisplaySmall>
-							</StyledUnit>
-						</Fragment>
-					);
-				})}
+			{counter > 0 && secondsToDhms(counter).map((unit, i) => {
+				const { label, value } = unit;
+				return (
+					<Fragment key={`unit-${i}`}>
+						{i !== 0 && <StyledTime>:</StyledTime>}
+						<StyledUnit key={`unit-${i}`}>
+							<StyledTime>{value}</StyledTime>
+							<DisplaySmall color="primary">{label}</DisplaySmall>
+						</StyledUnit>
+					</Fragment>
+				);
+			})}
 		</StyledCountdown>
 	);
 };

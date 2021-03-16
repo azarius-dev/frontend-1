@@ -16,7 +16,8 @@ const sizes = {
         height: 50px;
         padding: 0 20px;
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 400;
+        letter-spacing: 1px;
 
         svg {
             height: 18px;

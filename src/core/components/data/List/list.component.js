@@ -9,7 +9,8 @@ import {
 
 const List = ({
     alternateRows,
-    data
+    data,
+    color = 'text'
 }) => {
 
     const renderListItems = () => {
@@ -25,11 +26,15 @@ const List = ({
                         message={tooltip}
                         followCursor={true}
                     >
-                        <StyledItemLabel>
+                        <StyledItemLabel
+                            color={color}
+                        >
                             {label}
                         </StyledItemLabel>
                     </Tooltip>
-                    <StyledItemValue>
+                    <StyledItemValue
+                        color={color}
+                    >
                         {valueType && valueType !== '' ? <Token type={valueType} /> : ''}
                         {value}
                     </StyledItemValue>

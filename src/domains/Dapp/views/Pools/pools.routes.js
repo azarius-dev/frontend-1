@@ -1,9 +1,8 @@
-// import the pool page view here
-import CONTRACT_ADDRESS from '@constants/contract-address.constant';
-import { BscMining, EthBridge } from './views';
+//import CONTRACT_ADDRESS from '@constants/contract-address.constant';
+//import { BscMining, EthBridge } from './views';
 
 const POOLS_ROUTES = [
-	{
+	/*{
 		label: 'Debase Bridge Pool',
 		path: '/pools/debase-bridge-pool',
 		component: <EthBridge poolAddress={CONTRACT_ADDRESS.debaseBridgePool} label="Debase Bridge Pool" />
@@ -23,7 +22,7 @@ const POOLS_ROUTES = [
 				label="UwU/Busd Lp Pool"
 			/>
 		)
-	}
+	}*/
 ];
 
 export default POOLS_ROUTES;

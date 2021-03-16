@@ -2,7 +2,7 @@ import { Button, IconButton } from './controls';
 import { Graph, List, Timeline, Countdown, Progress } from './data';
 import { Banner, Snackbar, Spinner, Tooltip, Backdrop } from './feedback';
 import { FormField, Input, Slider, Switch } from './input';
-import { Card, Flexbox } from './layout';
+import { Card, Flexbox, Modal, Divider } from './layout';
 import { Tabs, Tab } from './navigation';
 import { DisplaySmall, DisplayMedium, DisplayLarge, TextMini, TextSmall, TextMedium, TextLarge } from './typography';
 import { Portal } from './utils';
@@ -30,6 +30,8 @@ export {
 	// LAYOUT
 	Card,
 	Flexbox,
+	Modal,
+	Divider,
 	// NAVIGATION
 	Tabs,
 	Tab,
