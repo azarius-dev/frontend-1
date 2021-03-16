@@ -10,6 +10,7 @@ import { List, Countdown, Progress, Button, Input, Flexbox, TextMini, DisplayMed
 import { Section, LabeledCard, Grid } from '@dapp/components';
 import { SnackbarManagerContext } from '@dapp/managers';
 import { StyledConversionText } from './seedingdata.styles';
+import { parseEther } from '../../../../../../../node_modules/ethers/lib/utils';
 
 const SeedingData = () => {
 	const { library, account } = useWeb3React();
@@ -202,14 +203,15 @@ const SeedingData = () => {
 		const poolContract = new Contract(CONTRACT_ADDRESS.seed, ABI_SEED, library.getSigner());
 		const tokenContract = new Contract(CONTRACT_ADDRESS.bnb, ABI_LP, library.getSigner());
 		try {
-			const toStake = parseUnits(depositInputValue, 1);
+			const toStake = parseEther(depositInputValue);
 			let allowance = await tokenContract.allowance(account, CONTRACT_ADDRESS.seed);
 			let transaction;
 			if (allowance.lt(toStake)) {
 				transaction = await tokenContract.approve(CONTRACT_ADDRESS.seed, toStake);
 				await transaction.wait(1);
 			}
-			await poolContract.deposit(toStake);
+			transaction = await poolContract.deposit(toStake);
+			await transaction.wait(1);
 			openSnackbar({
 				message: 'BNB deposited',
 				status: 'success'
@@ -253,11 +255,15 @@ const SeedingData = () => {
 
 					{remainingUwUDistributionEnabled &&
 					remainingUwUDistributionEndsAt && (
-						<LabeledCard label="uwu distribution time remaining">
-							<Countdown
-								timestamp={remainingUwUDistributionEndsAt}
-								message="UwU distribution has ended"
-							/>
+						<LabeledCard label="remaining uwu distribution time">
+							{Date.now() > remainingUwUDistributionEndsAt.toNumber() * 1000 ? (
+								<DisplayMedium color="secundary">Remaining UwU distribution has ended</DisplayMedium>
+							) : (
+								<Countdown
+									timestamp={remainingUwUDistributionEndsAt}
+									message="UwU distribution has ended"
+								/>
+							)}
 						</LabeledCard>
 					)}
 				</Flexbox>
@@ -292,7 +298,11 @@ const SeedingData = () => {
 								</StyledConversionText>
 							)}
 
-							<Button isLoading={isDepositLoading} onClick={handleDeposit}>
+							<Button
+								isLoading={isDepositLoading}
+								isDisabled={remainingUwUDistributionEnabled ? remainingUwUDistributionEnabled : false}
+								onClick={handleDeposit}
+							>
 								deposit
 							</Button>
 						</Flexbox>

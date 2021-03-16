@@ -10,6 +10,7 @@ import { Card, List, Button, Input, Flexbox, Spinner } from '@core/components';
 import { PoolCard } from '@dapp/components';
 import { SnackbarManagerContext } from '@dapp/managers';
 import { StyledMiningPoolCard, StyledCardInner, StyledAprText } from './mining-poolcard.styles';
+import { parseEther } from 'ethers/lib/utils';
 
 const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress }) => {
 	const { library, account } = useWeb3React();
@@ -47,10 +48,16 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress }) => {
 	const { data: periodFinish, mutate: getPeriodFinish } = useSWR([ poolAddress, 'periodFinish' ], {
 		fetcher: fetcher(library, ABI_POOL)
 	});
+
+	const { data: duration, mutate: getDuration } = useSWR([ poolAddress, 'duration' ], {
+		fetcher: fetcher(library, ABI_POOL)
+	});
+
 	// if zero don't show claim button
 	const { data: earned, mutate: getEarned } = useSWR([ poolAddress, 'earned', account ], {
 		fetcher: fetcher(library, ABI_POOL)
 	});
+
 	// value how much a user has staked into pool
 	const { data: userStakedBalance, mutate: getUserStakedBalance } = useSWR([ poolAddress, 'balanceOf', account ], {
 		fetcher: fetcher(library, ABI_POOL)
@@ -76,6 +83,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress }) => {
 				getWalletBalance(undefined, true);
 				getTotalStakedBalance(undefined, true);
 				getPoolEnabled(undefined, true);
+				getDuration(undefined, true);
 			});
 			return () => {
 				library && library.removeAllListeners('block');
@@ -91,7 +99,8 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress }) => {
 			getPoolEnabled,
 			getUserStakedBalance,
 			getWalletBalance,
-			getTotalStakedBalance
+			getTotalStakedBalance,
+			getDuration
 		]
 	);
 
@@ -99,31 +108,49 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress }) => {
 	const poolListData = [
 		{
 			label: 'Total staked',
-			value: totalStakedBalance ? formatEther(totalStakedBalance) : <Spinner size="xsmall" />,
+			value: totalStakedBalance ? (
+				parseFloat(formatEther(totalStakedBalance)).toFixed(4)
+			) : (
+				<Spinner size="xsmall" />
+			),
 			tooltip: '**update**'
 		},
 		{
-			label: 'Total claimed reward',
-			value:
-				maxReward && rewardDistributed ? (
-					`${formatEther(rewardDistributed)} / ${formatEther(maxReward)}`
-				) : (
-					<Spinner size="xsmall" />
-				),
+			label: 'Pool Rewards',
+			value: maxReward ? parseFloat(formatEther(maxReward)).toFixed(2) : <Spinner size="xsmall" />,
+			tooltip: '**update**'
+		},
+		{
+			label: 'Rewards Claimed',
+			value: rewardDistributed ? (
+				parseFloat(formatEther(rewardDistributed)).toFixed(2)
+			) : (
+				<Spinner size="xsmall" />
+			),
+			tooltip: '**update**'
+		},
+		{
+			label: 'Halving period',
+			value: duration ? (
+				parseFloat(duration.toNumber() / 60 * 60).toFixed(2) * 1 + ' Hours'
+			) : (
+				<Spinner size="xsmall" />
+			),
 			tooltip: '**update**'
 		},
 		{
 			label: 'Halving reward',
-			value: initReward ? formatEther(initReward) : <Spinner size="xsmall" />,
+			value: initReward ? parseFloat(formatEther(initReward)).toFixed(4) : <Spinner size="xsmall" />,
 			tooltip: '**update**'
 		},
 		{
 			label: 'Next halving in',
-			value: periodFinish ? (
-				calcDateDifference(new Date(periodFinish.toNumber() * 1000), new Date()).toFixed(2) + ' day(s)'
-			) : (
-				<Spinner size="xsmall" />
-			),
+			value:
+				poolEnabled && periodFinish ? (
+					calcDateDifference(new Date(periodFinish.toNumber() * 1000), new Date()).toFixed(2) + ' day(s)'
+				) : (
+					<Spinner size="xsmall" />
+				),
 			valueType: '',
 			tooltip: 'Time since the last rebase happened'
 		}
@@ -131,17 +158,21 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress }) => {
 	const userListData = [
 		{
 			label: 'Earned reward',
-			value: earned ? formatEther(initReward) : <Spinner size="xsmall" />,
+			value: earned ? parseFloat(formatEther(earned)).toFixed(4) : <Spinner size="xsmall" />,
 			tooltip: '**update**'
 		},
 		{
 			label: 'Staked balance',
-			value: userStakedBalance ? formatEther(userStakedBalance) : <Spinner size="xsmall" />,
+			value: userStakedBalance ? (
+				parseFloat(formatEther(userStakedBalance)).toFixed(4)
+			) : (
+				<Spinner size="xsmall" />
+			),
 			tooltip: '**update**'
 		},
 		{
 			label: 'Wallet balance',
-			value: walletBalance ? formatEther(walletBalance) : <Spinner size="xsmall" />,
+			value: walletBalance ? parseFloat(formatEther(walletBalance)).toFixed(4) : <Spinner size="xsmall" />,
 			tooltip: '**update**'
 		}
 	];
@@ -160,14 +191,16 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress }) => {
 		const poolContract = new Contract(poolAddress, ABI_POOL, library.getSigner());
 		const tokenContract = new Contract(lpAddress, ABI_LP, library.getSigner());
 		try {
-			const toStake = parseUnits(stakeInputValue, 1);
+			const toStake = parseEther(stakeInputValue);
 			let allowance = await tokenContract.allowance(account, poolAddress);
 			let transaction;
 			if (allowance.lt(toStake)) {
 				transaction = await tokenContract.approve(poolAddress, toStake);
 				await transaction.wait(1);
 			}
-			await poolContract.stake(toStake);
+			console.log(toStake);
+			transaction = await poolContract.stake(toStake);
+			await transaction.wait(1);
 			openSnackbar({
 				message: 'Staking success',
 				status: 'success'
@@ -185,7 +218,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress }) => {
 		setIsUnstakeLoading(true);
 		const poolContract = new Contract(poolAddress, ABI_POOL, library.getSigner());
 		try {
-			const toWithdraw = parseUnits(unstakeInputValue, 1);
+			const toWithdraw = parseEther(unstakeInputValue);
 			let transaction = await poolContract.withdraw(toWithdraw);
 			await transaction.wait(1);
 			openSnackbar({
@@ -219,10 +252,10 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress }) => {
 		setIsClaimLoading(false);
 	}
 	const handleMaxStake = () => {
-		setStakeInputValue('handle max');
+		setStakeInputValue(formatEther(walletBalance));
 	};
 	const handleMaxUnstake = () => {
-		setUnstakeInputValue('handle max');
+		setUnstakeInputValue(formatEther(userStakedBalance));
 	};
 	const onChangeStakeInput = (value) => {
 		setStakeInputValue(value);
