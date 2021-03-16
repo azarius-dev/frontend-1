@@ -1,6 +1,7 @@
 const ABI_POOL = [
 	'function earned(address account) public view returns (uint256)',
 	'function rewardDistributed() public view returns(uint256)',
+	'function poolEnabled() public view returns(bool)',
 	'function periodFinish() public view returns(uint256)',
 	'function maxReward() public view returns(uint256)',
 	'function initReward() public view returns(uint256)',

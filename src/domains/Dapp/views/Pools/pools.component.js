@@ -19,15 +19,12 @@ const Pools = () => {
 					type="bridge"
 					tooltip="tooltip info"
 					poolAddress={CONTRACT_ADDRESS.debaseBridgePool}
-					lpAddress
-					isActive
 				/>
 				<MiningPoolCard
 					label="Debase/Dai Lp Bridge Pool"
 					type="bridge"
 					tooltip="Lorem ipsum dolor sit amet, consectetur adipiscin"
 					poolAddress={CONTRACT_ADDRESS.debaseDaiBridgePool}
-					isActive
 				/>
 				<MiningPoolCard
 					label="UwU/Busd Lp Pool"
@@ -35,7 +32,6 @@ const Pools = () => {
 					tooltip="Lorem ipsum dolor sit amet, consectetur adipiscin"
 					poolAddress={CONTRACT_ADDRESS.uwuBusdLpMiningPool}
 					lpAddress={CONTRACT_ADDRESS.uwuBusdLp}
-					isActive
 				/>
 			</Grid>
 		);
