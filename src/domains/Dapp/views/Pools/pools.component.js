@@ -23,17 +23,17 @@ const Pools = () => {
 					isActive
 				/>
 				<MiningPoolCard
-					label="Debase/Eth Lp Bridge Pool"
+					label="Debase/Dai Lp Bridge Pool"
 					type="bridge"
 					tooltip="Lorem ipsum dolor sit amet, consectetur adipiscin"
-					poolAddress={CONTRACT_ADDRESS.debaseEthBridgePool}
+					poolAddress={CONTRACT_ADDRESS.debaseDaiBridgePool}
 					isActive
 				/>
 				<MiningPoolCard
 					label="UwU/Busd Lp Pool"
 					type="mining"
 					tooltip="Lorem ipsum dolor sit amet, consectetur adipiscin"
-					poolAddress={CONTRACT_ADDRESS.uwuMiningPool}
+					poolAddress={CONTRACT_ADDRESS.uwuBusdLpMiningPool}
 					lpAddress={CONTRACT_ADDRESS.uwuBusdLp}
 					isActive
 				/>
