@@ -142,13 +142,8 @@ const SeedingData = () => {
 
 	const seedingListData = [
 		{
-			label: 'Price at launch',
+			label: 'Fixed BnB Price',
 			value: priceAtLaunch ? parseFloat(formatEther(priceAtLaunch)).toFixed(4) * 1 : '...',
-			tooltip: '**update**'
-		},
-		{
-			label: 'Max BNB seeding per user',
-			value: walletBNBCap ? parseFloat(formatEther(walletBNBCap)).toFixed(4) * 1 : '...',
 			tooltip: '**update**'
 		},
 		{
@@ -169,7 +164,11 @@ const SeedingData = () => {
 		},
 		{
 			label: 'BNB Deposited',
-			value: userData ? parseFloat(formatEther(userData[0])).toFixed(4) : '...',
+			value: userData
+				? parseFloat(formatEther(userData[0])).toFixed(4) +
+					'/' +
+					parseFloat(formatEther(walletBNBCap)).toFixed(4)
+				: '...',
 			tooltip: '**update**'
 		},
 		{
@@ -189,9 +188,13 @@ const SeedingData = () => {
 		}
 	];
 
-	async function handleMaxBNB() {
+	async function handleMaxBNB(balance, deposited, walletCap) {
 		// create formula to calculate max amount of bnb a user can purchase with the input field
-		setDepositInputValue(formatEther(balance));
+		if (balance.gt(walletCap)) {
+			setDepositInputValue(formatEther(walletCap.sub(deposited)));
+		} else {
+			setDepositInputValue(formatEther(balance.sub(deposited)));
+		}
 	}
 
 	async function handleDeposit() {
@@ -227,23 +230,15 @@ const SeedingData = () => {
 					<LabeledCard label="general" gutter={0}>
 						<List data={seedingListData} />
 					</LabeledCard>
-					<LabeledCard label="time remaining">
-						{seedEnabled && seedEndsAt ? (
+					<LabeledCard label="seed time remaining">
+						{seedEnabled && seedEndsAt ? Date.now() > seedEndsAt.toNumber() * 1000 ? (
+							<DisplayMedium color="secundary">Seed round has ended</DisplayMedium>
+						) : (
 							<Countdown timestamp={seedEndsAt} message="Seeding ended" />
 						) : (
 							<DisplayMedium color="secundary">Seeding has not started yet</DisplayMedium>
 						)}
 					</LabeledCard>
-
-					{remainingUwUDistributionEnabled &&
-					remainingUwUDistributionEndsAt && (
-						<LabeledCard label="uwu distribution time remaining">
-							<Countdown
-								timestamp={remainingUwUDistributionEndsAt}
-								message="UwU distribution has ended"
-							/>
-						</LabeledCard>
-					)}
 
 					{totalBNBDeposited &&
 					BNBCap && (
@@ -252,6 +247,16 @@ const SeedingData = () => {
 								currentValue={parseFloat(formatEther(totalBNBDeposited)).toFixed(2) * 1}
 								totalValue={parseFloat(formatEther(BNBCap)).toFixed(2) * 1}
 								label="bnb"
+							/>
+						</LabeledCard>
+					)}
+
+					{remainingUwUDistributionEnabled &&
+					remainingUwUDistributionEndsAt && (
+						<LabeledCard label="uwu distribution time remaining">
+							<Countdown
+								timestamp={remainingUwUDistributionEndsAt}
+								message="UwU distribution has ended"
 							/>
 						</LabeledCard>
 					)}
@@ -267,9 +272,16 @@ const SeedingData = () => {
 									placeholder="Enter funds"
 									onChange={onChangeInputDeposit}
 								/>
-								<Button color="primary" onClick={handleMaxBNB}>
-									max
-								</Button>
+								{balance &&
+								userData[0] &&
+								walletBNBCap && (
+									<Button
+										color="primary"
+										onClick={() => handleMaxBNB(balance, userData[0], walletBNBCap)}
+									>
+										max
+									</Button>
+								)}
 							</Flexbox>
 
 							{tokenExchangeRate && (
