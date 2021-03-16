@@ -14,7 +14,7 @@ const ABI_SEED = [
 	'function deposit(uint256) external',
 	'function totalBNBDeposited() external view returns(uint256)',
 	'function totalUwUDistributed() external view returns(uint256)',
-	'function Users(address) external view returns(uint256,uint256,uint256,uint256)'
+	'function Users(address) external view returns(uint256,uint256,uint256,uint256,uint256,uint256)'
 ];
 
 export default ABI_SEED;

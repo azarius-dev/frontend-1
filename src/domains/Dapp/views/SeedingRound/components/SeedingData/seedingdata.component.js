@@ -148,7 +148,7 @@ const SeedingData = () => {
 			tooltip: '**update**'
 		},
 		{
-			label: 'UwU distributed',
+			label: 'Total UwU distributed',
 			value:
 				totalUwUReward && totalUwUDistributed
 					? `${formatEther(totalUwUDistributed)} / ${formatEther(totalUwUReward)}`
@@ -173,18 +173,28 @@ const SeedingData = () => {
 			tooltip: '**update**'
 		},
 		{
-			label: 'UwU Claim',
-			value: userData ? parseFloat(formatEther(userData[2])).toFixed(4) : '...',
-			tooltip: '**update**'
-		},
-		{
-			label: 'UwU Claimed',
+			label: 'UwU Claim Round 1',
 			value: userData ? parseFloat(formatEther(userData[1])).toFixed(4) : '...',
 			tooltip: '**update**'
 		},
 		{
-			label: 'UwU/Busd Lp Sent',
+			label: 'UwU Claim Round 2',
+			value: userData ? parseFloat(formatEther(userData[2])).toFixed(4) : '...',
+			tooltip: '**update**'
+		},
+		{
+			label: 'UwU Locked In Lp',
+			value: userData ? parseFloat(formatEther(userData[4])).toFixed(4) : '...',
+			tooltip: '**update**'
+		},
+		{
+			label: 'UwU Claimed',
 			value: userData ? parseFloat(formatEther(userData[3])).toFixed(4) : '...',
+			tooltip: '**update**'
+		},
+		{
+			label: 'UwU/Busd Lp Rewarded',
+			value: userData ? parseFloat(formatEther(userData[5])).toFixed(4) : '...',
 			tooltip: '**update**'
 		}
 	];
@@ -293,7 +303,8 @@ const SeedingData = () => {
 							{tokenExchangeRate && (
 								<StyledConversionText>
 									<TextMini>
-										converts to {depositInputValue * formatEther(tokenExchangeRate)} UwU
+										converts to{' '}
+										{depositInputValue * parseFloat(formatEther(tokenExchangeRate)).toFixed(4)} UwU
 									</TextMini>
 								</StyledConversionText>
 							)}

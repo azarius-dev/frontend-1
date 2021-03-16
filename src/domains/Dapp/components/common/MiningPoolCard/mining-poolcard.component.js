@@ -3,7 +3,7 @@ import useSWR from 'swr';
 import { useWeb3React } from '@web3-react/core';
 import { formatEther, parseUnits } from 'ethers/lib/utils';
 import { Contract } from 'ethers/lib/ethers';
-
+import { DateTime } from 'luxon';
 import { ABI_POOL, ABI_LP } from '@constants';
 import { fetcher, calcDateDifference } from '@utils';
 import { Card, List, Button, Input, Flexbox, Spinner } from '@core/components';
@@ -132,7 +132,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress }) => {
 		{
 			label: 'Halving period',
 			value: duration ? (
-				parseFloat(duration.toNumber() / 60 * 60).toFixed(2) * 1 + ' Hours'
+				parseFloat(duration.toNumber() / (60 * 60)).toFixed(2) * 1 + ' Hours'
 			) : (
 				<Spinner size="xsmall" />
 			),
@@ -147,7 +147,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress }) => {
 			label: 'Next halving in',
 			value:
 				poolEnabled && periodFinish ? (
-					calcDateDifference(new Date(periodFinish.toNumber() * 1000), new Date()).toFixed(2) + ' day(s)'
+					DateTime.fromSeconds(periodFinish.toNumber()).toRelative({ round: false })
 				) : (
 					<Spinner size="xsmall" />
 				),
