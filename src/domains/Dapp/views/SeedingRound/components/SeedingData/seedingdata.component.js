@@ -143,7 +143,7 @@ const SeedingData = () => {
 
 	const seedingListData = [
 		{
-			label: 'Fixed BnB Price',
+			label: 'UwU/BNB Fixed BNB price',
 			value: priceAtLaunch ? parseFloat(formatEther(priceAtLaunch)).toFixed(4) * 1 : '...',
 			tooltip: '**update**'
 		},
@@ -151,7 +151,7 @@ const SeedingData = () => {
 			label: 'Total UwU distributed',
 			value:
 				totalUwUReward && totalUwUDistributed
-					? `${formatEther(totalUwUDistributed)} / ${formatEther(totalUwUReward)}`
+					? `${formatEther(totalUwUDistributed) * 1} / ${formatEther(totalUwUReward) * 1}`
 					: '...',
 			tooltip: '**update**'
 		}
@@ -160,36 +160,44 @@ const SeedingData = () => {
 	const walletListData = [
 		{
 			label: 'BNB Balance',
-			value: balance ? parseFloat(formatEther(balance)).toFixed(4) : '...',
+			value: balance ? parseFloat(formatEther(balance)).toFixed(4) * 1 : '...',
 			tooltip: '**update**'
 		},
 		{
 			label: 'BNB Deposited',
 			value: userData
-				? parseFloat(formatEther(userData[0])).toFixed(4) +
+				? parseFloat(formatEther(userData[0])).toFixed(4) * 1 +
 					'/' +
-					parseFloat(formatEther(walletBNBCap)).toFixed(4)
+					parseFloat(formatEther(walletBNBCap)).toFixed(4) * 1
 				: '...',
 			tooltip: '**update**'
 		},
 		{
+			label: 'Total UwW Purchased',
+			value:
+				userData && tokenExchangeRate
+					? parseFloat(formatEther(userData[0].mul(tokenExchangeRate))).toFixed(4) * 1
+					: '...',
+			tooltip: '**update**'
+		},
+		{
 			label: 'UwU (Unlocked)',
-			value: userData ? parseFloat(formatEther(userData[1])).toFixed(4) : '...',
+			value: userData ? parseFloat(formatEther(userData[1])).toFixed(4) * 1 : '...',
 			tooltip: '**update**'
 		},
 		{
 			label: 'UwU (Locked)',
-			value: userData ? parseFloat(formatEther(userData[2])).toFixed(4) : '...',
+			value: userData ? parseFloat(formatEther(userData[2])).toFixed(4) * 1 : '...',
 			tooltip: '**update**'
 		},
 		{
-			label: 'UwU airdropped In Lp',
-			value: userData ? parseFloat(formatEther(userData[4])).toFixed(4) : '...',
+			label: 'UwU Airdropped In Lp',
+			value: userData ? parseFloat(formatEther(userData[4])).toFixed(4) * 1 : '...',
 			tooltip: '**update**'
 		},
 		{
-			label: 'Total UwU returned',
-			value: userData ? parseFloat(formatEther(userData[3])).toFixed(4) : '...',
+			label: 'UwU Returned',
+			value: userData ? parseFloat(formatEther(userData[3])).toFixed(4) * 1 : '...',
 			tooltip: '**update**'
 		}
 	];
@@ -238,10 +246,8 @@ const SeedingData = () => {
 						<List data={seedingListData} />
 					</LabeledCard>
 					<LabeledCard label="seed time remaining">
-						{seedEnabled && seedEndsAt ? Date.now() > seedEndsAt.toNumber() * 1000 ? (
-							<DisplayMedium color="secundary">Seed round has ended</DisplayMedium>
-						) : (
-							<Countdown timestamp={seedEndsAt} message="Seeding ended" />
+						{seedEnabled && seedEndsAt ? (
+							<Countdown timestamp={seedEndsAt} message="Seed round has ended" />
 						) : (
 							<DisplayMedium color="secundary">Seeding has not started yet</DisplayMedium>
 						)}
@@ -261,14 +267,10 @@ const SeedingData = () => {
 					{remainingUwUDistributionEnabled &&
 					remainingUwUDistributionEndsAt && (
 						<LabeledCard label="locked uwu distribution period">
-							{Date.now() > remainingUwUDistributionEndsAt.toNumber() * 1000 ? (
-								<DisplayMedium color="secundary">locked UwU has been distributed</DisplayMedium>
-							) : (
-								<Countdown
-									timestamp={remainingUwUDistributionEndsAt}
-									message="locked UwU has been distribution"
-								/>
-							)}
+							<Countdown
+								timestamp={remainingUwUDistributionEndsAt}
+								message="locked UwU has been distribution"
+							/>
 						</LabeledCard>
 					)}
 				</Flexbox>
@@ -313,7 +315,7 @@ const SeedingData = () => {
 							</Button>
 						</Flexbox>
 					</LabeledCard>
-					<LabeledCard label="wallet balance" gutter={0}>
+					<LabeledCard label="uwu bank" gutter={0}>
 						<List data={walletListData} />
 					</LabeledCard>
 				</Grid>

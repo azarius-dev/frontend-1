@@ -15,26 +15,26 @@ const Pools = () => {
 		return (
 			<Grid>
 				<MiningPoolCard
-					label="Debase Bridge Pool"
+					label="DEBASE Bridge Pool"
 					type="bridge"
 					tooltip="tooltip info"
 					poolAddress={CONTRACT_ADDRESS.debaseBridgePool}
-					stakeText="Debase"
+					stakeText="DEBASE"
 				/>
 				<MiningPoolCard
-					label="Debase/Dai Lp Bridge Pool"
+					label="DEBASE/DAI Lp Bridge Pool"
 					type="bridge"
 					tooltip="Lorem ipsum dolor sit amet, consectetur adipiscin"
 					poolAddress={CONTRACT_ADDRESS.debaseDaiBridgePool}
 					stakeText="Debase/Dai Lp"
 				/>
 				<MiningPoolCard
-					label="UwU/Busd Lp Pool"
+					label="UwU/BUSD Lp Pool"
 					type="mining"
 					tooltip="Lorem ipsum dolor sit amet, consectetur adipiscin"
 					poolAddress={CONTRACT_ADDRESS.uwuBusdLpMiningPool}
 					lpAddress={CONTRACT_ADDRESS.uwuBusdLp}
-					stakeText="UwU/Busd Lp"
+					stakeText="UwU/BUSD Lp"
 				/>
 			</Grid>
 		);

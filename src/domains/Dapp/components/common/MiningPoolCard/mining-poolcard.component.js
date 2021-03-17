@@ -107,9 +107,9 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 	// List data arrays
 	const poolListData = [
 		{
-			label: 'Total staked (In Pool)',
+			label: 'Total Staked in Pool (' + stakeText + ')',
 			value: totalStakedBalance ? (
-				parseFloat(formatEther(totalStakedBalance)).toFixed(4)
+				parseFloat(formatEther(totalStakedBalance)).toFixed(4) * 1
 			) : (
 				<Spinner size="xsmall" />
 			),
@@ -117,20 +117,20 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 		},
 		{
 			label: 'Total Pool Rewards',
-			value: maxReward ? parseFloat(formatEther(maxReward)).toFixed(2) : <Spinner size="xsmall" />,
+			value: maxReward ? parseFloat(formatEther(maxReward)).toFixed(2) * 1 : <Spinner size="xsmall" />,
 			tooltip: '**update**'
 		},
 		{
 			label: 'Total Rewards Claimed',
 			value: rewardDistributed ? (
-				parseFloat(formatEther(rewardDistributed)).toFixed(2)
+				parseFloat(formatEther(rewardDistributed)).toFixed(2) * 1
 			) : (
 				<Spinner size="xsmall" />
 			),
 			tooltip: '**update**'
 		},
 		{
-			label: 'Halving period',
+			label: 'Halving Period',
 			value: duration ? (
 				parseFloat(duration.toNumber() / (60 * 60)).toFixed(2) * 1 + ' Hours'
 			) : (
@@ -139,8 +139,8 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 			tooltip: '**update**'
 		},
 		{
-			label: 'Current Period Reward',
-			value: initReward ? parseFloat(formatEther(initReward)).toFixed(4) : <Spinner size="xsmall" />,
+			label: 'Current Period Reward (UwW)',
+			value: initReward ? parseFloat(formatEther(initReward)).toFixed(4) * 1 : <Spinner size="xsmall" />,
 			tooltip: '**update**'
 		},
 		{
@@ -159,7 +159,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 		{
 			label: 'Staked (' + stakeText + ')',
 			value: userStakedBalance ? (
-				parseFloat(formatEther(userStakedBalance)).toFixed(4)
+				parseFloat(formatEther(userStakedBalance)).toFixed(4) * 1
 			) : (
 				<Spinner size="xsmall" />
 			),
@@ -167,12 +167,12 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 		},
 		{
 			label: 'Unstaked (' + stakeText + ')',
-			value: walletBalance ? parseFloat(formatEther(walletBalance)).toFixed(4) : <Spinner size="xsmall" />,
+			value: walletBalance ? parseFloat(formatEther(walletBalance)).toFixed(4) * 1 : <Spinner size="xsmall" />,
 			tooltip: '**update**'
 		},
 		{
-			label: 'Earned reward (UwU)',
-			value: earned ? parseFloat(formatEther(earned)).toFixed(4) : <Spinner size="xsmall" />,
+			label: 'Earned Reward (UwU)',
+			value: earned ? parseFloat(formatEther(earned)).toFixed(4) * 1 : <Spinner size="xsmall" />,
 			tooltip: '**update**'
 		}
 	];
@@ -273,7 +273,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 						color="primary"
 						data={
 							type === 'bridge' ? (
-								userListData.filter((ele) => !ele.label.includes('Wallet'))
+								userListData.filter((ele) => !ele.label.includes('Unstaked'))
 							) : (
 								userListData
 							)

@@ -1,8 +1,8 @@
 import { Fragment, useState, useEffect } from 'react';
 
 import { secondsToDhms } from '@utils';
-import { DisplaySmall } from '@core/components';
-import { StyledCountdown, StyledUnitWrapper, StyledUnit, StyledTime } from './countdown.styles';
+import { DisplayMedium, DisplaySmall } from '@core/components';
+import { StyledCountdown, StyledUnit, StyledTime } from './countdown.styles';
 
 const getDateTimeDifference = (startDate, endDate) => {
 	return endDate - startDate / 1000;
@@ -42,7 +42,7 @@ const Countdown = ({ timestamp, message = 'Countdown has ended', onEnd }) => {
 					);
 				})
 			) : (
-				message
+				<DisplayMedium color="secundary">{message}</DisplayMedium>
 			)}
 		</StyledCountdown>
 	);
