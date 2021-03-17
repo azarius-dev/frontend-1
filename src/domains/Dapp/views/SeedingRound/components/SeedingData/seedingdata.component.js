@@ -173,28 +173,23 @@ const SeedingData = () => {
 			tooltip: '**update**'
 		},
 		{
-			label: 'Initial UwU Claim',
+			label: 'UwU (Unlocked)',
 			value: userData ? parseFloat(formatEther(userData[1])).toFixed(4) : '...',
 			tooltip: '**update**'
 		},
 		{
-			label: 'Remaining UwU Claim',
+			label: 'UwU (Locked)',
 			value: userData ? parseFloat(formatEther(userData[2])).toFixed(4) : '...',
 			tooltip: '**update**'
 		},
 		{
-			label: 'UwU In Lp',
+			label: 'UwU Bonded In Lp',
 			value: userData ? parseFloat(formatEther(userData[4])).toFixed(4) : '...',
 			tooltip: '**update**'
 		},
 		{
 			label: 'UwU Claimed',
 			value: userData ? parseFloat(formatEther(userData[3])).toFixed(4) : '...',
-			tooltip: '**update**'
-		},
-		{
-			label: 'UwU/Busd Lp Rewarded',
-			value: userData ? parseFloat(formatEther(userData[5])).toFixed(4) : '...',
 			tooltip: '**update**'
 		}
 	];
@@ -265,13 +260,13 @@ const SeedingData = () => {
 
 					{remainingUwUDistributionEnabled &&
 					remainingUwUDistributionEndsAt && (
-						<LabeledCard label="remaining uwu distribution time">
+						<LabeledCard label="locked uwu distribution period">
 							{Date.now() > remainingUwUDistributionEndsAt.toNumber() * 1000 ? (
-								<DisplayMedium color="secundary">Remaining UwU distribution has ended</DisplayMedium>
+								<DisplayMedium color="secundary">locked UwU has been distribution</DisplayMedium>
 							) : (
 								<Countdown
 									timestamp={remainingUwUDistributionEndsAt}
-									message="UwU distribution has ended"
+									message="locked UwU has been distribution"
 								/>
 							)}
 						</LabeledCard>
