@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState, useContext } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { formatEther, parseUnits } from 'ethers/lib/utils';
+import { formatEther } from 'ethers/lib/utils';
 import { Contract } from 'ethers/lib/ethers';
 import useSWR from 'swr';
 
@@ -10,7 +10,7 @@ import { List, Countdown, Progress, Button, Input, Flexbox, TextMini, DisplayMed
 import { Section, LabeledCard, Grid } from '@dapp/components';
 import { SnackbarManagerContext } from '@dapp/managers';
 import { StyledConversionText } from './seedingdata.styles';
-import { parseEther } from '../../../../../../../node_modules/ethers/lib/utils';
+import { parseEther } from 'ethers/lib/utils';
 
 const SeedingData = () => {
 	const { library, account } = useWeb3React();
