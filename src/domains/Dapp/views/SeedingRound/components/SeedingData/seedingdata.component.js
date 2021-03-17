@@ -14,7 +14,7 @@ import { parseEther } from '../../../../../../../node_modules/ethers/lib/utils';
 
 const SeedingData = () => {
 	const { library, account } = useWeb3React();
-	const [ depositInputValue, setDepositInputValue ] = useState('');
+	const [ depositInputValue, setDepositInputValue ] = useState(0);
 	const [ isDepositLoading, setIsDepositLoading ] = useState(false);
 	const { openSnackbar } = useContext(SnackbarManagerContext);
 
@@ -183,12 +183,12 @@ const SeedingData = () => {
 			tooltip: '**update**'
 		},
 		{
-			label: 'UwU Bonded In Lp',
+			label: 'UwU airdropped In Lp',
 			value: userData ? parseFloat(formatEther(userData[4])).toFixed(4) : '...',
 			tooltip: '**update**'
 		},
 		{
-			label: 'UwU Claimed',
+			label: 'Total UwU returned',
 			value: userData ? parseFloat(formatEther(userData[3])).toFixed(4) : '...',
 			tooltip: '**update**'
 		}
@@ -262,7 +262,7 @@ const SeedingData = () => {
 					remainingUwUDistributionEndsAt && (
 						<LabeledCard label="locked uwu distribution period">
 							{Date.now() > remainingUwUDistributionEndsAt.toNumber() * 1000 ? (
-								<DisplayMedium color="secundary">locked UwU has been distribution</DisplayMedium>
+								<DisplayMedium color="secundary">locked UwU has been distributed</DisplayMedium>
 							) : (
 								<Countdown
 									timestamp={remainingUwUDistributionEndsAt}

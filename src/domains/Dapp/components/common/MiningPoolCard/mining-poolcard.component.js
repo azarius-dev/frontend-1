@@ -144,7 +144,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress }) => {
 			tooltip: '**update**'
 		},
 		{
-			label: 'Next halving in',
+			label: 'Next halving',
 			value:
 				poolEnabled && periodFinish ? (
 					DateTime.fromSeconds(periodFinish.toNumber()).toRelative({ round: false })
