@@ -9,7 +9,7 @@ const CONTRACT_ADDRESS = {
 	debaseBridgePool: '0x1394206c09EF02704bEd2d4dC30A19168d4fEc30',
 	debaseDaiBridgePool: '0x2e335d069B7d5EEE1DF3F518363DD951BbDAd5D1',
 	uwuBusdLpMiningPool: '0x5d79CcD3bC4e8A661475ed0112eBF198390Db91E',
-	uwuBusdLp: '',
+	uwuBusdLp: '0xA1d6B1EA5970fd7C2FEe8926744db8aC3fDE1e37',
 	oracle: ''
 };
 
