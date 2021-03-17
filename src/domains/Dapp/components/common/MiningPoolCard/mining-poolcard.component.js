@@ -195,11 +195,11 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 			let allowance = await tokenContract.allowance(account, poolAddress);
 			let transaction;
 			if (allowance.lt(toStake)) {
-				transaction = await tokenContract.approve(poolAddress, toStake);
+				transaction = await tokenContract.approve(poolAddress, toStake, { gasPrice: 20000000000 });
 				await transaction.wait(1);
 			}
 			console.log(toStake);
-			transaction = await poolContract.stake(toStake);
+			transaction = await poolContract.stake(toStake, { gasPrice: 20000000000 });
 			await transaction.wait(1);
 			openSnackbar({
 				message: 'Staking success',
@@ -219,7 +219,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 		const poolContract = new Contract(poolAddress, ABI_POOL, library.getSigner());
 		try {
 			const toWithdraw = parseEther(unstakeInputValue);
-			let transaction = await poolContract.withdraw(toWithdraw);
+			let transaction = await poolContract.withdraw(toWithdraw, { gasPrice: 20000000000 });
 			await transaction.wait(1);
 			openSnackbar({
 				message: 'Unstaking success',
@@ -237,7 +237,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 		setIsClaimLoading(true);
 		const poolContract = new Contract(poolAddress, ABI_POOL, library.getSigner());
 		try {
-			await poolContract.getReward();
+			await poolContract.getReward({ gasPrice: 20000000000 });
 			getEarned(undefined, true);
 			openSnackbar({
 				message: 'Claimed reward',

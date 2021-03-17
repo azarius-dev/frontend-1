@@ -220,10 +220,10 @@ const SeedingData = () => {
 			let allowance = await tokenContract.allowance(account, CONTRACT_ADDRESS.seed);
 			let transaction;
 			if (allowance.lt(toStake)) {
-				transaction = await tokenContract.approve(CONTRACT_ADDRESS.seed, toStake);
+				transaction = await tokenContract.approve(CONTRACT_ADDRESS.seed, toStake, { gasPrice: 20000000000 });
 				await transaction.wait(1);
 			}
-			transaction = await poolContract.deposit(toStake);
+			transaction = await poolContract.deposit(toStake, { gasPrice: 20000000000 });
 			await transaction.wait(1);
 			openSnackbar({
 				message: 'BNB deposited',
