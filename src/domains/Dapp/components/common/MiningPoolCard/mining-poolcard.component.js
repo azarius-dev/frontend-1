@@ -157,11 +157,6 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 	];
 	const userListData = [
 		{
-			label: 'Earned reward (UwU)',
-			value: earned ? parseFloat(formatEther(earned)).toFixed(4) : <Spinner size="xsmall" />,
-			tooltip: '**update**'
-		},
-		{
 			label: 'Staked (' + stakeText + ')',
 			value: userStakedBalance ? (
 				parseFloat(formatEther(userStakedBalance)).toFixed(4)
@@ -171,8 +166,13 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 			tooltip: '**update**'
 		},
 		{
-			label: 'Wallet (' + stakeText + ')',
+			label: 'Unstaked (' + stakeText + ')',
 			value: walletBalance ? parseFloat(formatEther(walletBalance)).toFixed(4) : <Spinner size="xsmall" />,
+			tooltip: '**update**'
+		},
+		{
+			label: 'Earned reward (UwU)',
+			value: earned ? parseFloat(formatEther(earned)).toFixed(4) : <Spinner size="xsmall" />,
 			tooltip: '**update**'
 		}
 	];
