@@ -173,17 +173,17 @@ const SeedingData = () => {
 			tooltip: '**update**'
 		},
 		{
-			label: 'UwU Claim Round 1',
+			label: 'Initial UwU Claim',
 			value: userData ? parseFloat(formatEther(userData[1])).toFixed(4) : '...',
 			tooltip: '**update**'
 		},
 		{
-			label: 'UwU Claim Round 2',
+			label: 'Remaining UwU Claim',
 			value: userData ? parseFloat(formatEther(userData[2])).toFixed(4) : '...',
 			tooltip: '**update**'
 		},
 		{
-			label: 'UwU Locked In Lp',
+			label: 'UwU In Lp',
 			value: userData ? parseFloat(formatEther(userData[4])).toFixed(4) : '...',
 			tooltip: '**update**'
 		},
