@@ -165,18 +165,19 @@ const SeedingData = () => {
 		},
 		{
 			label: 'BNB Deposited',
-			value: userData
-				? parseFloat(formatEther(userData[0])).toFixed(4) * 1 +
-					'/' +
-					parseFloat(formatEther(walletBNBCap)).toFixed(4) * 1
-				: '...',
+			value:
+				userData && walletBNBCap
+					? parseFloat(formatEther(userData[0])).toFixed(4) * 1 +
+						'/' +
+						parseFloat(formatEther(walletBNBCap)).toFixed(4) * 1
+					: '...',
 			tooltip: '**update**'
 		},
 		{
 			label: 'Total UwW Purchased',
 			value:
 				userData && tokenExchangeRate
-					? parseFloat(formatEther(userData[0].mul(tokenExchangeRate))).toFixed(4) * 1
+					? parseFloat(formatEther(userData[0].mul(tokenExchangeRate).div(parseEther('1')))).toFixed(4) * 1
 					: '...',
 			tooltip: '**update**'
 		},
@@ -286,6 +287,7 @@ const SeedingData = () => {
 									onChange={onChangeInputDeposit}
 								/>
 								{balance &&
+								userData &&
 								userData[0] &&
 								walletBNBCap && (
 									<Button

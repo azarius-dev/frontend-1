@@ -50,11 +50,7 @@ const Sidebar = ({ children }) => {
 					>
 						trade uwu
 					</Button>
-					<Button
-						as="a"
-						href="https://app.uniswap.org/#/swap?inputCurrency=0x6b175474e89094c44da98b954eedeac495271d0f&outputCurrency=0x9248c485b0b80f76da451f167a8db30f33c70907"
-						target="_blank"
-					>
+					<Button as="a" href="https://debase-bridge.netlify.app/" target="_blank">
 						eth bridge
 					</Button>
 				</Flexbox>
