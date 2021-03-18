@@ -2,8 +2,7 @@ import React from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core';
 
-import { CONTRACT_ADDRESS } from '@constants';
-import { Section, DisconnectedWalletCard, Grid, MiningPoolCard } from '@dapp/components';
+import { Section, DisconnectedWalletCard, Grid, PoolCard } from '@dapp/components';
 import POOLS_ROUTES from './pools.routes';
 
 const Pools = () => {
@@ -14,28 +13,30 @@ const Pools = () => {
 		if (!active) return <DisconnectedWalletCard />;
 		return (
 			<Grid>
-				<MiningPoolCard
+				<PoolCard
 					label="DEBASE Bridge Pool"
-					type="bridge"
-					tooltip="tooltip info"
-					poolAddress={CONTRACT_ADDRESS.debaseBridgePool}
-					stakeText="DEBASE"
-				/>
-				<MiningPoolCard
+					info="**update**"
+					routePath="/pools/debase-bridge-pool"
+					isActive
+				>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun
+				</PoolCard>
+				<PoolCard
 					label="DEBASE/DAI Lp Bridge Pool"
-					type="bridge"
-					tooltip="Lorem ipsum dolor sit amet, consectetur adipiscin"
-					poolAddress={CONTRACT_ADDRESS.debaseDaiBridgePool}
-					stakeText="Debase/Dai Lp"
-				/>
-				<MiningPoolCard
+					info="**update**"
+					routePath="/pools/debase-eth-lp-bridge-pool"
+					isActive
+				>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun
+				</PoolCard>
+				<PoolCard
 					label="UwU/BUSD Lp Pool"
-					type="mining"
-					tooltip="Lorem ipsum dolor sit amet, consectetur adipiscin"
-					poolAddress={CONTRACT_ADDRESS.uwuBusdLpMiningPool}
-					lpAddress={CONTRACT_ADDRESS.uwuBusdLp}
-					stakeText="UwU/BUSD Lp"
-				/>
+					info="**update**"
+					routePath="/pools/uwu-busd-lp-pool"
+					isActive
+				>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun
+				</PoolCard>
 			</Grid>
 		);
 	};

@@ -16,8 +16,8 @@ const PoolCard = ({
     children,
     label = 'pool',
     info,
-    //linkData,
-    //routePath = '/',
+    linkData,
+    routePath = '/',
     isActive = false
 }) => {
 
@@ -48,19 +48,19 @@ const PoolCard = ({
                 </StyledHeader>
                 <Card
                     isActive={isActive}
-                    gutter={0}
+                    gutter={40}
                 >
                     {children}
                 </Card>
-                {/*<Button
+                {<Button
                     as={Link}
                     to={routePath}
                 >
                     Stake
-                </Button>*/}
+                </Button>}
             </StyledPoolCardInner>
 
-            {/*linkData && linkData.length !== 0 && (
+            {linkData && linkData.length !== 0 && (
                 <Flexbox gap="15px">
                     {linkData.map((link, i) => {
                         const { icon, info, url } = link;
@@ -81,7 +81,7 @@ const PoolCard = ({
                         );
                     })};
                 </Flexbox>
-            )*/}
+            )}
 
         </StyledPoolCard>
     );
