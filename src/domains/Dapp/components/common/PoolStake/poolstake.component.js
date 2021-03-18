@@ -9,7 +9,7 @@ import { fetcher, calcDateDifference } from '@utils';
 import { Card, List, Button, Input, Flexbox, Spinner } from '@core/components';
 import { PoolCard } from '@dapp/components';
 import { SnackbarManagerContext } from '@dapp/managers';
-import { StyledMiningPoolCard, StyledCardInner, StyledAprText } from './mining-poolcard.styles';
+import { StyledPoolStake, StyledCardInner } from './poolstake.styles';
 import { parseEther } from 'ethers/lib/utils';
 
 const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeText }) => {
@@ -265,8 +265,8 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 	};
 
 	return (
-		<StyledMiningPoolCard>
-			<PoolCard label={label} info={tooltip} isActive={poolEnabled !== undefined ? poolEnabled : false}>
+		<StyledPoolStake>
+			<Card>
 				<StyledCardInner>
 					<List data={poolListData} />
 					<List
@@ -281,7 +281,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 					/>
 					<List color="secundary" data={aprListData} />
 				</StyledCardInner>
-			</PoolCard>
+			</Card>
 
 			{poolEnabled && (
 				<Card gutter={20}>
@@ -326,7 +326,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 					</Button>
 				</Card>
 			)}
-		</StyledMiningPoolCard>
+		</StyledPoolStake>
 	);
 };
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledMiningPoolCard = styled.div`
+export const StyledPoolStake = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
