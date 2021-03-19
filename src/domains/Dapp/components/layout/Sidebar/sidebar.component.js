@@ -14,13 +14,12 @@ const Sidebar = ({ children }) => {
 		{
 			title: 'Twitter',
 			icon: <TwitterIcon />,
-			url:
-				'https://twitter.com/account/login_challenge?platform=web&enc_user_id=AAAAEIDcxr7tTgODV0wPPi007dpR-TtqG2EDSofLwqlTcPotNF4nlsHjLsuGjE1oQ-r6ERUt1PM&challenge_type=RetypePhoneNumber&challenge_id=TOQUy57Pxdyyiovz2YKRKRP8JCTsXw3xNjON2A&remember_me=true&redirect_after_login_verification=%2Fdebaseonomics'
+			url: 'https://twitter.com/UwU_Capital'
 		},
 		{
 			title: 'Telegram',
 			icon: <TelegramIcon />,
-			url: 'https://t.me/debaseonomics'
+			url: 'https://t.me/UwUCapital'
 		}
 	];
 
@@ -43,11 +42,7 @@ const Sidebar = ({ children }) => {
 			<StyledSection style={{ flexGrow: 1 }}>{children}</StyledSection>
 			<StyledSection>
 				<Flexbox gap="15px">
-					<Button
-						as="a"
-						href="https://app.uniswap.org/#/swap?inputCurrency=0x6b175474e89094c44da98b954eedeac495271d0f&outputCurrency=0x9248c485b0b80f76da451f167a8db30f33c70907"
-						target="_blank"
-					>
+					<Button as="a" href="" target="_blank">
 						trade uwu
 					</Button>
 					<Button as="a" href="https://debase-bridge.netlify.app/" target="_blank">

@@ -13,28 +13,18 @@ const Pools = () => {
 		if (!active) return <DisconnectedWalletCard />;
 		return (
 			<Grid>
-				<PoolCard
-					label="DEBASE Bridge Pool"
-					info="**update**"
-					routePath="/pools/debase-bridge-pool"
-					isActive
-				>
+				<PoolCard label="DEBASE Bridge Pool" info="**update**" routePath="/pools/debase-bridge-pool" isActive>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun
 				</PoolCard>
 				<PoolCard
-					label="DEBASE/DAI Lp Bridge Pool"
+					label="DEBASE/DAI LP Bridge Pool"
 					info="**update**"
 					routePath="/pools/debase-eth-lp-bridge-pool"
 					isActive
 				>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun
 				</PoolCard>
-				<PoolCard
-					label="UwU/BUSD Lp Pool"
-					info="**update**"
-					routePath="/pools/uwu-busd-lp-pool"
-					isActive
-				>
+				<PoolCard label="UwU/BUSD LP Pool" info="**update**" routePath="/pools/uwu-busd-lp-pool" isActive>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun
 				</PoolCard>
 			</Grid>

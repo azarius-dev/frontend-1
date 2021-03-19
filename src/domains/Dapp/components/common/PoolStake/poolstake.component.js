@@ -144,7 +144,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 			tooltip: '**update**'
 		},
 		{
-			label: 'Next halving',
+			label: 'Next Halving',
 			value:
 				poolEnabled && periodFinish ? (
 					DateTime.fromSeconds(periodFinish.toNumber()).toRelative({ round: false })
@@ -171,7 +171,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 			tooltip: '**update**'
 		},
 		{
-			label: 'Earned Reward (UwU)',
+			label: 'Earned (UwU)',
 			value: earned ? parseFloat(formatEther(earned)).toFixed(4) * 1 : <Spinner size="xsmall" />,
 			tooltip: '**update**'
 		}

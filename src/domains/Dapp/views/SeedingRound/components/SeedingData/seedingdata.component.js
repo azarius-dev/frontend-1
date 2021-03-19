@@ -192,13 +192,8 @@ const SeedingData = () => {
 			tooltip: '**update**'
 		},
 		{
-			label: 'UwU Airdropped In Lp',
+			label: 'UwU Airdropped In LP',
 			value: userData ? parseFloat(formatEther(userData[4])).toFixed(4) * 1 : '...',
-			tooltip: '**update**'
-		},
-		{
-			label: 'UwU Returned',
-			value: userData ? parseFloat(formatEther(userData[3])).toFixed(4) * 1 : '...',
 			tooltip: '**update**'
 		}
 	];
