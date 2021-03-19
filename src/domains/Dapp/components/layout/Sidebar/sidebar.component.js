@@ -27,7 +27,7 @@ const Sidebar = ({ children }) => {
 		return socialList.map((social) => {
 			const { title, icon, url } = social;
 			return (
-				<StyledSocialIcon key={title} title={title} href={url} target="_blank">
+				<StyledSocialIcon key={title} title={title} href={url} target="_blank" rel="noopener noreferrer">
 					{icon}
 				</StyledSocialIcon>
 			);
@@ -42,10 +42,10 @@ const Sidebar = ({ children }) => {
 			<StyledSection style={{ flexGrow: 1 }}>{children}</StyledSection>
 			<StyledSection>
 				<Flexbox gap="15px">
-					<Button as="a" href="" target="_blank">
+					<Button as="a" href="" target="_blank" rel="noopener noreferrer">
 						trade uwu
 					</Button>
-					<Button as="a" href="https://debase-bridge.netlify.app/" target="_blank">
+					<Button as="a" href="https://debase-bridge.netlify.app/" target="_blank" rel="noopener noreferrer">
 						eth bridge
 					</Button>
 				</Flexbox>
