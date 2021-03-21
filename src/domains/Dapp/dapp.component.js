@@ -16,27 +16,13 @@ import {
 } from '@api';
 import { parseFloatFixed, parseNumToUsFormat } from '@utils';
 import { Background, Sidebar, Navigation, Topbar } from '@dapp/components';
-import {
-	ModalManagerProvider,
-	SnackbarManagerProvider
-} from '@dapp/managers';
-import {
-	UIContext,
-	WalletContext,
-	TokenDataContext,
-	TokenHistoryContext,
-	TreasuryDataContext
-} from '@dapp/contexts';
+import { ModalManagerProvider, SnackbarManagerProvider } from '@dapp/managers';
+import { UIContext, WalletContext, TokenDataContext, TokenHistoryContext, TreasuryDataContext } from '@dapp/contexts';
 import { calcRebasePercentage, calcTotalSupply } from '@dapp/utils';
 import DAPP_ROUTES from './dapp.routes';
-import {
-	StyledDapp,
-	StyledPage,
-	StyledPageInner,
-	StyledContent
-} from './dapp.styles';
+import { StyledDapp, StyledPage, StyledPageInner, StyledContent } from './dapp.styles';
 
-const injectedConnector = new InjectedConnector({ supportedChainIds: [ 97 ] });
+const injectedConnector = new InjectedConnector({ supportedChainIds: [ 56 ] });
 
 class Dapp extends React.Component {
 	static contextType = getWeb3ReactContext();
@@ -348,10 +334,8 @@ class Dapp extends React.Component {
 					<TokenDataContext.Provider value={{ tokenData }}>
 						<TokenHistoryContext.Provider value={{ tokenHistory }}>
 							<TreasuryDataContext.Provider value={{ treasuryData }}>
-
 								<SnackbarManagerProvider>
 									<ModalManagerProvider>
-
 										<Background />
 										<StyledDapp>
 											<Router>
@@ -381,10 +365,8 @@ class Dapp extends React.Component {
 												</StyledPage>
 											</Router>
 										</StyledDapp>
-
 									</ModalManagerProvider>
 								</SnackbarManagerProvider>
-
 							</TreasuryDataContext.Provider>
 						</TokenHistoryContext.Provider>
 					</TokenDataContext.Provider>
