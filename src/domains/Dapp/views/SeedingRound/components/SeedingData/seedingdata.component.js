@@ -175,20 +175,17 @@ const SeedingData = () => {
 		},
 		{
 			label: 'Total UwW Purchased',
-			value:
-				userData && tokenExchangeRate
-					? parseFloat(formatEther(userData[0].mul(tokenExchangeRate).div(parseEther('1')))).toFixed(4) * 1
-					: '...',
-			tooltip: '**update**'
-		},
-		{
-			label: 'UwU (Unlocked)',
 			value: userData ? parseFloat(formatEther(userData[1])).toFixed(4) * 1 : '...',
 			tooltip: '**update**'
 		},
 		{
-			label: 'UwU (Locked)',
+			label: 'UwU (Unlocked)',
 			value: userData ? parseFloat(formatEther(userData[2])).toFixed(4) * 1 : '...',
+			tooltip: '**update**'
+		},
+		{
+			label: 'UwU (Locked)',
+			value: userData ? parseFloat(formatEther(userData[3])).toFixed(4) * 1 : '...',
 			tooltip: '**update**'
 		},
 		{
@@ -207,7 +204,7 @@ const SeedingData = () => {
 		}
 	}
 
-	async function handleDeposit() {
+	async function handleDeposit(balance) {
 		setIsDepositLoading(true);
 		const poolContract = new Contract(CONTRACT_ADDRESS.seed, ABI_SEED, library.getSigner());
 		const tokenContract = new Contract(CONTRACT_ADDRESS.bnb, ABI_LP, library.getSigner());
@@ -215,8 +212,8 @@ const SeedingData = () => {
 			const toStake = parseEther(depositInputValue);
 			let allowance = await tokenContract.allowance(account, CONTRACT_ADDRESS.seed);
 			let transaction;
-			if (allowance.lt(toStake)) {
-				transaction = await tokenContract.approve(CONTRACT_ADDRESS.seed, toStake, { gasPrice: 20000000000 });
+			if (allowance.lt(balance)) {
+				transaction = await tokenContract.approve(CONTRACT_ADDRESS.seed, balance, { gasPrice: 20000000000 });
 				await transaction.wait(1);
 			}
 			transaction = await poolContract.deposit(toStake, { gasPrice: 20000000000 });
@@ -302,18 +299,34 @@ const SeedingData = () => {
 									</TextMini>
 								</StyledConversionText>
 							)}
-
-							<Button
-								isLoading={isDepositLoading}
-								isDisabled={remainingUwUDistributionEnabled ? remainingUwUDistributionEnabled : false}
-								onClick={handleDeposit}
-							>
-								deposit
-							</Button>
+							{balance && (
+								<Button
+									isLoading={isDepositLoading}
+									isDisabled={
+										remainingUwUDistributionEnabled ? remainingUwUDistributionEnabled : false
+									}
+									onClick={() => handleDeposit(balance)}
+								>
+									deposit
+								</Button>
+							)}
 						</Flexbox>
 					</LabeledCard>
 					<LabeledCard label="uwu bank" gutter={0}>
-						<List data={walletListData} />
+						<List
+							data={
+								remainingUwUDistributionEnabled ? (
+									walletListData
+								) : (
+									walletListData.filter(
+										(ele) =>
+											ele.label == 'BNB Balance' ||
+											ele.label == 'BNB Deposited' ||
+											ele.label == 'Total UwW Purchased'
+									)
+								)
+							}
+						/>
 					</LabeledCard>
 				</Grid>
 			</Section>
