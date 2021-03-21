@@ -145,7 +145,7 @@ const SeedingData = () => {
 		{
 			label: 'UwU/BNB Fixed BNB price',
 			value: priceAtLaunch ? parseFloat(formatEther(priceAtLaunch)).toFixed(4) * 1 : '...',
-			tooltip: '**update**'
+			tooltip: 'Fixed price of BNB at the launch of the seed contract.'
 		},
 		{
 			label: 'Total UwU distributed',
@@ -153,7 +153,7 @@ const SeedingData = () => {
 				totalUwUReward && totalUwUDistributed
 					? `${formatEther(totalUwUDistributed) * 1} / ${formatEther(totalUwUReward) * 1}`
 					: '...',
-			tooltip: '**update**'
+			tooltip: 'Total amount of UwU distributed by the seed contract.'
 		}
 	];
 
@@ -161,7 +161,7 @@ const SeedingData = () => {
 		{
 			label: 'BNB Balance',
 			value: balance ? parseFloat(formatEther(balance)).toFixed(4) * 1 : '...',
-			tooltip: '**update**'
+			tooltip: 'Your current BNB balance.'
 		},
 		{
 			label: 'BNB Deposited',
@@ -171,27 +171,27 @@ const SeedingData = () => {
 						'/' +
 						parseFloat(formatEther(walletBNBCap)).toFixed(4) * 1
 					: '...',
-			tooltip: '**update**'
+			tooltip: 'Amount of BNB you have deposited in related to a wallets cap.'
 		},
 		{
 			label: 'Total UwW Purchased',
 			value: userData ? parseFloat(formatEther(userData[1])).toFixed(4) * 1 : '...',
-			tooltip: '**update**'
+			tooltip: 'Total amount of UwU you have purchased for your BNB deposit.'
 		},
 		{
 			label: 'UwU (Unlocked)',
 			value: userData ? parseFloat(formatEther(userData[2])).toFixed(4) * 1 : '...',
-			tooltip: '**update**'
+			tooltip: 'Amount of UwU to be given to you immediately after the seed finishes.'
 		},
 		{
 			label: 'UwU (Locked)',
 			value: userData ? parseFloat(formatEther(userData[3])).toFixed(4) * 1 : '...',
-			tooltip: '**update**'
+			tooltip: 'Amount of UwU to be given to you after the lock period finishes.'
 		},
 		{
 			label: 'UwU Airdropped In LP',
 			value: userData ? parseFloat(formatEther(userData[4])).toFixed(4) * 1 : '...',
-			tooltip: '**update**'
+			tooltip: 'Amount of UwU to be given in UwU/BUSD LP to you immediately after the seed finishes.'
 		}
 	];
 
@@ -270,7 +270,11 @@ const SeedingData = () => {
 			</Section>
 			<Section label="personal data">
 				<Grid>
-					<LabeledCard label="deposit BNB funds" gutter={40} info="** update info **">
+					<LabeledCard
+						label="deposit BNB funds"
+						gutter={40}
+						info="Deposits BNB into seed contract. Will approve for the max amount of your balance to reduce staking times."
+					>
 						<Flexbox gap="20px">
 							<Flexbox gap="15px" direction="horizontal">
 								<Input
