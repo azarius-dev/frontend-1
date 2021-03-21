@@ -1,5 +1,5 @@
 import { Button, Flexbox } from '@core/components';
-import { GithubIcon, MediumIcon, TelegramIcon, TwitterIcon, DiscordIcon } from '@assets';
+import { GithubIcon, TelegramIcon, TwitterIcon } from '@assets';
 import {
 	StyledSidebar,
 	StyledLogo,
@@ -52,7 +52,7 @@ const Sidebar = ({ children }) => {
 					</Button>
 					<Button
 						as="a"
-						href="https://bscscan.com/token/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
+						href="https://exchange.pancakeswap.finance/#/swap?inputCurrency=0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
