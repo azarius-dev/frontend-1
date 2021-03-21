@@ -113,12 +113,12 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 			) : (
 				<Spinner size="xsmall" />
 			),
-			tooltip: '**update**'
+			tooltip: 'Total amount of tokens staked into the pool.'
 		},
 		{
 			label: 'Total Pool Rewards',
 			value: maxReward ? parseFloat(formatEther(maxReward)).toFixed(2) * 1 : <Spinner size="xsmall" />,
-			tooltip: '**update**'
+			tooltip: 'Total UwU rewards the pool will give over its lifetime.'
 		},
 		{
 			label: 'Total Rewards Claimed',
@@ -127,7 +127,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 			) : (
 				<Spinner size="xsmall" />
 			),
-			tooltip: '**update**'
+			tooltip: 'Total UwU rewards claimed from the pool until now.'
 		},
 		{
 			label: 'Halving Period',
@@ -136,12 +136,12 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 			) : (
 				<Spinner size="xsmall" />
 			),
-			tooltip: '**update**'
+			tooltip: 'Period over which the pool reward halves.'
 		},
 		{
-			label: 'Current Period Reward (UwW)',
+			label: 'Current Period Reward (UwU)',
 			value: initReward ? parseFloat(formatEther(initReward)).toFixed(4) * 1 : <Spinner size="xsmall" />,
-			tooltip: '**update**'
+			tooltip: 'Reward for the current halving period.'
 		},
 		{
 			label: 'Next Halving',
@@ -157,23 +157,23 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 	];
 	const userListData = [
 		{
+			label: 'Unstaked (' + stakeText + ')',
+			value: walletBalance ? parseFloat(formatEther(walletBalance)).toFixed(4) * 1 : <Spinner size="xsmall" />,
+			tooltip: 'Your current balance that can be staked into the pool.'
+		},
+		{
 			label: 'Staked (' + stakeText + ')',
 			value: userStakedBalance ? (
 				parseFloat(formatEther(userStakedBalance)).toFixed(4) * 1
 			) : (
 				<Spinner size="xsmall" />
 			),
-			tooltip: '**update**'
-		},
-		{
-			label: 'Unstaked (' + stakeText + ')',
-			value: walletBalance ? parseFloat(formatEther(walletBalance)).toFixed(4) * 1 : <Spinner size="xsmall" />,
-			tooltip: '**update**'
+			tooltip: 'Your current staked balance in the pool.'
 		},
 		{
 			label: 'Earned (UwU)',
 			value: earned ? parseFloat(formatEther(earned)).toFixed(4) * 1 : <Spinner size="xsmall" />,
-			tooltip: '**update**'
+			tooltip: 'Amount of UwU reward you have earned.'
 		}
 	];
 	const aprListData = [
