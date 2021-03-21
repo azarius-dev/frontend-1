@@ -17,6 +17,11 @@ const Sidebar = ({ children }) => {
 			url: 'https://twitter.com/UwU_Capital'
 		},
 		{
+			title: 'Github',
+			icon: <GithubIcon />,
+			url: 'https://github.com/UwU-Captial'
+		},
+		{
 			title: 'Telegram',
 			icon: <TelegramIcon />,
 			url: 'https://t.me/UwUCapital'
@@ -42,12 +47,20 @@ const Sidebar = ({ children }) => {
 			<StyledSection style={{ flexGrow: 1 }}>{children}</StyledSection>
 			<StyledSection>
 				<Flexbox gap="15px">
-					<Button as="a" href="" target="_blank" rel="noopener noreferrer">
-						trade uwu
-					</Button>
 					<Button as="a" href="https://debase-bridge.netlify.app/" target="_blank" rel="noopener noreferrer">
 						eth bridge
 					</Button>
+					<Button
+						as="a"
+						href="https://bscscan.com/token/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						get wbnb
+					</Button>
+					{/* <Button as="a" href="" target="_blank" rel="noopener noreferrer">
+						trade uwu
+					</Button> */}
 				</Flexbox>
 			</StyledSection>
 			<StyledSection>

@@ -27,7 +27,7 @@ const SeedingData = () => {
 		fetcher: fetcher(library, ABI_SEED)
 	});
 
-	// use in input field -> convert bnb to uwu
+	// use in input field -> convert wbnb to uwu
 	const { data: tokenExchangeRate, mutate: getTokenExchangeRate } = useSWR(
 		[ CONTRACT_ADDRESS.seed, 'tokenExchangeRate' ],
 		{
@@ -40,7 +40,7 @@ const SeedingData = () => {
 		fetcher: fetcher(library, ABI_SEED)
 	});
 
-	// max amount of bnb a user can purchase per wallet
+	// max amount of wbnb a user can purchase per wallet
 	const { data: walletBNBCap, mutate: getWalletBNBCap } = useSWR([ CONTRACT_ADDRESS.seed, 'walletBNBCap' ], {
 		fetcher: fetcher(library, ABI_SEED)
 	});
@@ -97,7 +97,7 @@ const SeedingData = () => {
 		fetcher: fetcher(library, ABI_SEED)
 	});
 
-	// current bnb balance of user wallet
+	// current wbnb balance of user wallet
 	const { data: balance, mutate: getBalance } = useSWR([ CONTRACT_ADDRESS.bnb, 'balanceOf', account ], {
 		fetcher: fetcher(library, ABI_LP)
 	});
@@ -143,9 +143,9 @@ const SeedingData = () => {
 
 	const seedingListData = [
 		{
-			label: 'UwU/BNB Fixed BNB price',
+			label: 'UwU/WBNB Fixed WBNB Price',
 			value: priceAtLaunch ? parseFloat(formatEther(priceAtLaunch)).toFixed(4) * 1 : '...',
-			tooltip: 'Fixed price of BNB at the launch of the seed contract.'
+			tooltip: 'Fixed price of WBNB at the launch of the seed contract.'
 		},
 		{
 			label: 'Total UwU distributed',
@@ -159,12 +159,12 @@ const SeedingData = () => {
 
 	const walletListData = [
 		{
-			label: 'BNB Balance',
+			label: 'WBNB Balance',
 			value: balance ? parseFloat(formatEther(balance)).toFixed(4) * 1 : '...',
 			tooltip: 'Your current BNB balance.'
 		},
 		{
-			label: 'BNB Deposited',
+			label: 'WBNB Deposited',
 			value:
 				userData && walletBNBCap
 					? parseFloat(formatEther(userData[0])).toFixed(4) * 1 +
@@ -196,7 +196,7 @@ const SeedingData = () => {
 	];
 
 	async function handleMaxBNB(balance, deposited, walletCap) {
-		// create formula to calculate max amount of bnb a user can purchase with the input field
+		// create formula to calculate max amount of wbnb a user can purchase with the input field
 		if (balance.gt(walletCap)) {
 			setDepositInputValue(formatEther(walletCap.sub(deposited)));
 		} else {
@@ -252,7 +252,7 @@ const SeedingData = () => {
 							<Progress
 								currentValue={parseFloat(formatEther(totalBNBDeposited)).toFixed(2) * 1}
 								totalValue={parseFloat(formatEther(BNBCap)).toFixed(2) * 1}
-								label="bnb"
+								label="wbnb"
 							/>
 						</LabeledCard>
 					)}
@@ -271,9 +271,9 @@ const SeedingData = () => {
 			<Section label="personal data">
 				<Grid>
 					<LabeledCard
-						label="deposit BNB funds"
+						label="deposit WBNB funds"
 						gutter={40}
-						info="Deposits BNB into seed contract. Will approve for the max amount of your balance to reduce staking times."
+						info="Deposits WBNB into seed contract. Will approve for the max amount of your balance to reduce staking times."
 					>
 						<Flexbox gap="20px">
 							<Flexbox gap="15px" direction="horizontal">
@@ -324,8 +324,8 @@ const SeedingData = () => {
 								) : (
 									walletListData.filter(
 										(ele) =>
-											ele.label == 'BNB Balance' ||
-											ele.label == 'BNB Deposited' ||
+											ele.label == 'WBNB Balance' ||
+											ele.label == 'WBNB Deposited' ||
 											ele.label == 'Total UwW Purchased'
 									)
 								)
