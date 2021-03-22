@@ -179,7 +179,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 	const aprListData = [
 		{
 			label: 'APR',
-			value: '0 %',
+			value: 'N/A',
 			tooltip: '**update**'
 		}
 	];
