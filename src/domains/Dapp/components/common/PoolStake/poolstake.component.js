@@ -11,6 +11,7 @@ import { PoolCard } from '@dapp/components';
 import { SnackbarManagerContext } from '@dapp/managers';
 import { StyledPoolStake, StyledCardInner } from './poolstake.styles';
 import { parseEther } from 'ethers/lib/utils';
+import { CONTRACT_ADDRESS, ABI_UNI } from '@constants';
 
 const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeText }) => {
 	const { library, account } = useWeb3React();
@@ -71,6 +72,14 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 		fetcher: fetcher(library, ABI_LP)
 	});
 
+	const { data: reserves, mutate: getReserves } = useSWR([ CONTRACT_ADDRESS.uwuBusdLp, 'getReserves' ], {
+		fetcher: fetcher(library, ABI_UNI)
+	});
+
+	const { data: pairSupply, mutate: getPairSupply } = useSWR([ CONTRACT_ADDRESS.uwuBusdLp, 'totalSupply' ], {
+		fetcher: fetcher(library, ABI_UNI)
+	});
+
 	useEffect(
 		() => {
 			library.on('block', () => {
@@ -84,6 +93,8 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 				getTotalStakedBalance(undefined, true);
 				getPoolEnabled(undefined, true);
 				getDuration(undefined, true);
+				getReserves(undefined, true);
+				getPairSupply(undefined, true);
 			});
 			return () => {
 				library && library.removeAllListeners('block');
@@ -100,7 +111,9 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 			getUserStakedBalance,
 			getWalletBalance,
 			getTotalStakedBalance,
-			getDuration
+			getDuration,
+			getReserves,
+			getPairSupply
 		]
 	);
 
@@ -176,11 +189,35 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 			tooltip: 'Amount of UwU reward you have earned.'
 		}
 	];
+
 	const aprListData = [
 		{
 			label: 'APR',
+			type: 'bridge',
 			value: 'N/A',
-			tooltip: '**update**'
+			tooltip: 'Current Pool APR'
+		},
+		{
+			label: 'APR',
+			type: 'mining',
+			value:
+				initReward && reserves && duration && pairSupply && totalStakedBalance ? (
+					parseFloat(
+						parseFloat(formatEther(reserves[1])) /
+							parseFloat(formatEther(reserves[0])) *
+							365 *
+							parseFloat(formatEther(initReward)) /
+							3.5 /
+							(2 *
+								(parseFloat(formatEther(reserves[1])) / parseFloat(formatEther(pairSupply))) *
+								parseFloat(formatEther(totalStakedBalance)))
+					).toFixed(4) *
+						100 +
+					' %'
+				) : (
+					<Spinner size="xsmall" />
+				),
+			tooltip: 'Current Pool APR'
 		}
 	];
 
@@ -279,7 +316,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 							)
 						}
 					/>
-					<List color="secundary" data={aprListData} />
+					<List color="secundary" data={aprListData.filter((ele) => type == ele.type)} />
 				</StyledCardInner>
 			</Card>
 
