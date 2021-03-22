@@ -113,7 +113,7 @@ const Pools = () => {
 					<DisplayMedium color="secundary">
 						{initReward && reserves && duration && pairSupply && totalStakedBalance ? (
 							'APR: ' +
-							parseFloat(
+							parseInt(
 								parseFloat(formatEther(reserves[1])) /
 									parseFloat(formatEther(reserves[0])) *
 									365 *
@@ -122,7 +122,8 @@ const Pools = () => {
 									(2 *
 										(parseFloat(formatEther(reserves[1])) / parseFloat(formatEther(pairSupply))) *
 										parseFloat(formatEther(totalStakedBalance)))
-							).toFixed(1) *
+							) *
+								1 *
 								100 +
 							'%'
 						) : (

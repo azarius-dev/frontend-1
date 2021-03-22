@@ -58,8 +58,21 @@ const Sidebar = ({ children }) => {
 					>
 						get wbnb
 					</Button>
-					{/* <Button as="a" href="" target="_blank" rel="noopener noreferrer">
+					<Button
+						as="a"
+						href="https://exchange.pancakeswap.finance/#/swap?inputCurrency=0xe9e7cea3dedca5984780bafc599bd69add087d56&outputCurrency=0xd49c885a201e8da453d00632Cc8B6A927119C73a"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
 						trade uwu
+					</Button>
+					{/* <Button
+						as="a"
+						href="https://exchange.pancakeswap.finance/#/add/0xe9e7cea3dedca5984780bafc599bd69add087d56/0xd49c885a201e8da453d00632Cc8B6A927119C73a"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						get uwu lp
 					</Button> */}
 				</Flexbox>
 			</StyledSection>
