@@ -14,7 +14,8 @@ const Card = ({
     minHeight,
     isActive = false,
     isLoading = false,
-    activeParts = 8
+    activeParts = 8,
+    style = {}
 }) => {
 
     const [ cardSize, setCardSize ] = useState(null);
@@ -81,10 +82,10 @@ const Card = ({
             ref={cardRef}
             color={color}
             isActive
-            style={{
+            style={Object.assign(style, {
                 'padding': `${gutter}px`,
                 'minHeight': `${minHeight}px`
-            }}
+            })}
         >
             {renderActiveBorder()}
             {renderContent()}

@@ -73,7 +73,7 @@ class Dapp extends React.Component {
 			return { ui };
 		});
 	};
-	detectActiveRoute = (path) => {
+	detectActiveRoute = path => {
 		const localPath = path !== undefined ? path : window.location.pathname;
 		const strippedLocalPath = localPath.split('/')[1];
 		const index = DAPP_ROUTES.findIndex((route) => route.path.split('/')[1] === strippedLocalPath);

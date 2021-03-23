@@ -1,10 +1,16 @@
-import { ShoppingBagIcon, AccountTreeIcon, TuneIcon } from '@assets/icons';
-import { SeedingRound, Pools, Rebase } from '@dapp/views';
+import { DashboardIcon, ShoppingBagIcon, AccountTreeIcon, TuneIcon } from '@assets/icons';
+import { Dashboard, SeedingRound, Pools, Rebase } from '@dapp/views';
 
 const DAPP_ROUTES = [
 	{
-		label: 'sale',
+		label: 'dashboard',
 		path: '/',
+		icon: <DashboardIcon />,
+		component: <Dashboard />
+	},
+	{
+		label: 'sale',
+		path: '/sale',
 		icon: <ShoppingBagIcon />,
 		component: <SeedingRound />
 	},

@@ -62,6 +62,9 @@ const TabbedChartCard = props => {
                 gutter={gutter}
                 minHeight={minHeight}
                 activeParts={activeParts}
+                style={{
+                    'flexDirection': 'row'
+                }}
             >
                 {renderTabs()}
             </Card>

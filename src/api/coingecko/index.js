@@ -1,2 +1,3 @@
 import getDebaseYearHistory from './getDebaseYearHistory';
-export { getDebaseYearHistory };
+import getBnbYearHistory from './getBnbYearHistory';
+export { getDebaseYearHistory, getBnbYearHistory };
