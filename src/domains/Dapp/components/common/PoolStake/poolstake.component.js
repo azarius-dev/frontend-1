@@ -11,6 +11,7 @@ import { PoolCard } from '@dapp/components';
 import { SnackbarManagerContext } from '@dapp/managers';
 import { StyledPoolStake, StyledCardInner } from './poolstake.styles';
 import { parseEther } from 'ethers/lib/utils';
+import { CONTRACT_ADDRESS, ABI_UNI } from '@constants';
 
 const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeText }) => {
 	const { library, account } = useWeb3React();
@@ -71,6 +72,14 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 		fetcher: fetcher(library, ABI_LP)
 	});
 
+	const { data: reserves, mutate: getReserves } = useSWR([ CONTRACT_ADDRESS.uwuBusdLp, 'getReserves' ], {
+		fetcher: fetcher(library, ABI_UNI)
+	});
+
+	const { data: pairSupply, mutate: getPairSupply } = useSWR([ CONTRACT_ADDRESS.uwuBusdLp, 'totalSupply' ], {
+		fetcher: fetcher(library, ABI_UNI)
+	});
+
 	useEffect(
 		() => {
 			library.on('block', () => {
@@ -84,6 +93,8 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 				getTotalStakedBalance(undefined, true);
 				getPoolEnabled(undefined, true);
 				getDuration(undefined, true);
+				getReserves(undefined, true);
+				getPairSupply(undefined, true);
 			});
 			return () => {
 				library && library.removeAllListeners('block');
@@ -100,7 +111,9 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 			getUserStakedBalance,
 			getWalletBalance,
 			getTotalStakedBalance,
-			getDuration
+			getDuration,
+			getReserves,
+			getPairSupply
 		]
 	);
 
@@ -113,12 +126,12 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 			) : (
 				<Spinner size="xsmall" />
 			),
-			tooltip: '**update**'
+			tooltip: 'Total amount of tokens staked into the pool.'
 		},
 		{
 			label: 'Total Pool Rewards',
 			value: maxReward ? parseFloat(formatEther(maxReward)).toFixed(2) * 1 : <Spinner size="xsmall" />,
-			tooltip: '**update**'
+			tooltip: 'Total UwU rewards the pool will give over its lifetime.'
 		},
 		{
 			label: 'Total Rewards Claimed',
@@ -127,7 +140,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 			) : (
 				<Spinner size="xsmall" />
 			),
-			tooltip: '**update**'
+			tooltip: 'Total UwU rewards claimed from the pool until now.'
 		},
 		{
 			label: 'Halving Period',
@@ -136,15 +149,15 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 			) : (
 				<Spinner size="xsmall" />
 			),
-			tooltip: '**update**'
+			tooltip: 'Period over which the pool reward halves.'
 		},
 		{
-			label: 'Current Period Reward (UwW)',
+			label: 'Current Period Reward (UwU)',
 			value: initReward ? parseFloat(formatEther(initReward)).toFixed(4) * 1 : <Spinner size="xsmall" />,
-			tooltip: '**update**'
+			tooltip: 'Reward for the current halving period.'
 		},
 		{
-			label: 'Next halving',
+			label: 'Next Halving',
 			value:
 				poolEnabled && periodFinish ? (
 					DateTime.fromSeconds(periodFinish.toNumber()).toRelative({ round: false })
@@ -157,30 +170,54 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 	];
 	const userListData = [
 		{
+			label: 'Unstaked (' + stakeText + ')',
+			value: walletBalance ? parseFloat(formatEther(walletBalance)).toFixed(4) * 1 : <Spinner size="xsmall" />,
+			tooltip: 'Your current balance that can be staked into the pool.'
+		},
+		{
 			label: 'Staked (' + stakeText + ')',
 			value: userStakedBalance ? (
 				parseFloat(formatEther(userStakedBalance)).toFixed(4) * 1
 			) : (
 				<Spinner size="xsmall" />
 			),
-			tooltip: '**update**'
+			tooltip: 'Your current staked balance in the pool.'
 		},
 		{
-			label: 'Unstaked (' + stakeText + ')',
-			value: walletBalance ? parseFloat(formatEther(walletBalance)).toFixed(4) * 1 : <Spinner size="xsmall" />,
-			tooltip: '**update**'
-		},
-		{
-			label: 'Earned Reward (UwU)',
+			label: 'Earned (UwU)',
 			value: earned ? parseFloat(formatEther(earned)).toFixed(4) * 1 : <Spinner size="xsmall" />,
-			tooltip: '**update**'
+			tooltip: 'Amount of UwU reward you have earned.'
 		}
 	];
+
 	const aprListData = [
 		{
 			label: 'APR',
-			value: '0 %',
-			tooltip: '**update**'
+			type: 'bridge',
+			value: 'N/A',
+			tooltip: 'Current Pool APR'
+		},
+		{
+			label: 'APR',
+			type: 'mining',
+			value:
+				initReward && reserves && duration && pairSupply && totalStakedBalance ? (
+					parseFloat(
+						parseFloat(formatEther(reserves[1])) /
+							parseFloat(formatEther(reserves[0])) *
+							365 *
+							parseFloat(formatEther(initReward)) /
+							3.5 /
+							(2 *
+								(parseFloat(formatEther(reserves[1])) / parseFloat(formatEther(pairSupply))) *
+								parseFloat(formatEther(totalStakedBalance)))
+					).toFixed(4) *
+						100 +
+					' %'
+				) : (
+					<Spinner size="xsmall" />
+				),
+			tooltip: 'Current Pool APR'
 		}
 	];
 
@@ -198,7 +235,6 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 				transaction = await tokenContract.approve(poolAddress, toStake, { gasPrice: 20000000000 });
 				await transaction.wait(1);
 			}
-			console.log(toStake);
 			transaction = await poolContract.stake(toStake, { gasPrice: 20000000000 });
 			await transaction.wait(1);
 			openSnackbar({
@@ -237,7 +273,8 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 		setIsClaimLoading(true);
 		const poolContract = new Contract(poolAddress, ABI_POOL, library.getSigner());
 		try {
-			await poolContract.getReward({ gasPrice: 20000000000 });
+			let transaction = await poolContract.getReward({ gasPrice: 20000000000 });
+			await transaction.wait(1);
 			getEarned(undefined, true);
 			openSnackbar({
 				message: 'Claimed reward',
@@ -279,7 +316,7 @@ const MiningPoolCard = ({ label, type, tooltip, poolAddress, lpAddress, stakeTex
 							)
 						}
 					/>
-					<List color="secundary" data={aprListData} />
+					<List color="secundary" data={aprListData.filter((ele) => type == ele.type)} />
 				</StyledCardInner>
 			</Card>
 

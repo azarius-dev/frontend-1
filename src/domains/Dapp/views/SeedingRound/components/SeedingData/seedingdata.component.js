@@ -27,7 +27,7 @@ const SeedingData = () => {
 		fetcher: fetcher(library, ABI_SEED)
 	});
 
-	// use in input field -> convert bnb to uwu
+	// use in input field -> convert wbnb to uwu
 	const { data: tokenExchangeRate, mutate: getTokenExchangeRate } = useSWR(
 		[ CONTRACT_ADDRESS.seed, 'tokenExchangeRate' ],
 		{
@@ -40,7 +40,7 @@ const SeedingData = () => {
 		fetcher: fetcher(library, ABI_SEED)
 	});
 
-	// max amount of bnb a user can purchase per wallet
+	// max amount of wbnb a user can purchase per wallet
 	const { data: walletBNBCap, mutate: getWalletBNBCap } = useSWR([ CONTRACT_ADDRESS.seed, 'walletBNBCap' ], {
 		fetcher: fetcher(library, ABI_SEED)
 	});
@@ -97,7 +97,7 @@ const SeedingData = () => {
 		fetcher: fetcher(library, ABI_SEED)
 	});
 
-	// current bnb balance of user wallet
+	// current wbnb balance of user wallet
 	const { data: balance, mutate: getBalance } = useSWR([ CONTRACT_ADDRESS.bnb, 'balanceOf', account ], {
 		fetcher: fetcher(library, ABI_LP)
 	});
@@ -143,9 +143,9 @@ const SeedingData = () => {
 
 	const seedingListData = [
 		{
-			label: 'UwU/BNB Fixed BNB price',
+			label: 'UwU/WBNB Fixed WBNB Price',
 			value: priceAtLaunch ? parseFloat(formatEther(priceAtLaunch)).toFixed(4) * 1 : '...',
-			tooltip: '**update**'
+			tooltip: 'Fixed price of WBNB at the launch of the seed contract.'
 		},
 		{
 			label: 'Total UwU distributed',
@@ -153,58 +153,50 @@ const SeedingData = () => {
 				totalUwUReward && totalUwUDistributed
 					? `${formatEther(totalUwUDistributed) * 1} / ${formatEther(totalUwUReward) * 1}`
 					: '...',
-			tooltip: '**update**'
+			tooltip: 'Total amount of UwU distributed by the seed contract.'
 		}
 	];
 
 	const walletListData = [
 		{
-			label: 'BNB Balance',
+			label: 'WBNB Balance',
 			value: balance ? parseFloat(formatEther(balance)).toFixed(4) * 1 : '...',
-			tooltip: '**update**'
+			tooltip: 'Your current BNB balance.'
 		},
 		{
-			label: 'BNB Deposited',
+			label: 'WBNB Deposited',
 			value:
 				userData && walletBNBCap
 					? parseFloat(formatEther(userData[0])).toFixed(4) * 1 +
 						'/' +
 						parseFloat(formatEther(walletBNBCap)).toFixed(4) * 1
 					: '...',
-			tooltip: '**update**'
+			tooltip: 'Amount of BNB you have deposited in related to a wallets cap.'
 		},
 		{
 			label: 'Total UwW Purchased',
-			value:
-				userData && tokenExchangeRate
-					? parseFloat(formatEther(userData[0].mul(tokenExchangeRate).div(parseEther('1')))).toFixed(4) * 1
-					: '...',
-			tooltip: '**update**'
+			value: userData ? parseFloat(formatEther(userData[1])).toFixed(4) * 1 : '...',
+			tooltip: 'Total amount of UwU you have purchased for your BNB deposit.'
 		},
 		{
 			label: 'UwU (Unlocked)',
-			value: userData ? parseFloat(formatEther(userData[1])).toFixed(4) * 1 : '...',
-			tooltip: '**update**'
+			value: userData ? parseFloat(formatEther(userData[2])).toFixed(4) * 1 : '...',
+			tooltip: 'Amount of UwU to be given to you immediately after the seed finishes.'
 		},
 		{
 			label: 'UwU (Locked)',
-			value: userData ? parseFloat(formatEther(userData[2])).toFixed(4) * 1 : '...',
-			tooltip: '**update**'
-		},
-		{
-			label: 'UwU Airdropped In Lp',
-			value: userData ? parseFloat(formatEther(userData[4])).toFixed(4) * 1 : '...',
-			tooltip: '**update**'
-		},
-		{
-			label: 'UwU Returned',
 			value: userData ? parseFloat(formatEther(userData[3])).toFixed(4) * 1 : '...',
-			tooltip: '**update**'
+			tooltip: 'Amount of UwU to be given to you after the lock period finishes.'
+		},
+		{
+			label: 'UwU Airdropped In LP',
+			value: userData ? parseFloat(formatEther(userData[4])).toFixed(4) * 1 : '...',
+			tooltip: 'Amount of UwU to be given in UwU/BUSD LP to you immediately after the seed finishes.'
 		}
 	];
 
 	async function handleMaxBNB(balance, deposited, walletCap) {
-		// create formula to calculate max amount of bnb a user can purchase with the input field
+		// create formula to calculate max amount of wbnb a user can purchase with the input field
 		if (balance.gt(walletCap)) {
 			setDepositInputValue(formatEther(walletCap.sub(deposited)));
 		} else {
@@ -212,7 +204,7 @@ const SeedingData = () => {
 		}
 	}
 
-	async function handleDeposit() {
+	async function handleDeposit(balance) {
 		setIsDepositLoading(true);
 		const poolContract = new Contract(CONTRACT_ADDRESS.seed, ABI_SEED, library.getSigner());
 		const tokenContract = new Contract(CONTRACT_ADDRESS.bnb, ABI_LP, library.getSigner());
@@ -220,8 +212,8 @@ const SeedingData = () => {
 			const toStake = parseEther(depositInputValue);
 			let allowance = await tokenContract.allowance(account, CONTRACT_ADDRESS.seed);
 			let transaction;
-			if (allowance.lt(toStake)) {
-				transaction = await tokenContract.approve(CONTRACT_ADDRESS.seed, toStake, { gasPrice: 20000000000 });
+			if (allowance.lt(balance)) {
+				transaction = await tokenContract.approve(CONTRACT_ADDRESS.seed, balance, { gasPrice: 20000000000 });
 				await transaction.wait(1);
 			}
 			transaction = await poolContract.deposit(toStake, { gasPrice: 20000000000 });
@@ -260,7 +252,7 @@ const SeedingData = () => {
 							<Progress
 								currentValue={parseFloat(formatEther(totalBNBDeposited)).toFixed(2) * 1}
 								totalValue={parseFloat(formatEther(BNBCap)).toFixed(2) * 1}
-								label="bnb"
+								label="wbnb"
 							/>
 						</LabeledCard>
 					)}
@@ -278,7 +270,11 @@ const SeedingData = () => {
 			</Section>
 			<Section label="personal data">
 				<Grid>
-					<LabeledCard label="deposit BNB funds" gutter={40} info="** update info **">
+					<LabeledCard
+						label="deposit WBNB funds"
+						gutter={40}
+						info="Deposits WBNB into seed contract. Will approve for the max amount of your balance to reduce staking times."
+					>
 						<Flexbox gap="20px">
 							<Flexbox gap="15px" direction="horizontal">
 								<Input
@@ -307,18 +303,34 @@ const SeedingData = () => {
 									</TextMini>
 								</StyledConversionText>
 							)}
-
-							<Button
-								isLoading={isDepositLoading}
-								isDisabled={remainingUwUDistributionEnabled ? remainingUwUDistributionEnabled : false}
-								onClick={handleDeposit}
-							>
-								deposit
-							</Button>
+							{balance && (
+								<Button
+									isLoading={isDepositLoading}
+									isDisabled={
+										remainingUwUDistributionEnabled ? remainingUwUDistributionEnabled : false
+									}
+									onClick={() => handleDeposit(balance)}
+								>
+									deposit
+								</Button>
+							)}
 						</Flexbox>
 					</LabeledCard>
 					<LabeledCard label="uwu bank" gutter={0}>
-						<List data={walletListData} />
+						<List
+							data={
+								remainingUwUDistributionEnabled ? (
+									walletListData
+								) : (
+									walletListData.filter(
+										(ele) =>
+											ele.label == 'WBNB Balance' ||
+											ele.label == 'WBNB Deposited' ||
+											ele.label == 'Total UwW Purchased'
+									)
+								)
+							}
+						/>
 					</LabeledCard>
 				</Grid>
 			</Section>

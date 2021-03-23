@@ -1,5 +1,5 @@
 import { Button, Flexbox } from '@core/components';
-import { GithubIcon, MediumIcon, TelegramIcon, TwitterIcon, DiscordIcon } from '@assets';
+import { GithubIcon, TelegramIcon, TwitterIcon } from '@assets';
 import {
 	StyledSidebar,
 	StyledLogo,
@@ -14,13 +14,17 @@ const Sidebar = ({ children }) => {
 		{
 			title: 'Twitter',
 			icon: <TwitterIcon />,
-			url:
-				'https://twitter.com/account/login_challenge?platform=web&enc_user_id=AAAAEIDcxr7tTgODV0wPPi007dpR-TtqG2EDSofLwqlTcPotNF4nlsHjLsuGjE1oQ-r6ERUt1PM&challenge_type=RetypePhoneNumber&challenge_id=TOQUy57Pxdyyiovz2YKRKRP8JCTsXw3xNjON2A&remember_me=true&redirect_after_login_verification=%2Fdebaseonomics'
+			url: 'https://twitter.com/UwU_Capital'
+		},
+		{
+			title: 'Github',
+			icon: <GithubIcon />,
+			url: 'https://github.com/UwU-Captial'
 		},
 		{
 			title: 'Telegram',
 			icon: <TelegramIcon />,
-			url: 'https://t.me/debaseonomics'
+			url: 'https://t.me/UwUCapital'
 		}
 	];
 
@@ -28,7 +32,7 @@ const Sidebar = ({ children }) => {
 		return socialList.map((social) => {
 			const { title, icon, url } = social;
 			return (
-				<StyledSocialIcon key={title} title={title} href={url} target="_blank">
+				<StyledSocialIcon key={title} title={title} href={url} target="_blank" rel="noopener noreferrer">
 					{icon}
 				</StyledSocialIcon>
 			);
@@ -43,16 +47,33 @@ const Sidebar = ({ children }) => {
 			<StyledSection style={{ flexGrow: 1 }}>{children}</StyledSection>
 			<StyledSection>
 				<Flexbox gap="15px">
+					<Button as="a" href="https://debase-bridge.netlify.app/" target="_blank" rel="noopener noreferrer">
+						eth bridge
+					</Button>
 					<Button
 						as="a"
-						href="https://app.uniswap.org/#/swap?inputCurrency=0x6b175474e89094c44da98b954eedeac495271d0f&outputCurrency=0x9248c485b0b80f76da451f167a8db30f33c70907"
+						href="https://exchange.pancakeswap.finance/#/swap?inputCurrency=0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c"
 						target="_blank"
+						rel="noopener noreferrer"
+					>
+						get wbnb
+					</Button>
+					<Button
+						as="a"
+						href="https://exchange.pancakeswap.finance/#/swap?inputCurrency=0xe9e7cea3dedca5984780bafc599bd69add087d56&outputCurrency=0xd49c885a201e8da453d00632Cc8B6A927119C73a"
+						target="_blank"
+						rel="noopener noreferrer"
 					>
 						trade uwu
 					</Button>
-					<Button as="a" href="https://debase-bridge.netlify.app/" target="_blank">
-						eth bridge
-					</Button>
+					{/* <Button
+						as="a"
+						href="https://exchange.pancakeswap.finance/#/add/0xe9e7cea3dedca5984780bafc599bd69add087d56/0xd49c885a201e8da453d00632Cc8B6A927119C73a"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						get uwu lp
+					</Button> */}
 				</Flexbox>
 			</StyledSection>
 			<StyledSection>

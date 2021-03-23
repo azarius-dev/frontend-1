@@ -1,8 +1,4 @@
-import {
-	DebaseBridgePool,
-    DebaseEthLpBridgePool,
-    UwuBusdLpPool
-} from './views';
+import { DebaseBridgePool, DebaseEthLpBridgePool, UwuBusdLpPool } from './views';
 
 const POOLS_ROUTES = [
 	{
@@ -11,12 +7,12 @@ const POOLS_ROUTES = [
 		component: <DebaseBridgePool />
 	},
 	{
-		label: 'Debase/Eth Lp Bridge Pool',
+		label: 'Debase/Eth LP Bridge Pool',
 		path: '/pools/debase-eth-lp-bridge-pool',
 		component: <DebaseEthLpBridgePool />
 	},
 	{
-		label: 'UwU/Busd Lp Pool',
+		label: 'UwU/Busd LP Pool',
 		path: '/pools/uwu-busd-lp-pool',
 		component: <UwuBusdLpPool />
 	}
